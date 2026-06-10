@@ -1,0 +1,46 @@
+<div class="container responsive-container">
+  <div class="row">
+    <div class="col-md-10 col-sm-8">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Qualité Produit</div>
+        <div class="panel-body">
+          <ng-container *ngIf="activeSection === 'home'">
+            <p>Contenu principal de la page Qualité Produit.</p>
+            <p>Vous pouvez ajouter ici les informations de suivi, les commandes ou les statistiques.</p>
+          </ng-container>
+          <app-produit-tableau-bord *ngIf="activeSection === 'tableau-bord'"></app-produit-tableau-bord>
+          <app-suivi-produit *ngIf="activeSection === 'qualite'"></app-suivi-produit>
+          <app-produit-fulmine *ngIf="activeSection === 'fulmine'"></app-produit-fulmine>
+          <div *ngIf="activeSection === 'reports'">
+            <p>Section Rapports</p>
+            <p>Affichez ici les rapports de qualité.</p>
+          </div>
+          <div *ngIf="activeSection === 'settings'">
+            <p>Section Paramètres</p>
+            <p>Gérez ici les paramètres de votre application.</p>
+          </div>
+          <div *ngIf="activeSection === 'help'">
+            <p>Section Aide</p>
+            <p>Besoin d'aide ? Contactez le support ou consultez la documentation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="col-md-2 col-sm-4">
+      <div class="panel panel-info sidebar-menu">
+        <div class="panel-heading">Gestion du produit</div>
+        <div class="panel-body">
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="#" (click)="showSection('home'); $event.preventDefault()">Tableau de bord</a></li>
+             <li><a href="#" (click)="showSection('tableau-bord'); $event.preventDefault()">Tableau de bord</a></li>
+            <li><a href="#" (click)="showSection('qualite'); $event.preventDefault()">Contröle qualité</a></li>
+            <li><a href="#" (click)="showSection('fulmine'); $event.preventDefault()">Produits Fulmine</a></li>
+            <li><a href="#" (click)="showSection('reports'); $event.preventDefault()">Rapports</a></li>
+            <li><a href="#" (click)="showSection('settings'); $event.preventDefault()">Paramètres</a></li>
+            <li><a href="#" (click)="showSection('help'); $event.preventDefault()">Aide</a></li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

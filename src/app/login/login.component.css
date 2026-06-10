@@ -1,0 +1,62 @@
+.login-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  background: linear-gradient(90deg, #0d6efd 70%, #5bc0de 100%);
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 8px rgba(13,110,253,0.12);
+}
+
+.login-input {
+  border-radius: 8px;
+  border: 1.5px solid #e3eafc;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.login-input:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 2px #0d6efd33;
+}
+
+.btn-primary {
+  box-shadow: 0 2px 8px rgba(13,110,253,0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background: #0b5ed7;
+  box-shadow: 0 4px 16px rgba(13,110,253,0.13);
+}
+
+.card-body {
+  padding-bottom: 2rem;
+}
+
+/* Bootstrap 3 styles natifs, pas de styles personnalisés */
+
+.card {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 8px;
+}
+.card-header {
+  border-radius: 8px 8px 0 0;
+}
+
+@media (max-width: 600px) {
+  .container.mt-5 {
+    margin-top: 1rem !important;
+    padding: 0 0.5rem;
+  }
+  .card {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .card-header {
+    border-radius: 0;
+    font-size: 1.1rem;
+  }
+}

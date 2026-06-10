@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Tableau de Bord des Produits</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Code</th>
+        <th>Lot Produit</th>
+        <th>Lot BigBag</th>
+        <th>Silo</th>
+        <th>Client</th>
+        <th>Quantité</th>
+        <th>Opérateur</th>
+        <th>Qualité</th>
+        <th>Fulmine</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produit of produits">
+        <td>{{ produit.id }}</td>
+        <td>{{ produit.name }}</td>
+        <td>{{ produit.code }}</td>
+        <td>{{ produit.lotProduit }}</td>
+        <td>{{ produit.lotBigBag }}</td>
+        <td>{{ produit.silo }}</td>
+        <td>{{ produit.client }}</td>
+        <td>{{ produit.quantite }}</td>
+        <td>{{ produit.operateur }}</td>
+        <td>{{ produit.qualite }}</td>
+        <td>{{ produit.fulmine ? 'Oui' : 'Non' }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="traiterProduit(produit)">Traiter</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

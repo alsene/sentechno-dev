@@ -1,0 +1,21 @@
+<div class="container" style="max-width:400px; margin-top:60px;">
+  <div class="panel panel-primary">
+    <div class="panel-heading text-center">
+      <h4 style="margin:0;">Connexion</h4>
+    </div>
+    <div class="panel-body">
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" [(ngModel)]="email" name="email" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" required autocomplete="current-password">
+        </div>
+        <div *ngIf="error" class="alert alert-danger" style="margin-top:10px;">{{ error }}</div>
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.form.valid" style="margin-top:15px;">Se connecter</button>
+      </form>
+    </div>
+  </div>
+</div>

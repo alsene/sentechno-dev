@@ -1,0 +1,112 @@
+<div class="container responsive-container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Informations Utilisateur</div>
+    <div class="panel-body">
+      <form>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="nom">Nom</label>
+              <input type="text" class="form-control" id="nom" [(ngModel)]="utilisateur.nom" name="nom" placeholder="Entrez votre nom">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="prenom">Prénom</label>
+              <input type="text" class="form-control" id="prenom" [(ngModel)]="utilisateur.prenom" name="prenom" placeholder="Entrez votre prénom">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="utilisateur.email" name="email" placeholder="Entrez votre email">
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="pays">Pays</label>
+              <input type="text" class="form-control" id="pays" [(ngModel)]="utilisateur.pays" name="pays" placeholder="Entrez votre pays">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="ville">Ville</label>
+              <input type="text" class="form-control" id="ville" [(ngModel)]="utilisateur.ville" name="ville" placeholder="Entrez votre ville">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="codePostale">Code Postale</label>
+              <input type="text" class="form-control" id="codePostale" [(ngModel)]="utilisateur.codePostale" name="codePostale" placeholder="Entrez votre code postale">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="telephone">Téléphone</label>
+              <input type="tel" class="form-control" id="telephone" [(ngModel)]="utilisateur.telephone" name="telephone" placeholder="Entrez votre téléphone">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="compagnie">Compagnie</label>
+          <input type="text" class="form-control" id="compagnie" [(ngModel)]="utilisateur.compagnie" name="compagnie" placeholder="Entrez votre compagnie">
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" (click)="ajouterUtilisateur()" [disabled]="!utilisateur.nom || !utilisateur.prenom || !utilisateur.email">
+            {{ isEditing ? 'Modifier' : 'Enregistrer' }}
+          </button>
+          <button *ngIf="isEditing" type="button" class="btn btn-secondary ml-2" (click)="cancelEdit()">Annuler</button>
+        </div>
+      </form>
+
+      <hr *ngIf="utilisateurs.length > 0">
+
+      <div class="table-responsive" *ngIf="utilisateurs.length > 0; else noUtilisateurs">
+        <h4>Liste des Utilisateurs</h4>
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr class="info">
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Email</th>
+              <th>Pays</th>
+              <th>Ville</th>
+              <th>Code Postal</th>
+              <th>Téléphone</th>
+              <th>Compagnie</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of utilisateurs">
+              <td>{{ user.id }}</td>
+              <td>{{ user.nom }}</td>
+              <td>{{ user.prenom }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.pays }}</td>
+              <td>{{ user.ville }}</td>
+              <td>{{ user.codePostale }}</td>
+              <td>{{ user.telephone }}</td>
+              <td>{{ user.compagnie }}</td>
+              <td>
+                <button class="btn btn-warning btn-sm" (click)="editUtilisateur(user)" title="Modifier">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-danger btn-sm ml-1" (click)="supprimerUtilisateur(user.id)" title="Supprimer">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noUtilisateurs>
+        <div class="alert alert-info" *ngIf="!isEditing">Aucun utilisateur enregistré</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

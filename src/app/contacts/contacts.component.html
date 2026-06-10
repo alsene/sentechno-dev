@@ -1,0 +1,82 @@
+<div class="container" style="max-width:900px; margin-top:30px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Contacts Component</div>
+        <div class="panel-body">
+            <div class="well well-sm text-center" style="max-width:400px; margin:0 auto 20px;">
+                <h4 style="margin:0 0 10px 0;">{{ user.name }}</h4>
+                <p style="margin:0;">Tel : {{ user.tel }}</p>
+                <p style="margin:0;">Email : {{ user.email }}</p>
+            </div>
+
+            <div *ngIf="isCourriel; else noCourriel">
+                <button (click)="clean()" class="btn btn-primary btn-xs">Clean email</button>
+                <div style="margin-top:10px;">
+                    <div class="alert alert-info" style="padding:6px 12px; margin:0;">{{infoCourriel.notif}} {{ user.name}} {{infoCourriel.courriel}}</div>
+                </div>
+            </div>
+            <div>
+                <ng-template #noCourriel>
+                    <button (click)="sendEmail()" class="btn btn-primary btn-xs">Envoyer un email</button>
+                    <div class="alert alert-danger" style="padding:6px 12px; margin-top:10px;">{{aucunCourriel}}</div>
+                </ng-template>
+            </div>
+
+            <div style="margin-top:30px;">
+                <h4>Ajouter un contact</h4>
+                <form (ngSubmit)="addContact()" #contactForm="ngForm" class="form-inline" style="margin-bottom:20px;">
+                    <div class="form-group" style="margin-right:10px;">
+                        <input type="text" class="form-control input-sm" placeholder="Nom" [(ngModel)]="newContact.nom" name="nom" required>
+                    </div>
+                    <div class="form-group" style="margin-right:10px;">
+                        <input type="text" class="form-control input-sm" placeholder="Prénom" [(ngModel)]="newContact.prenom" name="prenom" required>
+                    </div>
+                    <div class="form-group" style="margin-right:10px;">
+                        <input type="email" class="form-control input-sm" placeholder="Email" [(ngModel)]="newContact.email" name="email" required>
+                    </div>
+                    <div class="form-group" style="margin-right:10px;">
+                        <input type="text" class="form-control input-sm" placeholder="Téléphone" [(ngModel)]="newContact.tel" name="tel" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm" [disabled]="!contactForm.form.valid">
+                        {{ editingContactId === null ? 'Ajouter' : 'Modifier' }}
+                    </button>
+                </form>
+
+                <h4>Liste des contacts</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Modifier</th>
+                                <th>Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let c of contacts">
+                                <td>{{ c.id }}</td>
+                                <td>{{ c.nom }}</td>
+                                <td>{{ c.prenom }}</td>
+                                <td>{{ c.email }}</td>
+                                <td>{{ c.tel }}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-xs" title="Modifier" (click)="editContact(c)">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger btn-xs" title="Supprimer" (click)="deleteContact(c.id)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

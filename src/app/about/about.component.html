@@ -1,0 +1,75 @@
+<div class="container" style="max-width:900px; margin-top:30px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">About Component</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="alert alert-info" style="padding:6px 12px; margin:0;">Infos en provenance du Component</div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Nom :</strong> {{info.nom}}</li>
+                        <li class="list-group-item"><strong>Prénom :</strong> {{info.prenom}}</li>
+                        <li class="list-group-item"><strong>Tel :</strong> {{info.telephone}}</li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <div class="alert alert-info" style="padding:6px 12px; margin:0;">Infos en provenance du Service</div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Nom :</strong> {{info1.nom}}</li>
+                        <li class="list-group-item"><strong>Email :</strong> {{info1.email}}</li>
+                        <li class="list-group-item"><strong>Tel :</strong> {{info1.tel}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="well well-sm" style="margin:20px 0 10px 0;">
+                <strong>Bonjour :</strong> {{bonjour1}}
+            </div>
+            <form class="form-inline" style="margin-bottom:20px;">
+                <div class="form-group" style="margin-right:10px;">
+                    <label for="message" class="sr-only">Message</label>
+                    <input id="message" type="text" class="form-control input-sm" [(ngModel)]="comment.message" name="message" placeholder="Votre message">
+                </div>
+                <button *ngIf="!newComment" (click)="addComment()" type="button" class="btn btn-primary btn-sm">Add comment</button>
+                <button *ngIf="newComment" (click)="updateComment()" type="button" class="btn btn-success btn-sm">Update comment</button>
+                <button *ngIf="newComment" (click)="cancelEdit()" type="button" class="btn btn-default btn-sm" style="margin-left:5px;">Cancel</button>
+            </form>
+
+            <div class="table-responsive" *ngIf="comments.length>0; else noComments">
+                <h4>Liste des messages :</h4>
+                <table class="table table-bordered table-striped table-hover table-condensed">
+                    <thead>
+                        <tr class="info">
+                            <th>ID</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of comments">
+                            <td>{{ c.id }}</td>
+                            <td>{{ c.message }}</td>
+                            <td><span class="badge">{{today}}</span></td>
+                            <td>
+                                <button (click)="editComment(c)" class="btn btn-warning btn-xs" title="Modifier">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button (click)="removeComment(c.id)" class="btn btn-danger btn-xs" title="Supprimer">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noComments>
+                <div class="alert alert-info">Liste des commentaires est vide</div>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,9 @@
+.sidebar-menu {
+  margin-top: 0.5rem;
+}
+.sidebar-menu .nav > li > a {
+  padding: 10px 12px;
+}
+.sidebar-menu .nav > li > a:hover {
+  background-color: #e7f3fe;
+}
