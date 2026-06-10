@@ -1,1 +1,36 @@
+html, body {
+  min-height: 100%;
+  margin: 0;
+  background: linear-gradient(135deg, #daeffa 0%, #e4edf1 60%, #ebf1f5 100%);
+  color: #1d1818c9;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.navbar-brand .app-logo {
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+
+/* Agrandir le menu */
+.navbar {
+  padding: 10px 5px !important;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: 1.1rem;
+  padding: 14px 20px !important;
+  margin: 0 10px;
+}
+
 /* You can add global styles to this file, and also import other style files */
