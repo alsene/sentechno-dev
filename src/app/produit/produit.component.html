@@ -2,10 +2,10 @@
   <div class="panel panel-primary">
     <div class="panel-heading">Produit</div>
     <div class="panel-body">
-      <div class="alert alert-info-gray" style="padding:6px 12px; margin:0;">
+      <!--<div class="alert alert-info-gray" style="padding:6px 12px; margin:0;">
         <p class="text-primary"><i> Ce rapport présente les produits emballés dans des Big Bags (CCP2) pour une période donnée. Il inclut des informations telles que le nom du produit, le code, la quantité et la date d'emballage. Ce rapport est essentiel pour suivre les produits emballés et assurer une gestion efficace des stocks.</i></p>
       </div>
-      <div>&nbsp;</div>
+      <div>&nbsp;</div>-->
       <div class="alert alert-info" style="padding:6px 12px; margin:0;">
         <strong>Rapport des produits emballés Big Bags (CCP2)</strong>
       </div>
@@ -27,21 +27,21 @@
           <label for="lotProduit" class="sr-only">Lot produit</label>
           <select id="lotProduit" class="form-control input-sm" [(ngModel)]="produit.lotProduit" name="lotProduit">
             <option value="">-- Choisir un lot produit --</option>
-            <option *ngFor="let lotProduit of lotProduitList" [value]="lotProduit">{{ lotProduit }}</option>
+            <option *ngFor="let lotProduit of listeLot" [value]="lotProduit">{{ lotProduit.libelle }}</option>
           </select>
         </div>
         <div class="form-group" style="margin-right:10px;">
           <label for="lotBigBag" class="sr-only">Lot Big Bag</label>
           <select id="lotBigBag" class="form-control input-sm" [(ngModel)]="produit.lotBigBag" name="lotBigBag">
             <option value="">-- Choisir un Big Bag --</option>
-            <option *ngFor="let lotBigBag of lotBigBagList" [value]="lotBigBag">{{ lotBigBag }}</option>
+            <option *ngFor="let lotBigBag of listeLotBag" [value]="lotBigBag">{{ lotBigBag.libelle }}</option>
           </select>
         </div>
         <div class="form-group" style="margin-right:10px;">
           <label for="silo" class="sr-only">Silo</label>
           <select id="silo" class="form-control input-sm" [(ngModel)]="produit.silo" name="silo">
             <option value="">-- Choisir un silo --</option>
-            <option *ngFor="let silo of siloList" [value]="silo">{{ silo }}</option>
+            <option *ngFor="let silo of listeSilo" [value]="silo">{{ silo.libelle }}</option>
           </select>
         </div>
         <div class="form-group" style="margin-right:10px;">

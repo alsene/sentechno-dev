@@ -6,6 +6,9 @@ import { DatePipe , CommonModule, NgIf } from '@angular/common';
 import { ProduitService } from '../services/produit/produit.service';
 import { ResponseProduit } from '../model/ResponseProduit';
 import { Client } from '../model/Client';
+import { Lot } from "../model/Lot";
+import { Silo } from "../model/Silo";
+import { Utilisateur } from "../model/Utilisateur";
 
 @Component({
   selector: 'app-produit',
@@ -26,9 +29,13 @@ export class ProduitComponent {
   listeProduits:any []= [];
   typeProduitList: string[] = [];
   listeClients:Array<Client>| null = null;
+  listeLot:Array<Lot>| null = null;
+  listeLotBag:Array<Lot>| null = null;
+  listeSilo:Array<Silo>| null = null;
+  listeQA:Array<Utilisateur>| null = null;
   produit1: any;
   ngOnInit(): void {
-    this.produitService.getProduit1().subscribe({
+    /*this.produitService.getProduit1().subscribe({
       next: (data) => {
         this.produit1 = data;
         console.log('Produit récupéré:', this.produit1);
@@ -36,7 +43,7 @@ export class ProduitComponent {
       error: (err) => {
         console.error('Erreur lors de la récupération', err);
       }
-    });
+    });*/
   }
   constructor(private datePipe: DatePipe, private produitService: ProduitService) {
     if (!this.auth.isLoggedIn()) {
@@ -53,11 +60,14 @@ export class ProduitComponent {
         console.log('Produit récupéré:', this.responseProduit);  
 
         this.listeClients =  this.responseProduit ? this.responseProduit.clients : [];
+        this.listeLot =  this.responseProduit ? this.responseProduit.lots : [];
+        this.listeLotBag =  this.responseProduit ? this.responseProduit.lotBags : [];
+        this.listeSilo =  this.responseProduit ? this.responseProduit.silos : [];
+        this.listeQA =  this.responseProduit ? this.responseProduit.qaList : [];
           console.log('Clients récupérés:', this.listeClients);  
       }
     });
 
-  
 
     if (this.clientList.length > 0) {
       this.produit.client = this.clientList[0];

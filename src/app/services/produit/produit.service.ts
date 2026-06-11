@@ -17,7 +17,7 @@ export class ProduitService {
   // Exemple d'un appel GET
   getProduit1(): Observable<ResponseProduit> {
         return this.http
-      .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/VERT`)
+      .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/BLANC`)
       .pipe(
          map((result: ResponseProduit) => {
            return result;

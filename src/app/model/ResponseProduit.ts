@@ -9,16 +9,18 @@ export class ResponseProduit {
 
 produits: Array<Produit>| null;
 lots: Array<Lot>| null;
+lotBags: Array<Lot>| null;
 silos: Array<Silo>| null;
 clients: Array<Client>| null;
-utilisateurs: Array<Utilisateur>| null;
+qaList: Array<Utilisateur>| null;
 
   constructor(init: any) {
     this.produits = init ? init.produits : null;
     this.lots = init ? init.lots : null;
+    this.lotBags = init ? init.lotBags : null;
     this.silos = init ? init.silos : null;
     this.clients = init ? init.clients : null;
-    this.utilisateurs = init ? init.utilisateurs : null;
+    this.qaList = init ? init.qaList : null;
   }
 }
 

@@ -14,7 +14,7 @@ export class Produit {
   lotBag: Lot| null;
   silo: Silo| null;
   client: Client| null;
-  utilisateur: Utilisateur| null;
+  operateur: Utilisateur| null;
 
   constructor(init: any) {
     this.id = init ? init.id : "";
@@ -27,7 +27,7 @@ export class Produit {
     this.lotBag = init ? init.lotBag : null;
     this.silo = init ? init.silo : null;
     this.client = init ? init.client : null;
-    this.utilisateur = init ? init.utilisateur : null;
+    this.operateur = init ? init.operateur : null;
   }
   
 }
