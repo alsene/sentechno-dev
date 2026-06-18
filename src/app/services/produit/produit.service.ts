@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from "rxjs/operators";
 import { ResponseProduit } from '../../model/ResponseProduit';
+import { Produit } from "../../model/Produit";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProduitService {
-
+  produit: Produit = new Produit(null);
  constructor() { }
 
   private http = inject(HttpClient);
@@ -137,6 +138,35 @@ export class ProduitService {
     return this.produits;
   }
 
+
+
+   addProduct1(produit: Produit): Observable<Produit> { {
+    return this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouter`, produit);
+    /*return this.http
+      .post(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouter`, produit)
+      .pipe(
+         map((result: ResponseProduit) => {
+          console.log('created produit:', result); 
+           return result;
+         })
+      );*/
+    }
+  }
+
+  updateProduct1(produit: Produit): Observable<Produit> { {
+    return this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/modifier`, produit);
+    /*return this.http
+      .post(`${this.apiUrl}/api/production/endpoint/produit/v1/modifier`, produit)
+      .pipe(
+         map((result: ResponseProduit) => {
+          console.log('created produit:', result); 
+           return result;
+         })
+      );*/
+    }
+  }
+
+
   addProduct(produits: any[], produit: any): void {
     if (produit.code !== '') {
       produit.id = produits.length + 1;
@@ -195,20 +225,11 @@ export class ProduitService {
   }
 
   cancelEdit(defaultClient: string): any {
-    return {
-      id: 0,
-      name: '',
-      code: '',
-      lotProduit: '',
-      lotBigBag: '',
-      silo: '',
-      client: defaultClient,
-      quantite: '',
-      operateur: '',
-      qualite: '',
-      fulmine: false,
-      selected: false
-    };
+    return this.produit;
+  }
+
+  cancelEditer(): any {
+    return this.produit;
   }
 
    cancelEditCommentaire(defaultClient: string): any {

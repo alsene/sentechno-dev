@@ -13,10 +13,10 @@
 
       <form class="form-inline" style="margin-bottom:20px;">       
         <div class="form-group" style="margin-right:10px;">
-          <label for="name" class="sr-only">Name</label>
-          <select id="name" class="form-control input-sm" [(ngModel)]="produit.name" name="name">
-            <option value="">-- Choisir un produit --</option>
-            <option *ngFor="let nom of typeProduitList" [value]="nom">{{ nom }}</option>
+          <label for="typeProduit" class="sr-only">Type de produit</label>
+          <select id="typeProduit" class="form-control input-sm" [(ngModel)]="produit.typeProduit" name="typeProduit">
+            <option [ngValue]="null" disabled>-- Choisir un produit --</option>
+            <option *ngFor="let typeProduit of listeTypeProduits" [ngValue]="typeProduit">{{ typeProduit.libelle }}</option>
           </select>
         </div>
         <div class="form-group" style="margin-right:10px;">
@@ -25,30 +25,30 @@
         </div>
         <div class="form-group" style="margin-right:10px;">
           <label for="lotProduit" class="sr-only">Lot produit</label>
-          <select id="lotProduit" class="form-control input-sm" [(ngModel)]="produit.lotProduit" name="lotProduit">
-            <option value="">-- Choisir un lot produit --</option>
-            <option *ngFor="let lotProduit of listeLot" [value]="lotProduit">{{ lotProduit.libelle }}</option>
+          <select id="lotProduit" class="form-control input-sm" [(ngModel)]="produit.lot" name="lotProduit">
+            <option [ngValue]="null" disabled>-- Choisir un lot produit --</option>
+            <option *ngFor="let lotProduit of listeLot" [ngValue]="lotProduit">{{ lotProduit.libelle }}</option>
           </select>
         </div>
         <div class="form-group" style="margin-right:10px;">
           <label for="lotBigBag" class="sr-only">Lot Big Bag</label>
-          <select id="lotBigBag" class="form-control input-sm" [(ngModel)]="produit.lotBigBag" name="lotBigBag">
-            <option value="">-- Choisir un Big Bag --</option>
-            <option *ngFor="let lotBigBag of listeLotBag" [value]="lotBigBag">{{ lotBigBag.libelle }}</option>
+          <select id="lotBigBag" class="form-control input-sm" [(ngModel)]="produit.lotBag" name="lotBigBag">
+            <option [ngValue]="null" disabled>-- Choisir un Big Bag --</option>
+            <option *ngFor="let lotBigBag of listeLotBag" [ngValue]="lotBigBag">{{ lotBigBag.libelle }}</option>
           </select>
         </div>
         <div class="form-group" style="margin-right:10px;">
           <label for="silo" class="sr-only">Silo</label>
           <select id="silo" class="form-control input-sm" [(ngModel)]="produit.silo" name="silo">
-            <option value="">-- Choisir un silo --</option>
-            <option *ngFor="let silo of listeSilo" [value]="silo">{{ silo.libelle }}</option>
+            <option [ngValue]="null" disabled>-- Choisir un silo --</option>
+            <option *ngFor="let silo of listeSilo" [ngValue]="silo">{{ silo.libelle }}</option>
           </select>
         </div>
         <div class="form-group" style="margin-right:10px;">
           <label for="client" class="sr-only">Client</label>
           <select id="client" class="form-control input-sm" [(ngModel)]="produit.client" name="client">
-            <option value="">-- Choisir un client --</option>
-            <option *ngFor="let client of listeClients" [value]="client">{{ client.nom }}</option>
+            <option [ngValue]="null" disabled>-- Choisir un client --</option>
+            <option *ngFor="let client of listeClients" [ngValue]="client">{{ client.nom }}</option>
           </select>
         </div>
         <div class="form-group" style="margin-right:10px;">
@@ -85,13 +85,13 @@
           <tr *ngFor="let c of pagedProduits">
             <td align="center"><input type="checkbox" [(ngModel)]="c.selected" name="selected-{{c.id}}"></td>
             <td>{{ c.code }}</td>
-            <td>{{ c.name }}</td>
-            <td>{{ c.lotProduit }}</td>
-            <td>{{ c.lotBigBag }}</td>
-            <td>{{ c.silo }}</td>
-            <td>{{ c.client }}</td>
+            <td>{{ c.nom }}</td>
+            <td>{{ c.lot.libelle }}</td>
+            <td>{{ c.lotBag.libelle }}</td>
+            <td>{{ c.silo.libelle }}</td>
+            <td>{{ c.client.nom }}</td>
             <td>{{ c.quantite }}</td>
-            <td>{{ c.operateur }}</td>
+            <td>{{ c.operateur.nom }}</td>
             <td><span class="badge">{{today}}</span></td>
             <td align="center">              
               <button (click)="editProduct(c)" class="btn btn-warning btn-xs" title="Modifier">

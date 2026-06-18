@@ -4,23 +4,25 @@ import { Lot } from "./Lot";
 import { Silo } from "./Silo";
 import { Utilisateur } from "./Utilisateur";
 import { Client } from "./Client";
+import { TypeProduit } from "./TypeProduit";
 
 export class ResponseProduit {
 
-produits: Array<Produit>| null;
-lots: Array<Lot>| null;
-lotBags: Array<Lot>| null;
-silos: Array<Silo>| null;
-clients: Array<Client>| null;
-qaList: Array<Utilisateur>| null;
-
+produits: Array<Produit>;
+lots: Array<Lot>;
+lotBags: Array<Lot>;
+silos: Array<Silo>;
+clients: Array<Client>;
+qaList: Array<Utilisateur>;
+typeProduits: Array<TypeProduit>;
   constructor(init: any) {
-    this.produits = init ? init.produits : null;
-    this.lots = init ? init.lots : null;
-    this.lotBags = init ? init.lotBags : null;
-    this.silos = init ? init.silos : null;
-    this.clients = init ? init.clients : null;
-    this.qaList = init ? init.qaList : null;
+    this.produits = init ? init.produits : [];
+    this.lots = init ? init.lots : [];
+    this.lotBags = init ? init.lotBags : [];
+    this.silos = init ? init.silos : [];
+    this.clients = init ? init.clients : [];
+    this.qaList = init ? init.qaList : [];
+    this.typeProduits = init ? init.typeProduits : [];
   }
 }
 
