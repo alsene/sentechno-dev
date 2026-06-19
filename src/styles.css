@@ -37,22 +37,35 @@ body {
 
 /* You can add global styles to this file, and also import other style files */
  
-/* Footer */
+/* Footer (component placement) */
 .app-footer {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  width: min(100%, 1550px);
-  background: rgba(13,71,161,0.95);
+  position: relative;
+  margin-top: 18px;
+  max-width: 1130px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  background: rgba(40, 91, 167, 0.95);
   color: #fff;
-  padding: 10px 0;
+  padding: 12px 20px;
   text-align: center;
-  z-index: 1030;
-  box-shadow: 0 -1px 4px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
 }
 
-/* espace pour le footer fixe */
-body {
-  padding-bottom: 56px;
+@media (max-width: 576px) {
+  .app-footer {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+}
+
+.form-frame {
+  border: 1px solid #7e7f81;
+  border-radius: 12px;
+  padding: 24px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.08);
+  margin-bottom: 25px;
 }

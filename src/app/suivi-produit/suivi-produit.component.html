@@ -27,10 +27,10 @@
             </div>
         </div>
         <hr>
-        <form>
-          <div class="alert alert-info" style="padding:6px 12px; margin:0;">
-            <strong>Saisie des commentaires et la qualité du produit</strong>
-          </div>
+        <div class="alert alert-info" style="padding:6px 12px; margin:0;">
+            <strong>Ajouter un commentaire sur la qualité du produit</strong>
+        </div>
+        <form class="form-frame">
           <div class="form-group">
             <label for="qualite">Qualité</label>
             <select class="form-control" id="qualite" [(ngModel)]="produit.qualite" name="qualite">
@@ -102,7 +102,7 @@
       </div>
       <ng-template #noCommentaire>
          <div style="padding:6px 12px; margin:0;"> <strong>Cliquer sur «Editer» pour visualiser le detail du produit !!!</strong></div>
-      </ng-template>
+      </ng-template> 
 
       <hr>
 

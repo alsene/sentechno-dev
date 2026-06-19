@@ -121,7 +121,7 @@ export class ProduitComponent {
 
   newProduct = false; // true si on édite, false si on ajoute
   editingIndex: number | null = null;
-  pageSize = 10;
+  pageSize = 7;
   currentPage = 1;
 
   get totalPages(): number { 

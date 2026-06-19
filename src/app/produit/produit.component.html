@@ -1,69 +1,87 @@
 <div class="container responsive-container">
   <div class="panel panel-primary">
-    <div class="panel-heading">Produit</div>
+    <div class="panel-heading">Produits emballés en big bags (CCP2)</div>
     <div class="panel-body">
       <!--<div class="alert alert-info-gray" style="padding:6px 12px; margin:0;">
         <p class="text-primary"><i> Ce rapport présente les produits emballés dans des Big Bags (CCP2) pour une période donnée. Il inclut des informations telles que le nom du produit, le code, la quantité et la date d'emballage. Ce rapport est essentiel pour suivre les produits emballés et assurer une gestion efficace des stocks.</i></p>
       </div>
-      <div>&nbsp;</div>-->
-      <div class="alert alert-info" style="padding:6px 12px; margin:0;">
-        <strong>Rapport des produits emballés Big Bags (CCP2)</strong>
-      </div>
       <div>&nbsp;</div>
+      <div class="alert alert-info" style="padding:6px 12px; margin:0;">
+        <strong>Produits emballés en big bags (CCP2)</strong>
+      </div>-->
+      <form class="form-frame">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group" style="margin-right:10px;">
+                <label for="typeProduit">Produit</label>
+                <select id="typeProduit" class="form-control input-sm" [(ngModel)]="produit.typeProduit" name="typeProduit">
+                  <option [ngValue]="null" disabled>-- Choisir un produit --</option>
+                  <option *ngFor="let typeProduit of listeTypeProduits" [ngValue]="typeProduit">{{ typeProduit.libelle }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                    <label for="quantite">Quantité</label>
+                    <input id="quantite" type="text" class="form-control input-sm" [(ngModel)]="produit.quantite" name="quantite" placeholder="Quantité du produit">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group" style="margin-right:10px;">
+                <label for="code">Code</label>
+                <input id="code" type="text" class="form-control input-sm" [(ngModel)]="produit.code" name="code" placeholder="Code du produit">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group" style="margin-right:10px;">
+                <label for="lotProduit">Lot</label>
+                <select id="lotProduit" class="form-control input-sm" [(ngModel)]="produit.lot" name="lotProduit">
+                  <option [ngValue]="null" disabled>-- Choisir un lot produit --</option>
+                  <option *ngFor="let lotProduit of listeLot" [ngValue]="lotProduit">{{ lotProduit.libelle }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
-      <form class="form-inline" style="margin-bottom:20px;">       
-        <div class="form-group" style="margin-right:10px;">
-          <label for="typeProduit" class="sr-only">Type de produit</label>
-          <select id="typeProduit" class="form-control input-sm" [(ngModel)]="produit.typeProduit" name="typeProduit">
-            <option [ngValue]="null" disabled>-- Choisir un produit --</option>
-            <option *ngFor="let typeProduit of listeTypeProduits" [ngValue]="typeProduit">{{ typeProduit.libelle }}</option>
-          </select>
-        </div>
-        <div class="form-group" style="margin-right:10px;">
-          <label for="code" class="sr-only">Code</label>
-          <input id="code" type="text" class="form-control input-sm" [(ngModel)]="produit.code" name="code" placeholder="Code du produit">
-        </div>
-        <div class="form-group" style="margin-right:10px;">
-          <label for="lotProduit" class="sr-only">Lot produit</label>
-          <select id="lotProduit" class="form-control input-sm" [(ngModel)]="produit.lot" name="lotProduit">
-            <option [ngValue]="null" disabled>-- Choisir un lot produit --</option>
-            <option *ngFor="let lotProduit of listeLot" [ngValue]="lotProduit">{{ lotProduit.libelle }}</option>
-          </select>
-        </div>
-        <div class="form-group" style="margin-right:10px;">
-          <label for="lotBigBag" class="sr-only">Lot Big Bag</label>
-          <select id="lotBigBag" class="form-control input-sm" [(ngModel)]="produit.lotBag" name="lotBigBag">
-            <option [ngValue]="null" disabled>-- Choisir un Big Bag --</option>
-            <option *ngFor="let lotBigBag of listeLotBag" [ngValue]="lotBigBag">{{ lotBigBag.libelle }}</option>
-          </select>
-        </div>
-        <div class="form-group" style="margin-right:10px;">
-          <label for="silo" class="sr-only">Silo</label>
-          <select id="silo" class="form-control input-sm" [(ngModel)]="produit.silo" name="silo">
-            <option [ngValue]="null" disabled>-- Choisir un silo --</option>
-            <option *ngFor="let silo of listeSilo" [ngValue]="silo">{{ silo.libelle }}</option>
-          </select>
-        </div>
-        <div class="form-group" style="margin-right:10px;">
-          <label for="client" class="sr-only">Client</label>
-          <select id="client" class="form-control input-sm" [(ngModel)]="produit.client" name="client">
-            <option [ngValue]="null" disabled>-- Choisir un client --</option>
-            <option *ngFor="let client of listeClients" [ngValue]="client">{{ client.nom }}</option>
-          </select>
-        </div>
-        <div class="form-group" style="margin-right:10px;">
-          <label for="quantite" class="sr-only">Quantité</label>
-          <input id="quantite" type="text" class="form-control input-sm" [(ngModel)]="produit.quantite" name="quantite" placeholder="Quantité du produit">
-        </div>
-        <div class="button-row">
-          <button *ngIf="!newProduct" (click)="addProduct()" type="button" class="btn btn-primary btn-sm">Enregistrer</button>
-          <button *ngIf="newProduct" (click)="updateProduct()" type="button" class="btn btn-success btn-sm">Modifier</button>
-          <button *ngIf="newProduct" (click)="cancelEdit()" type="button" class="btn btn-default btn-sm">Annuler</button>
-        </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group" style="margin-right:10px;">
+                <label for="lotBigBag">Lot Bag</label>
+                <select id="lotBigBag" class="form-control input-sm" [(ngModel)]="produit.lotBag" name="lotBigBag">
+                  <option [ngValue]="null" disabled>-- Choisir un Big Bag --</option>
+                  <option *ngFor="let lotBigBag of listeLotBag" [ngValue]="lotBigBag">{{ lotBigBag.libelle }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group" style="margin-right:10px;">
+                <label for="silo">Silo</label>
+                <select id="silo" class="form-control input-sm" [(ngModel)]="produit.silo" name="silo">
+                  <option [ngValue]="null" disabled>-- Choisir un silo --</option>
+                  <option *ngFor="let silo of listeSilo" [ngValue]="silo">{{ silo.libelle }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group" style="margin-right:10px;">
+                <label for="client">Client</label>
+                <select id="client" class="form-control input-sm" [(ngModel)]="produit.client" name="client">
+                  <option [ngValue]="null" disabled>-- Choisir un client --</option>
+                  <option *ngFor="let client of listeClients" [ngValue]="client">{{ client.nom }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="button-row">
+            <button *ngIf="!newProduct" (click)="addProduct()" type="button" class="btn btn-primary btn-sm">Enregistrer</button>
+            <button *ngIf="newProduct" (click)="updateProduct()" type="button" class="btn btn-success btn-sm">Modifier</button>
+            <button *ngIf="newProduct" (click)="cancelEdit()" type="button" class="btn btn-default btn-sm">Annuler</button>
+          </div>
       </form>
 
+
       <div class="table-responsive" *ngIf="listeProduits.length>0; else noProducts">
-        <div class="alert alert-info" style="padding:6px 12px; margin:0;"> <strong>Liste des big bags produits :</strong></div>
+        <!-- <div class="alert alert-info" style="padding:6px 12px; margin:0;"> <strong>Liste des big bags:</strong></div> -->
         <table class="table table-bordered table-striped table-hover table-condensed">
           <thead>
           <tr class="info">
@@ -127,8 +145,13 @@
         </nav>
       </div>
       <ng-template #noProducts>
-        <div class="alert alert-info">Liste des big bags produits</div>
+        <div class="alert alert-info">Liste des big bags</div>
       </ng-template>
+      <footer class="app-footer">
+        <div class="container">
+          <small>&copy; 2026 Zinda Production — Tous droits réservés.</small>
+        </div>
+    </footer>
     </div>
   </div>
 </div>
