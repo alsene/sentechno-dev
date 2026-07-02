@@ -179,6 +179,26 @@ export class ProduitComponent {
     });
   }
 
+  removeProduct(produit: Produit) {
+    const index = this.listeProduits.findIndex(item => item.id === produit.id);
+    this.produitService.removeProduct1(produit).subscribe({
+      next: () => {
+        console.log('Produit supprimé');
+        this.listeProduits.splice(index, 1);
+        this.adjustCurrentPage();
+        // Si on supprime le produit en cours d'édition, on annule l'édition
+        if (this.editingIndex === index) {
+          this.cancelEdit();
+        }
+      },
+      error: (erreur) => {
+        console.error('Une erreur est survenue lors de la suppression :', erreur);
+      }
+    });
+  }
+    
+  
+
   get allSelected(): boolean {
     return this.produitService.allSelected(this.listeProduits);
   }
@@ -232,7 +252,7 @@ export class ProduitComponent {
     this.produit = newProduit;
   }
 
-  removeProduct(id:number) : void{
+  removeProduct1(id:number) : void{
     const index = this.listeProduits.findIndex(item => item.id === id);
     this.produitService.removeProduct(this.listeProduits, id);
     this.adjustCurrentPage();

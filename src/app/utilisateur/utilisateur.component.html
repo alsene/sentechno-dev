@@ -77,7 +77,8 @@
               <th>Code Postal</th>
               <th>Téléphone</th>
               <th>Compagnie</th>
-              <th>Actions</th>
+              <th>Modifier</th>
+              <th>Supprimer</th>
             </tr>
           </thead>
           <tbody>
@@ -91,14 +92,17 @@
               <td>{{ user.codePostale }}</td>
               <td>{{ user.telephone }}</td>
               <td>{{ user.compagnie }}</td>
-              <td>
-                <button class="btn btn-warning btn-sm" (click)="editUtilisateur(user)" title="Modifier">
-                  <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn btn-danger btn-sm ml-1" (click)="supprimerUtilisateur(user.id)" title="Supprimer">
-                  <i class="bi bi-trash"></i>
+              <td align="center">              
+                <button (click)="editUtilisateur(user)" class="btn btn-warning btn-xs" title="Modifier">
+                  <i class="glyphicon glyphicon-pencil"></i>
                 </button>
               </td>
+              <td align="center">
+                <button (click)="supprimerUtilisateur(user.id)" class="btn btn-danger btn-xs" title="Supprimer">
+                  <i class="glyphicon glyphicon-trash"></i>
+                </button>
+              </td>
+
             </tr>
           </tbody>
         </table>

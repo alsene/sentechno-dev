@@ -1,51 +1,28 @@
+
 <header class="app-header">
-  <div class="header-banner">
-    <span class="banner-text">Gestion Produits - Système de Production Zinda</span>
+  <header class="app-header1">
+    <div class="header-banner1">
+      <span class="banner-text">Gestion Produits - Système de Production Zinda</span>
+    </div>
+  </header>
+  <div class="header-content">
+    <div class="header-logo">
+      <span class="logo-icon">📦</span>
+      <span class="logo-text">Zinda Production</span>
+    </div>
+
+    <nav class="header-nav" *ngIf="auth.isLoggedIn()">
+      <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Produit</a>
+      <a class="nav-link" routerLink="/qualite-produit" routerLinkActive="active">Assurance Qualité</a>
+      <a class="nav-link" routerLink="/utilisateur" routerLinkActive="active">Utilisateur</a>
+      <a class="nav-link" routerLink="/contacts" routerLinkActive="active">Contacts</a>
+      <a class="nav-link" routerLink="/about" routerLinkActive="active">À propos</a>
+      <a class="nav-link logout-link" style="cursor:pointer" (click)="logout()">Logout</a>
+    </nav>
   </div>
 </header>
-<ul >
-  <li *ngIf="auth.isLoggedIn()">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="logo-zinda.png" alt="Logo" class="app-logo" />
-          Zinda Production
-        </a>-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse"  id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item" *ngIf="auth.isLoggedIn()">
-              <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Produit</a>
-            </li>
-    <!--         <li class="nav-item" *ngIf="auth.isLoggedIn()">
-              <a class="nav-link" routerLink="/suivi-produit" routerLinkActive="active">Assurance Qualité</a>
-            </li> -->
-            <li class="nav-item" *ngIf="auth.isLoggedIn()">
-              <a class="nav-link" routerLink="/qualite-produit" routerLinkActive="active">Assurance Qualité</a>
-            </li>
-            <li class="nav-item" *ngIf="auth.isLoggedIn()">
-              <a class="nav-link" routerLink="/utilisateur" routerLinkActive="active">Utilisateur</a>
-            </li>
-            <li class="nav-item" *ngIf="auth.isLoggedIn()">
-              <a class="nav-link" routerLink="/contacts" routerLinkActive="active">Contacts</a>
-            </li>
-            <li class="nav-item" *ngIf="auth.isLoggedIn()">
-              <a class="nav-link" routerLink="/about" routerLinkActive="active">À propos</a>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right" *ngIf="auth.isLoggedIn()">
-            <li class="nav-item">
-              <a class="nav-link" style="cursor:pointer" (click)="logout()">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </li>
-</ul>
-<div class="container">
+
+<div class="container page-content-wrap">
   <router-outlet></router-outlet>
 </div>
 

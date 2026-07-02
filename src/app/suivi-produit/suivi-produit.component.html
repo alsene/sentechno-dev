@@ -5,105 +5,129 @@
       <div class="alert alert-info" style="padding:6px 12px; margin:0;">
         <strong>Assurance Qualité</strong>
       </div>
+      <form class="form-frame">
         <div class="row">
             <div class="col-sm-6">
                 <div class="alert alert-info" style="padding:6px 12px; margin:0;"></div>
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>Nom produit:</strong> {{produit.name}}</li>
+                    <li class="list-group-item"><strong>Nom produit:</strong> {{produit.typeProduit?.libelle}}</li>
                     <li class="list-group-item"><strong>Code :</strong> {{produit.code}}</li>
                     <li class="list-group-item"><strong>Quantité :</strong> {{produit.quantite}}</li>
-                    <li class="list-group-item"><strong>Lot produit :</strong> {{produit.lotProduit}}</li>
+                    <li class="list-group-item"><strong>Lot produit :</strong> {{produit.lot?.libelle}}</li>
                 </ul>
             </div>
             <div class="col-sm-6">
                 <div class="alert alert-info" style="padding:6px 12px; margin:0;"></div>
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>Opérateur :</strong> {{produit.operateur}}</li>
-                    <li class="list-group-item"><strong>Client :</strong> {{produit.client}}</li>
-                    <li class="list-group-item"><strong>Lot Big Bag :</strong> {{produit.lotBigBag}}</li>
-                    <li class="list-group-item"><strong>Silo :</strong> {{produit.silo}}</li>
-                    <li class="list-group-item"><strong>date emballage :</strong> {{today}}</li>
+                    <li class="list-group-item"><strong>Opérateur :</strong> {{produit.operateur?.nom}}</li>
+                    <li class="list-group-item"><strong>Client :</strong> {{produit.client?.nom}}</li>
+                    <li class="list-group-item"><strong>Lot Big Bag :</strong> {{produit.lotBag?.libelle}}</li>
+                    <li class="list-group-item"><strong>Silo :</strong> {{produit.silo?.libelle}}</li>
                 </ul>
             </div>
         </div>
-        <hr>
+        <div *ngIf="produit.code">
+          <div class="conforme-qualite-box">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="conforme">Conforme</label>
+                  <div>
+                    <label class="switch">
+                      <input type="checkbox" id="conforme" [(ngModel)]="produit.conforme" name="conforme">
+                      <span class="slider"></span>
+                    </label>
+                    <span class="switch-label">{{ produit.conforme ? 'oui' : 'non' }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group" style="margin-right:10px;">
+                  <label for="qualite">Qualité</label>
+                  <select id="qualite" class="form-control input-sm" [(ngModel)]="produit.qualite" name="qualite">
+                    <option [ngValue]="null" disabled>-- Choisir une qualité --</option>
+                    <option *ngFor="let qualite of typeQualiteList" [ngValue]="qualite">{{ qualite }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="button-row">
+            <button *ngIf="newProduct" (click)="updateProduct()" type="button" class="btn btn-primary btn-sm">Enregistrer</button>
+            <button *ngIf="newProduct" (click)="cancelEdit()" type="button" class="btn btn-default btn-sm">Annuler</button>
+          </div>
+        </div>
+      </form>
+      <div *ngIf="produit.code">
         <div class="alert alert-info" style="padding:6px 12px; margin:0;">
             <strong>Ajouter un commentaire sur la qualité du produit</strong>
         </div>
         <form class="form-frame">
-          <div class="form-group">
-            <label for="qualite">Qualité</label>
-            <select class="form-control" id="qualite" [(ngModel)]="produit.qualite" name="qualite">
-              <option *ngFor="let qualite of typeQualiteList" [value]="qualite">{{ qualite }}</option>
-            </select>
-          </div>
+            <div *ngIf="commentaireMessage" class="alert" [ngClass]="'alert-' + commentaireMessageType" style="margin-bottom:10px;">
+              {{ commentaireMessage }}
+            </div>
             <div class="form-group">
                 <label for="nouveauCommentaire">Commentaires</label>
-                <textarea class="form-control" id="nouveauCommentaire" rows="3" [(ngModel)]="commentaire.nouveauCommentaire" name="nouveauCommentaire"></textarea>
+                <textarea class="form-control" id="nouveauCommentaire" rows="3" [(ngModel)]="commentaireProduit.commentaire" name="commentaire"></textarea>
             </div>
-             <div class="button-row">
-                <button *ngIf="!newCommentaire" (click)="addCommentaire(produit.code)" type="button" class="btn btn-info btn-sm btn-add-comment" >Ajouter</button>
+              <div class="button-row">
+                <button *ngIf="!newCommentaire" (click)="addCommentaire(produit)" type="button" class="btn btn-info btn-sm btn-add-comment" >Ajouter</button>
                 <button *ngIf="newCommentaire" (click)="updateCommentaire()" type="button" class="btn btn-success btn-sm">Modifier</button>
                 <button *ngIf="newCommentaire" (click)="cancelEditCommentaire()" type="button" class="btn btn-default btn-sm">Annuler</button>
             </div>
         </form>
-      <div>&nbsp;</div>
-      <div class="table-responsive" *ngIf="listeCommentaires.length>0; else noCommentaire">
-        <div class="alert alert-info" style="padding:6px 12px; margin:0;"> <strong>Liste des commentaires QA :</strong></div>
-        <table class="table table-bordered table-striped table-hover table-condensed">
-          <thead>
-          <tr class="info">
-            <th>Code Produit</th>
-            <th>Commentaire</th>
-            <th>Assurance Qualité</th>
-            <th>Date</th>
-            <th>Modifier</th>
-            <th>Supprimer</th>
-          </tr>
-          </thead>
-          <tbody style="font-size:1.2rem;">
-          <tr *ngFor="let com of pagedCommentaires">
-            <td>{{ com.codeProduit }}</td>
-            <td>{{ com.nouveauCommentaire }}</td>
-            <td>{{ com.assuranceQualite }}</td>
-            <td><span class="badge">{{today}}</span></td>
-            <td>              
-              <button (click)="editCommentaire(com)" class="btn btn-warning btn-xs" title="Modifier">
-                <i class="glyphicon glyphicon-pencil"></i>
-              </button>
-            </td>
-            <td>
-              <button (click)="removeCommentaire(com.id)" class="btn btn-danger btn-xs" title="Supprimer">
-                <i class="glyphicon glyphicon-trash"></i>
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <nav class="pagination-nav" aria-label="Pagination" *ngIf="totalPagesCommentaires > 1">
-          <ul class="pagination justify-content-center" style="margin-top:10px;">
-            <li class="page-item" [class.disabled]="currentPageCommentaires === 1">
-              <a class="page-link" href="#" (click)="changePageCommentaires(1); $event.preventDefault()">«</a>
-            </li>
-            <li class="page-item" [class.disabled]="currentPageCommentaires === 1">
-              <a class="page-link" href="#" (click)="changePageCommentaires(currentPageCommentaires - 1); $event.preventDefault()">‹</a>
-            </li>
-            <li class="page-item" *ngFor="let pageCommentaire of pagesCommentaires" [class.active]="currentPageCommentaires === pageCommentaire">
-              <a class="page-link" href="#" (click)="changePageCommentaires(pageCommentaire); $event.preventDefault()">{{ pageCommentaire }}</a>
-            </li>
-            <li class="page-item" [class.disabled]="currentPageCommentaires === totalPagesCommentaires">
-              <a class="page-link" href="#" (click)="changePageCommentaires(currentPageCommentaires + 1); $event.preventDefault()">›</a>
-            </li>
-            <li class="page-item" [class.disabled]="currentPageCommentaires === totalPagesCommentaires">
-              <a class="page-link" href="#" (click)="changePageCommentaires(totalPagesCommentaires); $event.preventDefault()">»</a>
-            </li>
-          </ul>
-        </nav>
+        
+        <div class="table-responsive" *ngIf="listeCommentaire.length>0; else noCommentaire">
+          <div class="alert alert-info" style="padding:6px 12px; margin:0;"> <strong>Liste des commentaires QA :</strong></div>
+          <table class="table table-bordered table-striped table-hover table-condensed">
+            <thead>
+            <tr class="info">
+              <th>Commentaire</th>
+              <th>Date</th>
+              <th>Modifier</th>
+              <th>Supprimer</th>
+            </tr>
+            </thead>
+            <tbody style="font-size:1.2rem;">
+            <tr *ngFor="let com of pagedCommentaires">
+              <td>{{ com.commentaire }}</td>
+              <td><span class="badge">{{today}}</span></td>
+              <td>              
+                <button (click)="editCommentaire(com)" class="btn btn-warning btn-xs" title="Modifier">
+                  <i class="glyphicon glyphicon-pencil"></i>
+                </button>
+              </td>
+              <td>
+                <button (click)="removeCommentaire(com)" class="btn btn-danger btn-xs" title="Supprimer">
+                  <i class="glyphicon glyphicon-trash"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <nav class="pagination-nav" aria-label="Pagination" *ngIf="totalPagesCommentaires > 1">
+            <ul class="pagination justify-content-center" style="margin-top:10px;">
+              <li class="page-item" [class.disabled]="currentPageCommentaires === 1">
+                <a class="page-link" href="#" (click)="changePageCommentaires(1); $event.preventDefault()">«</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPageCommentaires === 1">
+                <a class="page-link" href="#" (click)="changePageCommentaires(currentPageCommentaires - 1); $event.preventDefault()">‹</a>
+              </li>
+              <li class="page-item" *ngFor="let pageCommentaire of pagesCommentaires" [class.active]="currentPageCommentaires === pageCommentaire">
+                <a class="page-link" href="#" (click)="changePageCommentaires(pageCommentaire); $event.preventDefault()">{{ pageCommentaire }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPageCommentaires === totalPagesCommentaires">
+                <a class="page-link" href="#" (click)="changePageCommentaires(currentPageCommentaires + 1); $event.preventDefault()">›</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPageCommentaires === totalPagesCommentaires">
+                <a class="page-link" href="#" (click)="changePageCommentaires(totalPagesCommentaires); $event.preventDefault()">»</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <ng-template #noCommentaire>
+        </ng-template> 
       </div>
-      <ng-template #noCommentaire>
-         <div style="padding:6px 12px; margin:0;"> <strong>Cliquer sur «Editer» pour visualiser le detail du produit !!!</strong></div>
-      </ng-template> 
-
       <hr>
 
       <div class="table-responsive" *ngIf="listeProduits.length>0; else noProducts">
@@ -129,12 +153,12 @@
           <tr *ngFor="let c of pagedProduits">
             <td>{{ c.code }}</td>
             <td>{{ c.name }}</td>
-            <td>{{ c.lotProduit }}</td>
-            <td>{{ c.lotBigBag }}</td>
-            <td>{{ c.silo }}</td>
-            <td>{{ c.client }}</td>
+            <td>{{ c.lot.libelle }}</td>
+            <td>{{ c.lotBag.libelle }}</td>
+            <td>{{ c.silo.libelle }}</td>
+            <td>{{ c.client.nom }}</td>
             <td>{{ c.quantite }}</td>
-            <td>{{ c.operateur }}</td>
+            <td>{{ c.operateur.nom }}</td>
             <td>{{ c.qualite }}</td>
             <td class="text-center">
               <span *ngIf="c.fulmine">✅</span>
@@ -172,6 +196,7 @@
       <ng-template #noProducts>
         <div class="alert alert-info">Liste des big bags produits</div>
       </ng-template>
+
    <!--  </div>
   </div>
 </div> -->

@@ -4,12 +4,15 @@ import { Observable } from 'rxjs';
 import { map, tap } from "rxjs/operators";
 import { ResponseProduit } from '../../model/ResponseProduit';
 import { Produit } from "../../model/Produit";
+import { CommentaireProduit } from "../../model/CommentaireProduit";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProduitService {
-  produit: Produit = new Produit(null);
+produit: Produit = new Produit(null);
+commentaireProduit: CommentaireProduit=new CommentaireProduit();
+
  constructor() { }
 
   private http = inject(HttpClient);
@@ -18,13 +21,49 @@ export class ProduitService {
   // Exemple d'un appel GET
   getProduit1(): Observable<ResponseProduit> {
         return this.http
-      .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/BLANC`)
+      .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/false`)
       .pipe(
          map((result: ResponseProduit) => {
            return result;
          })
       );
   }
+  addProduct1(produit: Produit): Observable<Produit> { {
+    return this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouter`, produit);
+    }
+  }
+
+  updateProduct1(produit: Produit): Observable<Produit> { {
+    return this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/modifier`, produit);
+    }
+  }
+  removeProduct1(produit: Produit) {
+    return this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/supprimer`,produit);
+  }
+
+
+  cancelEditer(): any {
+    return this.produit;
+  }
+
+  addCommentaire1(commentaireProduit: CommentaireProduit): Observable<CommentaireProduit> { {
+    return this.http.post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouterCommentaire`, commentaireProduit);
+    }
+  }
+   updateCommentaire1(commentaireProduit: CommentaireProduit): Observable<CommentaireProduit> { {
+    return this.http.post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/modifierCommentaire`, commentaireProduit);
+    }
+  }
+  removeCommentaire1(commentaireProduit: CommentaireProduit) { {
+    return this.http.post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/supprimerCommentaire`, commentaireProduit);
+    }
+  }
+
+  cancelEditerCommentaire(): any {
+    return this.commentaireProduit;
+  }
+
+
   login(email: string, password: string): Observable<ResponseProduit>  {
     return this.http
       .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/VERT`)
@@ -65,7 +104,7 @@ export class ProduitService {
     this.listeProduits.push(c);
   }
 
-   private qualiteList: string[] = ['Moyenne Qualité', 'Bonne Qualité', 'Qualité Standard'];
+   private qualiteList: string[] = ['STANDARD', 'EXCELLENCE', 'PREMIUM'];
    getAllQualite() {
     return this.qualiteList;
   }
@@ -140,31 +179,7 @@ export class ProduitService {
 
 
 
-   addProduct1(produit: Produit): Observable<Produit> { {
-    return this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouter`, produit);
-    /*return this.http
-      .post(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouter`, produit)
-      .pipe(
-         map((result: ResponseProduit) => {
-          console.log('created produit:', result); 
-           return result;
-         })
-      );*/
-    }
-  }
 
-  updateProduct1(produit: Produit): Observable<Produit> { {
-    return this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/modifier`, produit);
-    /*return this.http
-      .post(`${this.apiUrl}/api/production/endpoint/produit/v1/modifier`, produit)
-      .pipe(
-         map((result: ResponseProduit) => {
-          console.log('created produit:', result); 
-           return result;
-         })
-      );*/
-    }
-  }
 
 
   addProduct(produits: any[], produit: any): void {
@@ -228,24 +243,13 @@ export class ProduitService {
     return this.produit;
   }
 
-  cancelEditer(): any {
-    return this.produit;
-  }
 
-   cancelEditCommentaire(defaultClient: string): any {
-    return {
-      id: 0,
-      codeProduit: '',
-      nouveauCommentaire: '',
-      assuranceQualite: '',
-      qualite: ''
-    };
-  }
   removeProduct(list: any[], id: number): void {
     const index = list.findIndex(item => item.id === id);
     if (index >= 0) {
       list.splice(index, 1);
     }
+    this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/supprimer`, id);
   }
 
   editCommentaire(commentaire: any): any {

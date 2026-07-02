@@ -1,8 +1,80 @@
+/* === Header identique au login === */
+.app-header {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 3px solid #0d6efd;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0d6efd;
+}
+
+.logo-icon {
+  font-size: 24px;
+}
+
+.logo-text {
+  color: #2d3748;
+}
+
+.header-nav {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #0d6efd;
+}
+
+@media (max-width: 600px) {
+  .header-content {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .header-nav {
+    gap: 16px;
+    justify-content: center;
+  }
+}
+/* === Fin Header === */
+
 .responsive-container {
   max-width: 1150px;
   margin-top: 2px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.container.responsive-container {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .form-inline {
@@ -21,14 +93,6 @@
   margin-right: 0;
 }
 
-.form-frame {
-  border: 1px solid #7e7f81;
-  border-radius: 12px;
-  padding: 24px;
-  background-color: #ffffff;
-  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.08);
-  margin-bottom: 25px;
-}
 
 @media (max-width: 768px) {
   .form-frame {

@@ -15,6 +15,7 @@ silos: Array<Silo>;
 clients: Array<Client>;
 qaList: Array<Utilisateur>;
 typeProduits: Array<TypeProduit>;
+qualites: Array<String>;
   constructor(init: any) {
     this.produits = init ? init.produits : [];
     this.lots = init ? init.lots : [];
@@ -23,6 +24,7 @@ typeProduits: Array<TypeProduit>;
     this.clients = init ? init.clients : [];
     this.qaList = init ? init.qaList : [];
     this.typeProduits = init ? init.typeProduits : [];
+    this.qualites = init ? init.qualites : [];
   }
 }
 

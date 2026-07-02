@@ -1,21 +1,106 @@
-<div class="container" style="max-width:400px; margin-top:100px;">
-  <div class="panel panel-primary">
-    <div class="panel-heading text-center">
-      <h4 style="margin:0;">Connexion</h4>
+<!-- Header 
+<header class="app-header">
+  <div class="header-content">
+    <div class="header-logo">
+      <span class="logo-icon">📦</span>
+      <span class="logo-text">Zinda Production</span>
     </div>
-    <div class="panel-body">
-      <form (ngSubmit)="login()" #loginForm="ngForm">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" class="form-control" [(ngModel)]="email" name="email" required autocomplete="username">
+    <nav class="header-nav">
+      <a href="#" class="nav-link">Accueil</a>
+      <a href="#" class="nav-link">À propos</a>
+      <a href="#" class="nav-link">Contact</a>
+    </nav>
+  </div>
+</header>-->
+
+<div class="login-container">
+  <div class="login-background"></div>
+  
+  <div class="login-wrapper">
+    <div class="login-card">
+      <!-- Header -->
+      <div class="login-header">
+        <div class="login-logo">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
         </div>
-        <div class="form-group">
-          <label for="password">Mot de passe</label>
-          <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" required autocomplete="current-password">
+        <h1 class="login-title">Connexion</h1>
+        <p class="login-subtitle">Gestion Produit Zinda Production</p>
+      </div>
+
+      <!-- Form -->
+      <form (ngSubmit)="login()" #loginForm="ngForm" class="login-form">
+        <!-- Email Field -->
+        <div class="form-group-login">
+          <label for="email" class="form-label-login">
+            <i class="icon-email">✉</i>
+            Email
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            class="form-control-login" 
+            [(ngModel)]="email" 
+            name="email" 
+            placeholder="exemple@email.com"
+            required 
+            autocomplete="username">
         </div>
-        <div *ngIf="error" class="alert alert-danger" style="margin-top:10px;">{{ error }}</div>
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.form.valid" style="margin-top:15px;">Se connecter</button>
+
+        <!-- Password Field -->
+        <div class="form-group-login">
+          <label for="password" class="form-label-login">
+            <i class="icon-lock">🔒</i>
+            Mot de passe
+          </label>
+          <input 
+            type="password" 
+            id="password" 
+            class="form-control-login" 
+            [(ngModel)]="password" 
+            name="password" 
+            placeholder="••••••••"
+            required 
+            autocomplete="current-password">
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="error" class="alert-error">
+          <span class="error-icon">⚠</span>
+          {{ error }}
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          class="btn-login" 
+          [disabled]="!loginForm.form.valid">
+          Se connecter
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
       </form>
+
+      <!-- Footer -->
+      <div class="login-footer">
+        <p class="footer-text">Besoin d'aide? Contactez l'administrateur</p>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- Footer -->
+<footer class="app-footer">
+  <div class="footer-content">
+    <p class="footer-copyright">&copy; 2024 Zinda Production. Tous droits réservés.</p>
+    <div class="footer-links">
+      <a href="#" class="footer-link">Politique de confidentialité</a>
+      <a href="#" class="footer-link">Conditions d'utilisation</a>
+      <a href="#" class="footer-link">Support</a>
+    </div>
+  </div>
+</footer>

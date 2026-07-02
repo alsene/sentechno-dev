@@ -24,21 +24,28 @@
             <p>Besoin d'aide ? Contactez le support ou consultez la documentation.</p>
           </div>
         </div>
+        <footer class="app-footer">
+          <div class="container">
+            <small>&copy; 2026 Zinda Production — Tous droits réservés.</small>
+          </div>
+      </footer>
       </div>
     </div>
     <aside class="col-md-2 col-sm-4">
       <div class="panel panel-info sidebar-menu">
-        <div class="panel-heading">Gestion du produit</div>
-        <div class="panel-body">
-          <ul class="nav nav-pills nav-stacked">
-            <li><a href="#" (click)="showSection('home'); $event.preventDefault()">Tableau de bord</a></li>
-             <li><a href="#" (click)="showSection('tableau-bord'); $event.preventDefault()">Tableau de bord</a></li>
-            <li><a href="#" (click)="showSection('qualite'); $event.preventDefault()">Contröle qualité</a></li>
-            <li><a href="#" (click)="showSection('fulmine'); $event.preventDefault()">Fulmination</a></li>
-            <li><a href="#" (click)="showSection('reports'); $event.preventDefault()">Rapports</a></li>
-            <li><a href="#" (click)="showSection('settings'); $event.preventDefault()">Paramètres</a></li>
-            <li><a href="#" (click)="showSection('help'); $event.preventDefault()">Aide</a></li>
-          </ul>
+        <div class="panel panel-primary">
+          <div class="panel-heading ">Gestion du produit</div>
+          <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="#" (click)="showSection('home'); $event.preventDefault()">Tableau de bord</a></li>
+              <li><a href="#" (click)="showSection('tableau-bord'); $event.preventDefault()">Tableau de bord</a></li>
+              <li><a href="#" (click)="showSection('qualite'); $event.preventDefault()">Contröle qualité</a></li>
+              <li><a href="#" (click)="showSection('fulmine'); $event.preventDefault()">Fulmination</a></li>
+              <li><a href="#" (click)="showSection('reports'); $event.preventDefault()">Rapports</a></li>
+              <li><a href="#" (click)="showSection('settings'); $event.preventDefault()">Paramètres</a></li>
+              <li><a href="#" (click)="showSection('help'); $event.preventDefault()">Aide</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </aside>

@@ -199,7 +199,7 @@ export class ProduitFulmineComponent {
   cancelEditCommentaire() {
     this.newCommentaire = false;
     this.editingIndexCommentaire = null;
-    this.commentaire = this.produitService.cancelEditCommentaire(this.clientList[0] || '');
+    this.commentaire = this.produitService.cancelEditerCommentaire();
   }
   updateCommentaire() {
     this.produitService.updateCommentaire(this.listeCommentaires, this.editingIndexCommentaire, this.commentaire);
