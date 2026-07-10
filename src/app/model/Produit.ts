@@ -20,6 +20,7 @@ export class Produit {
   operateur: Utilisateur | null;
   typeProduit: TypeProduit | null;
   commentaires: Array<CommentaireProduit>;
+  selected: boolean;
   constructor(init: any) {
     this.id = init ? init.id : "";
     this.nom = init ? init.nom : "";
@@ -35,6 +36,7 @@ export class Produit {
     this.operateur = init ? init.operateur : null;
     this.typeProduit = init ? init.typeProduit : null;
     this.commentaires = init ? init.commentaires : [];
+    this.selected = init ? init.selected : false;
   }
   
 }

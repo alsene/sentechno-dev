@@ -1,74 +1,99 @@
 <div class="container responsive-container">
   <div class="panel panel-primary">
-    <div class="panel-heading">Informations Utilisateur</div>
+    <div class="panel-heading">Saisie des informations utilisateurs</div>
     <div class="panel-body">
-      <form>
+      <form class="form-frame">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group">
               <label for="nom">Nom</label>
-              <input type="text" class="form-control" id="nom" [(ngModel)]="utilisateur.nom" name="nom" placeholder="Entrez votre nom">
+              <input type="text" class="form-control" id="nom" [(ngModel)]="utilisateur.nom" name="nom" placeholder="Saisir le nom">
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-3">
             <div class="form-group">
               <label for="prenom">Prénom</label>
-              <input type="text" class="form-control" id="prenom" [(ngModel)]="utilisateur.prenom" name="prenom" placeholder="Entrez votre prénom">
+              <input type="text" class="form-control" id="prenom" [(ngModel)]="utilisateur.prenom" name="prenom" placeholder="Saisir le prénom">
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="utilisateur.email" name="email" placeholder="Saisir l'email">
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" [(ngModel)]="utilisateur.email" name="email" placeholder="Entrez votre email">
-        </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="rue">Rue</label>
+              <input type="text" class="form-control" id="rue" [(ngModel)]="utilisateur.rue" name="rue" placeholder="Saisir la rue">
+            </div>
+          </div>
+          <div class="col-md-3">
             <div class="form-group">
               <label for="pays">Pays</label>
-              <input type="text" class="form-control" id="pays" [(ngModel)]="utilisateur.pays" name="pays" placeholder="Entrez votre pays">
+              <input type="text" class="form-control" id="pays" [(ngModel)]="utilisateur.pays" name="pays" placeholder="Saisir le pays">
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-3">
             <div class="form-group">
               <label for="ville">Ville</label>
-              <input type="text" class="form-control" id="ville" [(ngModel)]="utilisateur.ville" name="ville" placeholder="Entrez votre ville">
+              <input type="text" class="form-control" id="ville" [(ngModel)]="utilisateur.ville" name="ville" placeholder="Saisir la ville">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="codePostal">Code Postal</label>
+              <input type="text" class="form-control" id="codePostal" [(ngModel)]="utilisateur.codePostal" name="codePostal" placeholder="Saisir le code postal">
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group">
-              <label for="codePostale">Code Postale</label>
-              <input type="text" class="form-control" id="codePostale" [(ngModel)]="utilisateur.codePostale" name="codePostale" placeholder="Entrez votre code postale">
+              <label for="compagnie">Compagnie</label>
+              <input type="text" class="form-control" id="compagnie" [(ngModel)]="utilisateur.compagnie" name="compagnie" placeholder="Saisir la compagnie">
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-3">
             <div class="form-group">
               <label for="telephone">Téléphone</label>
-              <input type="tel" class="form-control" id="telephone" [(ngModel)]="utilisateur.telephone" name="telephone" placeholder="Entrez votre téléphone">
+              <input type="tel" class="form-control" id="telephone" [(ngModel)]="utilisateur.telephone" name="telephone" placeholder="Saisir le numéro de téléphone">
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="compagnie">Compagnie</label>
-          <input type="text" class="form-control" id="compagnie" [(ngModel)]="utilisateur.compagnie" name="compagnie" placeholder="Entrez votre compagnie">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" [(ngModel)]="utilisateur.password" name="password"  placeholder="Saisir le password" required> <!--pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"*/>
+              <div class="invalid-feedback">
+                Password must be at least 8 characters long and contain at least one number, one uppercase letter, one lowercase letter, and one special character.
+              </div>-->
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" id="confirmPassword"  [(ngModel)]="utilisateur.confirmPassword" name="confirmPassword" placeholder="Confirmer le password" required>
+              <div class="invalid-feedback" *ngIf="signUpForm.errors?.['passwordsMismatch']">
+                Passwords do not match.
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <button type="button" class="btn btn-primary" (click)="ajouterUtilisateur()" [disabled]="!utilisateur.nom || !utilisateur.prenom || !utilisateur.email">
-            {{ isEditing ? 'Modifier' : 'Enregistrer' }}
-          </button>
-          <button *ngIf="isEditing" type="button" class="btn btn-secondary ml-2" (click)="cancelEdit()">Annuler</button>
+        <div class="button-row">
+          <button *ngIf="!isEditing" (click)="ajouterUtilisateur()" type="button" class="btn btn-primary btn-sm">Enregistrer</button>
+          <button *ngIf="isEditing" (click)="ajouterUtilisateur()" type="button" class="btn btn-success btn-sm">Modifier</button>
+          <button *ngIf="isEditing" (click)="cancelEdit()" type="button" class="btn btn-default btn-sm">Annuler</button>
         </div>
       </form>
 
-      <hr *ngIf="utilisateurs.length > 0">
-
       <div class="table-responsive" *ngIf="utilisateurs.length > 0; else noUtilisateurs">
-        <h4>Liste des Utilisateurs</h4>
-        <table class="table table-bordered table-striped table-hover">
+        <table class="table table-bordered table-striped table-hover table-condensed">
           <thead>
             <tr class="info">
-              <th>ID</th>
               <th>Nom</th>
               <th>Prénom</th>
               <th>Email</th>
@@ -81,15 +106,14 @@
               <th>Supprimer</th>
             </tr>
           </thead>
-          <tbody>
-            <tr *ngFor="let user of utilisateurs">
-              <td>{{ user.id }}</td>
+          <tbody style="font-size:1.2rem;">
+            <tr *ngFor="let user of paginatedUtilisateurs">
               <td>{{ user.nom }}</td>
               <td>{{ user.prenom }}</td>
               <td>{{ user.email }}</td>
               <td>{{ user.pays }}</td>
               <td>{{ user.ville }}</td>
-              <td>{{ user.codePostale }}</td>
+              <td>{{ user.codePostal }}</td>
               <td>{{ user.telephone }}</td>
               <td>{{ user.compagnie }}</td>
               <td align="center">              
@@ -106,11 +130,30 @@
             </tr>
           </tbody>
         </table>
+
+        <nav *ngIf="utilisateurs.length > pageSize" aria-label="Pagination utilisateurs" class="text-center">
+          <ul class="pagination" style="margin: 10px 0 0 0;">
+            <li [class.disabled]="currentPage === 1">
+              <a href="javascript:void(0)" (click)="goToPage(currentPage - 1)">Precedent</a>
+            </li>
+            <li *ngFor="let page of pages" [class.active]="page === currentPage">
+              <a href="javascript:void(0)" (click)="goToPage(page)">{{ page }}</a>
+            </li>
+            <li [class.disabled]="currentPage === totalPages">
+              <a href="javascript:void(0)" (click)="goToPage(currentPage + 1)">Suivant</a>
+            </li>
+          </ul>
+        </nav>
       </div>
 
       <ng-template #noUtilisateurs>
         <div class="alert alert-info" *ngIf="!isEditing">Aucun utilisateur enregistré</div>
       </ng-template>
+      <footer class="app-footer">
+        <div class="container">
+          <small>&copy; 2026 Zinda Production — Tous droits réservés.</small>
+        </div>
+      </footer>
     </div>
   </div>
 </div>

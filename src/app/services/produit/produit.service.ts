@@ -1,10 +1,12 @@
 import { Injectable, inject  } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from "rxjs/operators";
 import { ResponseProduit } from '../../model/ResponseProduit';
 import { Produit } from "../../model/Produit";
 import { CommentaireProduit } from "../../model/CommentaireProduit";
+import { environment } from '../../environments/environment';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +18,13 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
  constructor() { }
 
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8081'; // URL de votre API
-
+  private authService = inject(AuthService);
+  private apiUrl = environment.apiUrl; 
+  
   // Exemple d'un appel GET
   getProduit1(): Observable<ResponseProduit> {
         return this.http
-      .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/false`)
+      .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/true`)
       .pipe(
          map((result: ResponseProduit) => {
            return result;

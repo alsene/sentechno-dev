@@ -16,16 +16,17 @@ export class LoginComponent {
   password = '';
   error = '';
 
-
   router = inject(Router) as Router;
   auth = inject(AuthService);
 
   login() {
-    if (this.auth.login(this.email, this.password)) {
-      this.error = '';
-      this.router.navigate(['/']);
-    } else {
-      this.error = 'Email ou mot de passe incorrect.';
-    }
+    this.auth.login(this.email, this.password).subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.error = '';
+        this.router.navigate(['/']);
+      } else {
+        this.error = 'Email ou mot de passe incorrect.';
+      }
+    });
   }
 }

@@ -32,6 +32,11 @@ export class SuiviProduitComponent {
 
   responseProduit: any= ResponseProduit;
   listeProduits:Produit [] = [];
+  listeProduitsPourQualite:Produit [] = [];
+  listeProduitsPourFulminer:Produit [] = [];
+  listeProduitsConforme:Produit [] = [];
+  listeProduitsExpedier:Produit [] = [];
+  listeProduitsArecycler:Produit [] = [];
   listeCommentaire:CommentaireProduit[] = [];
   typeProduitList: string[] = [];
   listeClients:Array<Client>| [] = [];
@@ -57,7 +62,12 @@ export class SuiviProduitComponent {
       next: (data) => {
         this.responseProduit = data;  
         console.log('Produit récupéré:', this.responseProduit);  
-        this.listeProduits = this.responseProduit ? this.responseProduit.produits : [];
+        this.listeProduits = this.responseProduit ? this.responseProduit.produitsPourQualite : [];
+        this.listeProduitsPourQualite = this.responseProduit ? this.responseProduit.produitsPourQualite : [];
+        this.listeProduitsPourFulminer = this.responseProduit ? this.responseProduit.produitsPourFulminer : [];
+        this.listeProduitsConforme = this.responseProduit ? this.responseProduit.produitsConforme : [];
+        this.listeProduitsExpedier = this.responseProduit ? this.responseProduit.produitsExpedier : [];
+        this.listeProduitsArecycler = this.responseProduit ? this.responseProduit.produitsArecycler : [];
         this.listeClients =  this.responseProduit ? this.responseProduit.clients : [];
         this.listeLot =  this.responseProduit ? this.responseProduit.lots : [];
         this.listeLotBag =  this.responseProduit ? this.responseProduit.lotBags : [];
@@ -161,7 +171,30 @@ export class SuiviProduitComponent {
     event.preventDefault();
     this.produitService.toggleSelectAll(this.listeProduits);
   }
-
+  pageSizeConforme = 7;
+  currentPageConforme = 1;
+  get totalPagesConforme(): number { 
+    return this.produitService.totalPages(this.listeProduitsConforme, this.pageSizeConforme);
+  }
+  get pagesConforme(): number[] {
+    return this.produitService.pages(this.totalPagesConforme);
+  }
+  get pagedProduitsConforme(): any[] {
+    return this.produitService.pagedProduits(this.listeProduitsConforme, this.currentPageConforme, this.pageSizeConforme);
+  }
+  changePageConforme(page: number): void {
+    this.currentPageConforme = this.produitService.changePage(page, this.totalPagesConforme);
+  }
+  private adjustCurrentPageConforme(): void {
+    this.currentPageConforme = this.produitService.adjustCurrentPage(this.currentPageConforme, this.totalPagesConforme);
+  }
+  get allSelectedConforme(): boolean {
+    return this.produitService.allSelected(this.listeProduitsConforme);
+  }
+  toggleSelectAllConforme(event: Event): void {
+    event.preventDefault();
+    this.produitService.toggleSelectAll(this.listeProduitsConforme);
+  }
   addProduct() {
     if (this.produit.code !== '') {
       console.log('add produit:', this.produit);  

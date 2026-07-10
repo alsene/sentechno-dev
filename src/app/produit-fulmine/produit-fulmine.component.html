@@ -1,12 +1,7 @@
 
     <div class="panel-body">
-      <div class="alert alert-info" style="padding:6px 12px; margin:0;">
-        <strong>Produits à fulminer</strong>
-      </div>
-      <hr>
-
-      <div class="table-responsive" *ngIf="listeProduits.length>0; else noProducts">
-        <div class="alert alert-info" style="padding:6px 12px; margin:0;"> <strong>Liste des big bags produits :</strong></div>
+      <div class="table-responsive" *ngIf="listeProduitsPourFulminer.length>0; else noProducts">
+        <div class="alert alert-info " style="padding:6px 12px; margin:0; text-align:center;"> <strong >Liste des produits à fulminer</strong></div> 
         <table class="table table-bordered table-striped table-hover table-condensed">
           <thead>
           <tr class="info">
@@ -29,12 +24,12 @@
             <td align="center"><input type="checkbox" [(ngModel)]="c.selected" name="selected-{{c.id}}"></td>
             <td>{{ c.code }}</td>
             <td>{{ c.name }}</td>
-            <td>{{ c.lotProduit }}</td>
-            <td>{{ c.lotBigBag }}</td>
-            <td>{{ c.silo }}</td>
-            <td>{{ c.client }}</td>
+            <td>{{ c.lot.libelle }}</td>
+            <td>{{ c.lotBag.libelle }}</td>
+            <td>{{ c.silo.libelle }}</td>
+            <td>{{ c.client.nom }}</td>
             <td>{{ c.quantite }}</td>
-            <td>{{ c.operateur }}</td>
+            <td>{{ c.operateur.nom }}</td>
             <td>{{ c.qualite }}</td>
             <td class="text-center">
               <span *ngIf="c.fulmine">✅</span>
@@ -67,12 +62,74 @@
       <ng-template #noProducts>
         <div class="alert alert-info">Liste des big bags produits</div>
       </ng-template>
-
-        <form>
-             <div class="button-row">
-                <button  (click)="addCommentaire(produit.code)" type="button" class="btn btn-info btn-sm btn-add-comment" >Fulminer</button>
-            </div>
-        </form>
+      <form>
+        <div class="button-row">
+          <button  (click)="updateProduct()" type="button" class="btn btn-info btn-sm btn-add-comment" >Fulminer</button>
+        </div>
+      </form>
+      <hr>
+      <div class="table-responsive" *ngIf="listeProduitsFulminer.length>0; else noProductsFulminer">
+        <div class="alert alert-info " style="padding:6px 12px; margin:0; text-align:center;"> <strong >Liste des produits à fulminer</strong></div> 
+        <table class="table table-bordered table-striped table-hover table-condensed">
+          <thead>
+          <tr class="info">
+            <th><a href="#" (click)="toggleSelectAllConforme($event)">Choisir</a></th>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Lot</th>
+            <th>Bag</th>
+            <th>Silo</th>
+            <th>Client</th>
+            <th>Quantité</th>
+            <th>Operateur</th>
+            <th>Qualité</th>
+            <th>Fulminé</th>
+            <th>Date</th>
+          </tr>
+          </thead>
+          <tbody style="font-size:1.2rem;">
+          <tr *ngFor="let c of pagedProduitsConforme">
+            <td align="center"><input type="checkbox" [(ngModel)]="c.selected" name="selected-{{c.id}}"></td>
+            <td>{{ c.code }}</td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.lot.libelle }}</td>
+            <td>{{ c.lotBag.libelle }}</td>
+            <td>{{ c.silo.libelle }}</td>
+            <td>{{ c.client.nom }}</td>
+            <td>{{ c.quantite }}</td>
+            <td>{{ c.operateur.nom }}</td>
+            <td>{{ c.qualite }}</td>
+            <td class="text-center">
+              <span *ngIf="c.fulmine">✅</span>
+              <span *ngIf="!c.fulmine">Non</span>
+            </td>
+            <td><span class="badge">{{today}}</span></td>
+          </tr>
+          </tbody>
+        </table>
+        <nav class="pagination-nav" aria-label="Pagination" *ngIf="totalPagesConforme > 1">
+          <ul class="pagination justify-content-center" style="margin-top:10px;">
+            <li class="page-item" [class.disabled]="currentPageConforme === 1">
+              <a class="page-link" href="#" (click)="changePage(1); $event.preventDefault()">«</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPageConforme === 1">
+              <a class="page-link" href="#" (click)="changePage(currentPageConforme - 1); $event.preventDefault()">‹</a>
+            </li>
+            <li class="page-item" *ngFor="let page of pagesConforme" [class.active]="currentPageConforme === page">
+              <a class="page-link" href="#" (click)="changePage(page); $event.preventDefault()">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPageConforme === totalPagesConforme">
+              <a class="page-link" href="#" (click)="changePage(currentPageConforme + 1); $event.preventDefault()">›</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPageConforme === totalPagesConforme">
+              <a class="page-link" href="#" (click)="changePage(totalPagesConforme); $event.preventDefault()">»</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <ng-template #noProductsFulminer>
+        <div class="alert alert-info">Liste des produits à fulminer est vide</div>
+      </ng-template>
   </div>
    <!--  </div>
   </div>
