@@ -1,0 +1,92 @@
+<div class="container responsive-container">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Saisie des informations profil</div>
+		<div class="panel-body">
+			<form class="form-frame">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="libelle">Libelle</label>
+							<input type="text" class="form-control" id="libelle" [(ngModel)]="profil.libelle" name="libelle" placeholder="Saisir le libelle">
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="description">Description</label>
+							<input type="text" class="form-control" id="description" [(ngModel)]="profil.description" name="description" placeholder="Saisir la description">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label for="typeProfil">Type Profil</label>
+							<select class="form-control" id="typeProfil" [(ngModel)]="profil.typeProfil" name="typeProfil">
+								<option value="">-- Sélectionner --</option>
+								<option *ngFor="let type of typeProfilOptions" [value]="type">{{ type }}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="button-row">
+					<button *ngIf="!isEditing" (click)="ajouterProfil()" type="button" class="btn btn-primary btn-sm">Enregistrer</button>
+					<button *ngIf="isEditing" (click)="ajouterProfil()" type="button" class="btn btn-success btn-sm">Modifier</button>
+					<button *ngIf="isEditing" (click)="cancelEdit()" type="button" class="btn btn-default btn-sm">Annuler</button>
+				</div>
+			</form>
+
+			<div class="table-responsive" *ngIf="profils.length > 0; else noProfils">
+				<table class="table table-bordered table-striped table-hover table-condensed">
+					<thead>
+						<tr class="info">
+							<th>Libelle</th>
+							<th>Description</th>
+							<th>Type Profil</th>
+							<th>Modifier</th>
+							<th>Supprimer</th>
+						</tr>
+					</thead>
+					<tbody style="font-size:1.2rem;">
+						<tr *ngFor="let item of paginatedProfils">
+							<td>{{ item.libelle }}</td>
+							<td>{{ item.description }}</td>
+							<td>{{ item.typeProfil }}</td>
+							<td align="center">
+								<button (click)="editProfil(item)" class="btn btn-warning btn-xs" title="Modifier">
+									<i class="glyphicon glyphicon-pencil"></i>
+								</button>
+							</td>
+							<td align="center">
+								<button (click)="supprimerProfil(item.id)" class="btn btn-danger btn-xs" title="Supprimer">
+									<i class="glyphicon glyphicon-trash"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<nav *ngIf="profils.length > pageSize" aria-label="Pagination profils" class="text-center">
+					<ul class="pagination" style="margin: 10px 0 0 0;">
+						<li [class.disabled]="currentPage === 1">
+							<a href="javascript:void(0)" (click)="goToPage(currentPage - 1)">Precedent</a>
+						</li>
+						<li *ngFor="let page of pages" [class.active]="page === currentPage">
+							<a href="javascript:void(0)" (click)="goToPage(page)">{{ page }}</a>
+						</li>
+						<li [class.disabled]="currentPage === totalPages">
+							<a href="javascript:void(0)" (click)="goToPage(currentPage + 1)">Suivant</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+
+			<ng-template #noProfils>
+				<div class="alert alert-info" *ngIf="!isEditing">Aucun profil enregistré</div>
+			</ng-template>
+            <footer class="app-footer">
+                <div class="container">
+                <small>&copy; 2026 Zinda Production — Tous droits réservés.</small>
+                </div>
+            </footer>
+        </div>
+	</div>
+</div>
