@@ -1,7 +1,7 @@
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, catchError, map, of, tap } from 'rxjs';
-import { UtitlisateurService } from '../services/utilisateur/utitlisateur.service';
+import { UtitlisateurService } from './utilisateur/utitlisateur.service';
 import { Utilisateur } from '../model/Utilisateur';
 
 const TOKEN_KEY = 'auth_token';
@@ -9,9 +9,8 @@ const TOKEN_KEY = 'auth_token';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly utilisateurService = inject(UtitlisateurService);
   private loggedIn = this.hasStoredToken();
-
-  constructor(private utilisateurService: UtitlisateurService) {}
 
   login(email: string, password: string): Observable<boolean> {
     return this.utilisateurService.login(email, password).pipe(

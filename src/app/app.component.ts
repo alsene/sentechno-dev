@@ -1,25 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { AboutComponent } from './about/about.component';
-import { ContactsComponent } from './contacts/contacts.component';
-import { ProduitComponent } from './produit/produit.component';
-
-import { UtilisateurComponent } from './utilisateur/utilisateur.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SuiviProduitComponent } from './suivi-produit/suivi-produit.component';
-import { QualiteProduitComponent } from './qualite-produit/qualite-produit.component';
-import { ProduitFulmineComponent } from './produit-fulmine/produit-fulmine.component';
-import { ProduitTableauBordComponent } from './produit-tableau-bord/produit-tableau-bord.component';
+
 
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, FormsModule, CommonModule, ProduitComponent, UtilisateurComponent, SuiviProduitComponent, QualiteProduitComponent,
-    ProduitFulmineComponent, ProduitTableauBordComponent, AboutComponent, ContactsComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, FormsModule, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

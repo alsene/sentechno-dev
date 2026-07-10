@@ -19,6 +19,7 @@ export const routes: Routes = [
   { path: 'contacts', component: ContactsComponent }, // Autre route
   { path: 'about', component: AboutComponent }, // Autre route
   { path: 'login', component: LoginComponent },
+  { path: 'profil', component: ProfilComponent },
   { path: 'tableau-bord', component: ProduitTableauBordComponent },
   { path: '**', redirectTo: '' }
 ];
