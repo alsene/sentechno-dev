@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://api-dev.monapp.com',
+  apiUrl: 'https://api-dev.sentechno-dev.com',
   environmentName: 'DEV'
 };

@@ -1,5 +1,5 @@
 {
-  "name": "gestion-produit-public",
+  "name": "sentechno-dev",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:gestion-produit-public": "node dist/gestion-produit-public/server/server.mjs"
+    "serve:ssr:sentechno-dev": "node dist/sentechno-dev/server/server.mjs"
   },
   "private": true,
   "dependencies": {

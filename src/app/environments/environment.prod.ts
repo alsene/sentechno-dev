@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.gestion-produit-public.com',
+  apiUrl: 'https://api.sentechno-dev.com',
   environmentName: 'PROD'
 };
