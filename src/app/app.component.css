@@ -52,15 +52,6 @@
   font-size: 24px;
 }
 
-.logo-image-small {
-  display: block;
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin: 8px auto 0;
-}
-
 .logo-text {
   color: #2d3748;
 }
@@ -116,17 +107,6 @@
   .header-nav {
     width: 100%;
     justify-content: flex-start;
-  }
-
-  .logo-image-small {
-    width: 50px;
-    height: 50px;
-  }
-
-  :host::before,
-  :host::after {
-    width: 42px;
-    background-size: 34px auto;
   }
 
   .page-content-wrap {

@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://api-dev.sentechno-dev.com',
+  apiUrl: 'http://localhost:8081',
   environmentName: 'DEV'
 };
