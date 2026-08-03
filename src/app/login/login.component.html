@@ -53,15 +53,24 @@
             <i class="icon-lock">🔒</i>
             Mot de passe
           </label>
-          <input 
-            type="password" 
-            id="password" 
-            class="form-control-login" 
-            [(ngModel)]="password" 
-            name="password" 
-            placeholder="••••••••"
-            required 
-            autocomplete="current-password">
+          <div class="password-input-wrapper">
+            <input 
+              [type]="showPassword ? 'text' : 'password'" 
+              id="password" 
+              class="form-control-login password-input" 
+              [(ngModel)]="password" 
+              name="password" 
+              placeholder="••••••••"
+              required 
+              autocomplete="current-password">
+            <button 
+              type="button" 
+              class="password-toggle-btn" 
+              (click)="togglePasswordVisibility()" 
+              [attr.aria-label]="showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'">
+              {{ showPassword ? '🙈' : '👁️' }}
+            </button>
+          </div>
         </div>
 
         <!-- Error Message -->

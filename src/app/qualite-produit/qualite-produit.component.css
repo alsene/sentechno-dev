@@ -1,9 +1,49 @@
 .sidebar-menu {
   margin-top: 0.5rem;
 }
+
 .sidebar-menu .nav > li > a {
   padding: 10px 12px;
+  display: block;
+  border-radius: 6px;
+  transition: background-color 0.2s;
 }
+
 .sidebar-menu .nav > li > a:hover {
   background-color: #e7f3fe;
+  text-decoration: none;
+}
+
+/* On mobile, show sidebar above main content */
+@media (max-width: 767px) {
+  .qualite-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .qualite-sidebar {
+    order: -1;
+    margin-bottom: 12px;
+  }
+
+  .qualite-main {
+    order: 0;
+  }
+
+  .sidebar-menu .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .sidebar-menu .nav > li {
+    flex: 1 1 auto;
+    min-width: 120px;
+  }
+
+  .sidebar-menu .nav > li > a {
+    text-align: center;
+    font-size: 12px;
+    padding: 8px 6px;
+  }
 }

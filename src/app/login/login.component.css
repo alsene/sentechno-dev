@@ -63,6 +63,36 @@
   margin-bottom: 16px;
 }
 
+.password-input-wrapper {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 52px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px;
+  color: #4a5568;
+}
+
+.password-toggle-btn:hover {
+  color: #2d3748;
+}
+
+.password-toggle-btn:focus {
+  outline: none;
+}
+
 .form-label-login {
   display: flex;
   align-items: center;
@@ -127,7 +157,8 @@
 @media (max-width: 600px) {
   .login-container {
     min-height: auto;
-    padding: 16px;
+    padding: 12px;
+    background: #ddeef5;
   }
 
   .login-wrapper {
@@ -135,22 +166,69 @@
   }
 
   .login-card {
-    border-radius: 12px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   }
 
   .login-header {
-    padding: 28px 20px 20px;
+    padding: 24px 16px 16px;
+  }
+
+  .login-logo {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 16px;
+  }
+
+  .login-logo svg {
+    width: 28px;
+    height: 28px;
   }
 
   .login-title {
-    font-size: 24px;
+    font-size: 22px;
+  }
+
+  .login-subtitle {
+    font-size: 12px;
   }
 
   .login-form {
-    padding: 18px 20px;
+    padding: 16px;
   }
 
   .form-group-login {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+  }
+
+  .form-control-login,
+  .btn-login {
+    font-size: 13px;
+  }
+
+  .form-label-login {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-header {
+    padding: 20px 12px 12px;
+  }
+
+  .login-title {
+    font-size: 20px;
+  }
+
+  .login-form {
+    padding: 12px;
+  }
+
+  .form-control-login {
+    padding: 10px 12px;
+  }
+
+  .btn-login {
+    padding: 10px 16px;
   }
 }

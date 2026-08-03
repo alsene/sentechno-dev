@@ -17,11 +17,21 @@ import { FormsModule } from '@angular/forms';
 export class AppComponent {
   title = 'FirstApp';
   auth = inject(AuthService);
+  menuOpen = false;
+
   constructor(private router:Router){}
 
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
 
   logout() {
     this.auth.logout();
+    this.menuOpen = false;
     this.router.navigate(['/login']);
   }
 

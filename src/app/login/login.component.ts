@@ -15,9 +15,14 @@ export class LoginComponent {
   email = '';
   password = '';
   error = '';
+  showPassword = false;
 
   router = inject(Router) as Router;
   auth = inject(AuthService);
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   login() {
     this.auth.login(this.email, this.password).subscribe((isLoggedIn) => {

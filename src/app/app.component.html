@@ -7,18 +7,24 @@
   </header>
   <div class="header-content">
     <div class="header-logo">
-      <!--<img src="/ble.WebP" alt="Ble" class="logo-image-small alt-logo" style="width: 50px; height: 50px; margin-right: 10px;"/>--> 
       <span class="logo-icon">📦</span>
       <span class="logo-text">Zinda Production</span>
     </div>
 
-    <nav class="header-nav" *ngIf="auth.isLoggedIn()">
-      <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Produit</a>
-      <a class="nav-link" routerLink="/qualite-produit" routerLinkActive="active">Assurance Qualité</a>
-      <a class="nav-link" routerLink="/utilisateur" routerLinkActive="active">Utilisateur</a>
-      <a class="nav-link" routerLink="/profil" routerLinkActive="active">Profil</a>
-      <a class="nav-link" routerLink="/contacts" routerLinkActive="active">Contacts</a>
-      <a class="nav-link" routerLink="/about" routerLinkActive="active">À propos</a>
+    <button class="hamburger-btn" (click)="toggleMenu()" *ngIf="auth.isLoggedIn()" 
+            [attr.aria-expanded]="menuOpen" aria-label="Menu de navigation">
+      <span class="hamburger-line" [class.open]="menuOpen"></span>
+      <span class="hamburger-line" [class.open]="menuOpen"></span>
+      <span class="hamburger-line" [class.open]="menuOpen"></span>
+    </button>
+
+    <nav class="header-nav" [class.nav-open]="menuOpen" *ngIf="auth.isLoggedIn()">
+      <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeMenu()">Produit</a>
+      <a class="nav-link" routerLink="/qualite-produit" routerLinkActive="active" (click)="closeMenu()">Assurance Qualité</a>
+      <a class="nav-link" routerLink="/utilisateur" routerLinkActive="active" (click)="closeMenu()">Utilisateur</a>
+      <a class="nav-link" routerLink="/profil" routerLinkActive="active" (click)="closeMenu()">Profil</a>
+      <a class="nav-link" routerLink="/contacts" routerLinkActive="active" (click)="closeMenu()">Contacts</a>
+      <a class="nav-link" routerLink="/about" routerLinkActive="active" (click)="closeMenu()">À propos</a>
       <a class="nav-link logout-link" style="cursor:pointer" (click)="logout()">Logout</a>
     </nav>
   </div>
@@ -27,7 +33,6 @@
 <div class="container page-content-wrap">
   <router-outlet></router-outlet>
 </div>
-
 
 
 
