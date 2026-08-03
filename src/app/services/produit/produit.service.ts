@@ -1,12 +1,11 @@
 import { Injectable, inject  } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, tap } from "rxjs/operators";
+import { map, shareReplay, tap } from "rxjs/operators";
 import { ResponseProduit } from '../../model/ResponseProduit';
 import { Produit } from "../../model/Produit";
 import { CommentaireProduit } from "../../model/CommentaireProduit";
 import { environment } from '../../environments/environment';
-import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,30 +17,45 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
  constructor() { }
 
   private http = inject(HttpClient);
-  private authService = inject(AuthService);
   private apiUrl = environment.apiUrl; 
+  private produitsRequest$?: Observable<ResponseProduit>;
+
+  private invalidateProduitsCache(): void {
+    this.produitsRequest$ = undefined;
+  }
   
   // Exemple d'un appel GET
-  getProduit1(): Observable<ResponseProduit> {
-        return this.http
-      .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/true`)
-      .pipe(
-         map((result: ResponseProduit) => {
-           return result;
-         })
-      );
+  getProduit1(forceRefresh = false): Observable<ResponseProduit> {
+    if (forceRefresh || !this.produitsRequest$) {
+      this.produitsRequest$ = this.http
+        .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/true`)
+        .pipe(
+          map((result: ResponseProduit) => {
+            return result;
+          }),
+          shareReplay(1)
+        );
+    }
+
+    return this.produitsRequest$;
   }
   addProduct1(produit: Produit): Observable<Produit> { {
-    return this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouter`, produit);
+    return this.http
+      .post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouter`, produit)
+      .pipe(tap(() => this.invalidateProduitsCache()));
     }
   }
 
   updateProduct1(produit: Produit): Observable<Produit> { {
-    return this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/modifier`, produit);
+    return this.http
+      .post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/modifier`, produit)
+      .pipe(tap(() => this.invalidateProduitsCache()));
     }
   }
   removeProduct1(produit: Produit) {
-    return this.http.post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/supprimer`,produit);
+    return this.http
+      .post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/supprimer`,produit)
+      .pipe(tap(() => this.invalidateProduitsCache()));
   }
 
 
@@ -50,15 +64,21 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
   }
 
   addCommentaire1(commentaireProduit: CommentaireProduit): Observable<CommentaireProduit> { {
-    return this.http.post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouterCommentaire`, commentaireProduit);
+    return this.http
+      .post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouterCommentaire`, commentaireProduit)
+      .pipe(tap(() => this.invalidateProduitsCache()));
     }
   }
    updateCommentaire1(commentaireProduit: CommentaireProduit): Observable<CommentaireProduit> { {
-    return this.http.post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/modifierCommentaire`, commentaireProduit);
+    return this.http
+      .post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/modifierCommentaire`, commentaireProduit)
+      .pipe(tap(() => this.invalidateProduitsCache()));
     }
   }
   removeCommentaire1(commentaireProduit: CommentaireProduit) { {
-    return this.http.post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/supprimerCommentaire`, commentaireProduit);
+    return this.http
+      .post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/supprimerCommentaire`, commentaireProduit)
+      .pipe(tap(() => this.invalidateProduitsCache()));
     }
   }
 
