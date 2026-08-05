@@ -2,6 +2,7 @@ import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { UtitlisateurService } from './utilisateur/utitlisateur.service';
+import { IdleService } from './idle.service';
 import { Utilisateur } from '../model/Utilisateur';
 
 const TOKEN_KEY = 'auth_token';
@@ -10,6 +11,7 @@ const TOKEN_KEY = 'auth_token';
 export class AuthService {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly utilisateurService = inject(UtitlisateurService);
+  private readonly idleService = inject(IdleService);
   private loggedIn = this.hasStoredToken();
 
   login(email: string, password: string): Observable<boolean> {
@@ -19,6 +21,7 @@ export class AuthService {
         if (token) {
           this.storeToken(token);
         }
+        this.idleService.startWatching();
         this.loggedIn = true;
       }),
       map(() => true),
@@ -31,6 +34,7 @@ export class AuthService {
   }
 
   logout() {
+    this.idleService.stopWatching();
     this.loggedIn = false;
     this.clearToken();
   }
