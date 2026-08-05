@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DatePipe , CommonModule, NgIf } from '@angular/common';
+import { DatePipe , CommonModule } from '@angular/common';
 import { ProduitService } from '../services/produit/produit.service';
 import { ResponseProduit } from '../model/ResponseProduit';
 import { Produit } from "../model/Produit";
@@ -15,10 +15,10 @@ import { Utilisateur } from "../model/Utilisateur";
 @Component({
   selector: 'app-facade-produit',
   standalone: true,
-  imports: [FormsModule, CommonModule, NgIf ],
+  imports: [FormsModule, CommonModule ],
   templateUrl: './facade-produit.component.html',
   styleUrl: './facade-produit.component.css',
-  providers: [DatePipe, ProduitService]
+  providers: [DatePipe]
 })
 export class FacadeProduitComponent {
 

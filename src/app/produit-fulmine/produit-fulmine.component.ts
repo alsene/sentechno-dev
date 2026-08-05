@@ -20,7 +20,7 @@ import { forkJoin } from 'rxjs';
   imports: [FormsModule, CommonModule, NgIf ],
   templateUrl: './produit-fulmine.component.html',
   styleUrl: './produit-fulmine.component.css',
-  providers: [DatePipe, ProduitService]
+  providers: [DatePipe]
 })
 export class ProduitFulmineComponent {
   auth = inject(AuthService);
@@ -215,6 +215,14 @@ export class ProduitFulmineComponent {
   }
    getAllCommentsByProduct(codeProduit: string): void {
     this.listeCommentaires = this.produitService.getAllCommentsByProduct(codeProduit);
+  }
+
+  trackById(_index: number, item: any): number | string {
+    return item?.id ?? item?.code ?? _index;
+  }
+
+  trackByPage(_index: number, page: number): number {
+    return page;
   }
   
 }

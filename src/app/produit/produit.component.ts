@@ -18,7 +18,7 @@ import { Utilisateur } from "../model/Utilisateur";
   imports: [FormsModule, CommonModule, NgIf ],
   templateUrl: './produit.component.html',
   styleUrl: './produit.component.css',
-  providers: [DatePipe, ProduitService]
+  providers: [DatePipe]
 })
 
 export class ProduitComponent {
@@ -293,6 +293,14 @@ export class ProduitComponent {
     if (this.editingIndex === index) {
       this.cancelEdit();
     }
+  }
+
+  trackById(_index: number, item: any): number | string {
+    return item?.id ?? item?.code ?? _index;
+  }
+
+  trackByPage(_index: number, page: number): number {
+    return page;
   }
 
 }

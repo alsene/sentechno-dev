@@ -107,7 +107,7 @@
             </tr>
           </thead>
           <tbody style="font-size:1.2rem;">
-            <tr *ngFor="let user of paginatedUtilisateurs">
+            <tr *ngFor="let user of paginatedUtilisateurs; trackBy: trackById">
               <td>{{ user.nom }}</td>
               <td>{{ user.prenom }}</td>
               <td>{{ user.email }}</td>
@@ -136,7 +136,7 @@
             <li [class.disabled]="currentPage === 1">
               <a href="javascript:void(0)" (click)="goToPage(currentPage - 1)">Precedent</a>
             </li>
-            <li *ngFor="let page of pages" [class.active]="page === currentPage">
+            <li *ngFor="let page of pages; trackBy: trackByPage" [class.active]="page === currentPage">
               <a href="javascript:void(0)" (click)="goToPage(page)">{{ page }}</a>
             </li>
             <li [class.disabled]="currentPage === totalPages">

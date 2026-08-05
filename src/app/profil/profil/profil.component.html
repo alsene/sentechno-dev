@@ -21,7 +21,7 @@
 							<label for="typeProfil">Type Profil</label>
 							<select class="form-control" id="typeProfil" [(ngModel)]="profil.typeProfil" name="typeProfil">
 								<option value="">-- Sélectionner --</option>
-								<option *ngFor="let type of typeProfilOptions" [value]="type">{{ type }}</option>
+								<option *ngFor="let type of typeProfilOptions; trackBy: trackByValue" [value]="type">{{ type }}</option>
 							</select>
 						</div>
 					</div>
@@ -46,7 +46,7 @@
 						</tr>
 					</thead>
 					<tbody style="font-size:1.2rem;">
-						<tr *ngFor="let item of paginatedProfils">
+						<tr *ngFor="let item of paginatedProfils; trackBy: trackById">
 							<td>{{ item.libelle }}</td>
 							<td>{{ item.description }}</td>
 							<td>{{ item.typeProfil }}</td>
@@ -69,7 +69,7 @@
 						<li [class.disabled]="currentPage === 1">
 							<a href="javascript:void(0)" (click)="goToPage(currentPage - 1)">Precedent</a>
 						</li>
-						<li *ngFor="let page of pages" [class.active]="page === currentPage">
+						<li *ngFor="let page of pages; trackBy: trackByPage" [class.active]="page === currentPage">
 							<a href="javascript:void(0)" (click)="goToPage(page)">{{ page }}</a>
 						</li>
 						<li [class.disabled]="currentPage === totalPages">

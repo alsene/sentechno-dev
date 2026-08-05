@@ -202,4 +202,12 @@ export class UtilisateurComponent implements OnInit {
 
     this.currentPage = page;
   }
+
+  trackById(_index: number, item: any): number | string {
+    return item?.id ?? _index;
+  }
+
+  trackByPage(_index: number, page: number): number {
+    return page;
+  }
 }

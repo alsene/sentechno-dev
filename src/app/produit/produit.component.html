@@ -31,7 +31,7 @@
                 <label for="typeProduit">Produit</label>
                 <select id="typeProduit" class="form-control input-sm" [(ngModel)]="produit.typeProduit" name="typeProduit">
                   <option [ngValue]="null" disabled>-- Choisir un produit --</option>
-                  <option *ngFor="let typeProduit of listeTypeProduits" [ngValue]="typeProduit">{{ typeProduit.libelle }}</option>
+                  <option *ngFor="let typeProduit of listeTypeProduits; trackBy: trackById" [ngValue]="typeProduit">{{ typeProduit.libelle }}</option>
                 </select>
               </div>
             </div>
@@ -52,7 +52,7 @@
                 <label for="lotProduit">Lot</label>
                 <select id="lotProduit" class="form-control input-sm" [(ngModel)]="produit.lot" name="lotProduit">
                   <option [ngValue]="null" disabled>-- Choisir un lot produit --</option>
-                  <option *ngFor="let lotProduit of listeLot" [ngValue]="lotProduit">{{ lotProduit.libelle }}</option>
+                  <option *ngFor="let lotProduit of listeLot; trackBy: trackById" [ngValue]="lotProduit">{{ lotProduit.libelle }}</option>
                 </select>
               </div>
             </div>
@@ -64,7 +64,7 @@
                 <label for="lotBigBag">Lot Bag</label>
                 <select id="lotBigBag" class="form-control input-sm" [(ngModel)]="produit.lotBag" name="lotBigBag">
                   <option [ngValue]="null" disabled>-- Choisir un Big Bag --</option>
-                  <option *ngFor="let lotBigBag of listeLotBag" [ngValue]="lotBigBag">{{ lotBigBag.libelle }}</option>
+                  <option *ngFor="let lotBigBag of listeLotBag; trackBy: trackById" [ngValue]="lotBigBag">{{ lotBigBag.libelle }}</option>
                 </select>
               </div>
             </div>
@@ -73,7 +73,7 @@
                 <label for="silo">Silo</label>
                 <select id="silo" class="form-control input-sm" [(ngModel)]="produit.silo" name="silo">
                   <option [ngValue]="null" disabled>-- Choisir un silo --</option>
-                  <option *ngFor="let silo of listeSilo" [ngValue]="silo">{{ silo.libelle }}</option>
+                  <option *ngFor="let silo of listeSilo; trackBy: trackById" [ngValue]="silo">{{ silo.libelle }}</option>
                 </select>
               </div>
             </div>
@@ -82,7 +82,7 @@
                 <label for="client">Client</label>
                 <select id="client" class="form-control input-sm" [(ngModel)]="produit.client" name="client">
                   <option [ngValue]="null" disabled>-- Choisir un client --</option>
-                  <option *ngFor="let client of listeClients" [ngValue]="client">{{ client.nom }}</option>
+                  <option *ngFor="let client of listeClients; trackBy: trackById" [ngValue]="client">{{ client.nom }}</option>
                 </select>
               </div>
             </div>
@@ -114,7 +114,7 @@
           </tr>
           </thead>
           <tbody style="font-size:1.2rem;">
-          <tr *ngFor="let c of pagedProduits">
+          <tr *ngFor="let c of pagedProduits; trackBy: trackById">
             <td align="center"><input type="checkbox" [(ngModel)]="c.selected" name="selected-{{c.id}}"></td>
             <td>{{ c.code }}</td>
             <td>{{ c.nom }}</td>
@@ -146,7 +146,7 @@
             <li class="page-item" [class.disabled]="currentPage === 1">
               <a class="page-link" href="#" (click)="changePage(currentPage - 1); $event.preventDefault()">‹</a>
             </li>
-            <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage === page">
+            <li class="page-item" *ngFor="let page of pages; trackBy: trackByPage" [class.active]="currentPage === page">
               <a class="page-link" href="#" (click)="changePage(page); $event.preventDefault()">{{ page }}</a>
             </li>
             <li class="page-item" [class.disabled]="currentPage === totalPages">

@@ -164,4 +164,16 @@ private normalizeUserFromApi(profilage: any): any {
     this.currentPage = page;
   }
 
+  trackById(_index: number, item: Profil): number | string {
+    return item?.id ?? _index;
+  }
+
+  trackByPage(_index: number, page: number): number {
+    return page;
+  }
+
+  trackByValue(_index: number, value: string): string {
+    return value;
+  }
+
 }

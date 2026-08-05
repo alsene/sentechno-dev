@@ -19,7 +19,7 @@ import { CommentaireProduit } from "../model/CommentaireProduit";
   imports: [FormsModule, CommonModule, NgIf ],
   templateUrl: './suivi-produit.component.html',
   styleUrl: './suivi-produit.component.css',
-  providers: [DatePipe, ProduitService]
+  providers: [DatePipe]
 })
 export class SuiviProduitComponent {
   auth = inject(AuthService);
@@ -419,6 +419,18 @@ export class SuiviProduitComponent {
   }
    getAllCommentsByProduct(codeProduit: string): void {
     this.listeCommentaires = this.produitService.getAllCommentsByProduct(codeProduit);
+  }
+
+  trackById(_index: number, item: any): number | string {
+    return item?.id ?? item?.code ?? _index;
+  }
+
+  trackByPage(_index: number, page: number): number {
+    return page;
+  }
+
+  trackByValue(_index: number, value: string): string {
+    return value;
   }
 
   /*cancelEditCommentaire() {

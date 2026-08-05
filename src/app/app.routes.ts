@@ -1,25 +1,15 @@
 
 import { Routes } from '@angular/router';
-import { AboutComponent } from './about/about.component';
-import { ContactsComponent } from './contacts/contacts.component';
-import { ProduitComponent } from './produit/produit.component';
-import { SuiviProduitComponent } from './suivi-produit/suivi-produit.component';
-import { UtilisateurComponent } from './utilisateur/utilisateur.component';
-import { LoginComponent } from './login/login.component';
-import { QualiteProduitComponent } from './qualite-produit/qualite-produit.component';
-import { ProduitTableauBordComponent } from './produit-tableau-bord/produit-tableau-bord.component';
-import { ProfilComponent } from './profil/profil/profil.component';
 
 export const routes: Routes = [
-  { path: '', component: ProduitComponent },        // Route par défaut
-  { path: 'suivi-produit', component: SuiviProduitComponent }, // Autre route
-  { path: 'qualite-produit', component: QualiteProduitComponent }, // Autre route
-  { path: 'utilisateur', component: UtilisateurComponent }, // Autre route
-  { path: 'profil', component: ProfilComponent }, // Autre route
-  { path: 'contacts', component: ContactsComponent }, // Autre route
-  { path: 'about', component: AboutComponent }, // Autre route
-  { path: 'login', component: LoginComponent },
-  { path: 'profil', component: ProfilComponent },
-  { path: 'tableau-bord', component: ProduitTableauBordComponent },
+  { path: '', loadComponent: () => import('./produit/produit.component').then((m) => m.ProduitComponent) },
+  { path: 'suivi-produit', loadComponent: () => import('./suivi-produit/suivi-produit.component').then((m) => m.SuiviProduitComponent) },
+  { path: 'qualite-produit', loadComponent: () => import('./qualite-produit/qualite-produit.component').then((m) => m.QualiteProduitComponent) },
+  { path: 'utilisateur', loadComponent: () => import('./utilisateur/utilisateur.component').then((m) => m.UtilisateurComponent) },
+  { path: 'profil', loadComponent: () => import('./profil/profil/profil.component').then((m) => m.ProfilComponent) },
+  { path: 'contacts', loadComponent: () => import('./contacts/contacts.component').then((m) => m.ContactsComponent) },
+  { path: 'about', loadComponent: () => import('./about/about.component').then((m) => m.AboutComponent) },
+  { path: 'login', loadComponent: () => import('./login/login.component').then((m) => m.LoginComponent) },
+  { path: 'tableau-bord', loadComponent: () => import('./produit-tableau-bord/produit-tableau-bord.component').then((m) => m.ProduitTableauBordComponent) },
   { path: '**', redirectTo: '' }
 ];
