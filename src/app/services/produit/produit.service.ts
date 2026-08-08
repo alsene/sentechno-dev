@@ -18,6 +18,7 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
 
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl; 
+    private apiUrlProduction = environment.pathApiProduction;
   private produitsRequest$?: Observable<ResponseProduit>;
 
   private invalidateProduitsCache(): void {
@@ -28,7 +29,7 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
   getProduit1(forceRefresh = false): Observable<ResponseProduit> {
     if (forceRefresh || !this.produitsRequest$) {
       this.produitsRequest$ = this.http
-        .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/true`)
+        .get<ResponseProduit>(`${this.apiUrl}/${this.apiUrlProduction}/assurance-qualite/true`)
         .pipe(
           map((result: ResponseProduit) => {
             return result;
@@ -41,20 +42,20 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
   }
   addProduct1(produit: Produit): Observable<Produit> { {
     return this.http
-      .post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouter`, produit)
+      .post<Produit>(`${this.apiUrl}/${this.apiUrlProduction}/ajouter`, produit)
       .pipe(tap(() => this.invalidateProduitsCache()));
     }
   }
 
   updateProduct1(produit: Produit): Observable<Produit> { {
     return this.http
-      .post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/modifier`, produit)
+      .post<Produit>(`${this.apiUrl}/${this.apiUrlProduction}/modifier`, produit)
       .pipe(tap(() => this.invalidateProduitsCache()));
     }
   }
   removeProduct1(produit: Produit) {
     return this.http
-      .post<Produit>(`${this.apiUrl}/api/production/endpoint/produit/v1/supprimer`,produit)
+      .post<Produit>(`${this.apiUrl}/${this.apiUrlProduction}/supprimer`,produit)
       .pipe(tap(() => this.invalidateProduitsCache()));
   }
 
@@ -65,19 +66,19 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
 
   addCommentaire1(commentaireProduit: CommentaireProduit): Observable<CommentaireProduit> { {
     return this.http
-      .post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/ajouterCommentaire`, commentaireProduit)
+      .post<CommentaireProduit>(`${this.apiUrl}/${this.apiUrlProduction}/ajouterCommentaire`, commentaireProduit)
       .pipe(tap(() => this.invalidateProduitsCache()));
     }
   }
    updateCommentaire1(commentaireProduit: CommentaireProduit): Observable<CommentaireProduit> { {
     return this.http
-      .post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/modifierCommentaire`, commentaireProduit)
+      .post<CommentaireProduit>(`${this.apiUrl}/${this.apiUrlProduction}/modifierCommentaire`, commentaireProduit)
       .pipe(tap(() => this.invalidateProduitsCache()));
     }
   }
   removeCommentaire1(commentaireProduit: CommentaireProduit) { {
     return this.http
-      .post<CommentaireProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/supprimerCommentaire`, commentaireProduit)
+      .post<CommentaireProduit>(`${this.apiUrl}/${this.apiUrlProduction}/supprimerCommentaire`, commentaireProduit)
       .pipe(tap(() => this.invalidateProduitsCache()));
     }
   }
@@ -89,7 +90,7 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
 
   login(email: string, password: string): Observable<ResponseProduit>  {
     return this.http
-      .get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/VERT`)
+      .get<ResponseProduit>(`${this.apiUrl}/${this.apiUrlProduction}/assurance-qualite/VERT`)
       .pipe(
          map((result: ResponseProduit) => {
            return result;
@@ -97,10 +98,10 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
       );
   }
   getProduit1_old(): Observable<ResponseProduit> {
-    return this.http.get<ResponseProduit>(`${this.apiUrl}/api/production/endpoint/produit/v1/assurance-qualite/VERT`);
+    return this.http.get<ResponseProduit>(`${this.apiUrl}/${this.apiUrlProduction}/assurance-qualite/VERT`);
   }
    getProduit2(): Observable<ResponseProduit> {
-     return this.http.get<ResponseProduit>('URL_API');
+     return this.http.get<ResponseProduit>(`${this.apiUrl}/${this.apiUrlProduction}/assurance-qualite/VERT`);
    }
   // Exemple d'un appel POST
   ajouterDonnee(nouvelleDonnee: any): Observable<any> {

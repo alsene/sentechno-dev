@@ -14,6 +14,7 @@ export class UtitlisateurService {
   constructor() { }
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl; // URL de votre API
+    private apiUrlAdmin = environment.pathApiAdmin;
   private utilisateursRequest$?: Observable<Utilisateur[]>;
   utilisateur: Utilisateur = new Utilisateur();
   // Exemple d'un appel GET
@@ -36,7 +37,7 @@ export class UtitlisateurService {
   getUtilisateurs(forceRefresh = false): Observable<Utilisateur[]> {
     if (forceRefresh || !this.utilisateursRequest$) {
       this.utilisateursRequest$ = this.http
-        .get<Utilisateur[]>(`${this.apiUrl}/api/production/endpoint/administration/v1/afficherUtilisateurs`)
+        .get<Utilisateur[]>(`${this.apiUrl}/${this.apiUrlAdmin}/afficherUtilisateurs`)
         .pipe(
           map((result: Utilisateur[]) => {
             return result;
@@ -50,20 +51,20 @@ export class UtitlisateurService {
 
   addUtilisateur(utilisateur: Utilisateur): Observable<Utilisateur> { {
     return this.http
-      .post<Utilisateur>(`${this.apiUrl}/api/production/endpoint/administration/v1/ajouterUtilisateur`, utilisateur)
+      .post<Utilisateur>(`${this.apiUrl}/${this.apiUrlAdmin}/ajouterUtilisateur`, utilisateur)
       .pipe(tap(() => this.invalidateUtilisateursCache()));
     }
   }
 
   updateUtilisateur(utilisateur: Utilisateur): Observable<Utilisateur> { {
     return this.http
-      .post<Utilisateur>(`${this.apiUrl}/api/production/endpoint/administration/v1/modifierUtilisateur`, utilisateur)
+      .post<Utilisateur>(`${this.apiUrl}/${this.apiUrlAdmin}/modifierUtilisateur`, utilisateur)
       .pipe(tap(() => this.invalidateUtilisateursCache()));
     }
   }
   removeUtilisateur(utilisateur: Utilisateur) {
     return this.http
-      .post<Utilisateur>(`${this.apiUrl}/api/production/endpoint/administration/v1/supprimerUtilisateur`, utilisateur)
+      .post<Utilisateur>(`${this.apiUrl}/${this.apiUrlAdmin}/supprimerUtilisateur`, utilisateur)
       .pipe(tap(() => this.invalidateUtilisateursCache()));
   }
 

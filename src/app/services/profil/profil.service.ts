@@ -12,6 +12,7 @@ export class ProfilService {
 
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
+  private apiUrlAdmin = environment.pathApiAdmin;
   private profilsRequest$?: Observable<Profil[]>;
   profil: Profil = new Profil();
 
@@ -24,7 +25,7 @@ export class ProfilService {
   getProfils(forceRefresh = false): Observable<Profil[]> {
     if (forceRefresh || !this.profilsRequest$) {
       this.profilsRequest$ = this.http
-        .get<Profil[]>(`${this.apiUrl}/api/production/endpoint/administration/v1/afficherProfils`)
+        .get<Profil[]>(`${this.apiUrl}/${this.apiUrlAdmin}/afficherProfils`)
         .pipe(
           map((result: Profil[]) => result),
           shareReplay(1)
@@ -36,19 +37,19 @@ export class ProfilService {
 
   addProfil(profil: Profil): Observable<Profil> {
     return this.http
-      .post<Profil>(`${this.apiUrl}/api/production/endpoint/administration/v1/ajouterProfil`, profil)
+      .post<Profil>(`${this.apiUrl}/${this.apiUrlAdmin}/ajouterProfil`, profil)
       .pipe(tap(() => this.invalidateProfilsCache()));
   }
 
   updateProfil(profil: Profil): Observable<Profil> {
     return this.http
-      .post<Profil>(`${this.apiUrl}/api/production/endpoint/administration/v1/modifierProfil`, profil)
+      .post<Profil>(`${this.apiUrl}/${this.apiUrlAdmin}/modifierProfil`, profil)
       .pipe(tap(() => this.invalidateProfilsCache()));
   }
 
   removeProfil(profil: Profil) {
     return this.http
-      .post<Profil>(`${this.apiUrl}/api/production/endpoint/administration/v1/supprimerProfil`, profil)
+      .post<Profil>(`${this.apiUrl}/${this.apiUrlAdmin}/supprimerProfil`, profil)
       .pipe(tap(() => this.invalidateProfilsCache()));
   }
 
