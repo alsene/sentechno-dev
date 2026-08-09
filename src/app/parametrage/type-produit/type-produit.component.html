@@ -1,0 +1,76 @@
+<div class="container responsive-container">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Saisie des informations type produit</div>
+		<div class="panel-body">
+			<form class="form-frame">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="libelle">Libelle</label>
+							<input type="text" class="form-control" id="libelle" [(ngModel)]="typeProduit.libelle" name="libelle" placeholder="Saisir le libelle">
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group">
+							<label for="description">Description</label>
+							<input type="text" class="form-control" id="description" [(ngModel)]="typeProduit.description" name="description" placeholder="Saisir la description">
+						</div>
+					</div>
+				</div>
+
+				<div class="button-row">
+					<button *ngIf="!isEditing" (click)="ajouterTypeProduit()" type="button" class="btn btn-primary btn-sm">Enregistrer</button>
+					<button *ngIf="isEditing" (click)="ajouterTypeProduit()" type="button" class="btn btn-success btn-sm">Modifier</button>
+					<button *ngIf="isEditing" (click)="cancelEdit()" type="button" class="btn btn-default btn-sm">Annuler</button>
+				</div>
+			</form>
+
+			<div class="table-responsive" *ngIf="typesProduit.length > 0; else noTypeProduits">
+				<table class="table table-bordered table-striped table-hover table-condensed">
+					<thead>
+						<tr class="info">
+							<th>Libelle</th>
+							<th>Description</th>
+							<th>Modifier</th>
+							<th>Supprimer</th>
+						</tr>
+					</thead>
+					<tbody style="font-size:1.2rem;">
+						<tr *ngFor="let item of paginatedTypeProduits; trackBy: trackById">
+							<td>{{ item.libelle }}</td>
+							<td>{{ item.description }}</td>
+							<td align="center">
+								<button (click)="editTypeProduit(item)" class="btn btn-warning btn-xs" title="Modifier">
+									<i class="glyphicon glyphicon-pencil"></i>
+								</button>
+							</td>
+							<td align="center">
+								<button (click)="supprimerTypeProduit(item.id)" class="btn btn-danger btn-xs" title="Supprimer">
+									<i class="glyphicon glyphicon-trash"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<nav *ngIf="typesProduit.length > pageSize" aria-label="Pagination types produit" class="text-center">
+					<ul class="pagination" style="margin: 10px 0 0 0;">
+						<li [class.disabled]="currentPage === 1">
+							<a href="javascript:void(0)" (click)="goToPage(currentPage - 1)">Precedent</a>
+						</li>
+						<li *ngFor="let page of pages; trackBy: trackByPage" [class.active]="page === currentPage">
+							<a href="javascript:void(0)" (click)="goToPage(page)">{{ page }}</a>
+						</li>
+						<li [class.disabled]="currentPage === totalPages">
+							<a href="javascript:void(0)" (click)="goToPage(currentPage + 1)">Suivant</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+
+			<ng-template #noTypeProduits>
+				<div class="alert alert-info" *ngIf="!isEditing">Aucun type produit enregistre</div>
+			</ng-template>
+		</div>
+	</div>
+</div>
