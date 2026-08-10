@@ -54,6 +54,7 @@ o	ng g guard <name : Crée un nouveau guard pour contrôler l'accès aux routes.
 o	ng add @angular/material
 o	ng add @ng-bootstrap/ng-bootstrap
 
+
 Autres commandes utiles
 •	ng add <package-name : Ajoute une nouvelle bibliothèque ou fonctionnalité à l'application en utilisant les schémas Angular. 
 •	ng config : Permet de lire ou de modifier des valeurs de configuration dans le fichier angular.json. 
