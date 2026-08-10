@@ -3,5 +3,6 @@ export const environment = {
   apiUrl: 'http://localhost:8081',
   pathApiAdmin: 'api/production/endpoint/administration/v1',
   pathApiProduction: 'api/production/endpoint/produit/v1',
+  enableHydration: false,
   environmentName: 'DEV'
 };
