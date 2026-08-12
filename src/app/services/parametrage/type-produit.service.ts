@@ -24,7 +24,7 @@ export class TypeProduitService {
   getTypeProduits(forceRefresh = false): Observable<TypeProduit[]> {
     if (forceRefresh || !this.typesProduitRequest$) {
       this.typesProduitRequest$ = this.http
-        .get<TypeProduit[]>(`${this.apiUrl}/${this.apiUrlProduction}/afficherTypeProduits`)
+        .get<TypeProduit[]>(`${this.apiUrl}/${this.apiUrlProduction}/obtenirTypeProduits`)
         .pipe(
           map((result: TypeProduit[]) => result),
           shareReplay(1)

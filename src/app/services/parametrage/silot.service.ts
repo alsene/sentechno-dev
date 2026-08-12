@@ -24,7 +24,7 @@ export class SilotService {
   getSilos(forceRefresh = false): Observable<Silo[]> {
     if (forceRefresh || !this.silosRequest$) {
       this.silosRequest$ = this.http
-        .get<Silo[]>(`${this.apiUrl}/${this.apiUrlProduction}/afficherSilos`)
+        .get<Silo[]>(`${this.apiUrl}/${this.apiUrlProduction}/obtenirSilos`)
         .pipe(
           map((result: Silo[]) => result),
           shareReplay(1)

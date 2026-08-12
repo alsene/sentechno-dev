@@ -24,7 +24,7 @@ export class LotService {
   getLots(forceRefresh = false): Observable<Lot[]> {
     if (forceRefresh || !this.lotsRequest$) {
       this.lotsRequest$ = this.http
-        .get<Lot[]>(`${this.apiUrl}/${this.apiUrlProduction}/afficherLots`)
+        .get<Lot[]>(`${this.apiUrl}/${this.apiUrlProduction}/obtenirLots`)
         .pipe(
           map((result: Lot[]) => result),
           shareReplay(1)
