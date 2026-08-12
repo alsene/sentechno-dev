@@ -8,8 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:sentechno-dev": "node dist/sentechno-dev/server/server.mjs",
-    "deploy": "npm run build && wrangler deploy",
-    "preview": "npm run build && wrangler dev"
+    "build:prod": "ng build --configuration=production",
+    "deploy:prod": "npm run build:prod && wrangler deploy"
   },
   "private": true,
   "dependencies": {
