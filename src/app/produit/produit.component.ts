@@ -303,4 +303,69 @@ export class ProduitComponent {
     return page;
   }
 
+  private escapeHtml(value: any): string {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  imprimerProduits(): void {
+    if (this.listeProduits.length === 0) {
+      return;
+    }
+    const printWindow = window.open('', '_blank', 'width=1000,height=700');
+    if (!printWindow) {
+      return;
+    }
+
+    const rows = this.listeProduits.map(p => `
+      <tr>
+        <td>${this.escapeHtml(p.code)}</td>
+        <td>${this.escapeHtml(p.nom)}</td>
+        <td>${this.escapeHtml(p.lot?.libelle)}</td>
+        <td>${this.escapeHtml(p.lotBag?.libelle)}</td>
+        <td>${this.escapeHtml(p.silo?.libelle)}</td>
+        <td>${this.escapeHtml(p.client?.nom)}</td>
+        <td>${this.escapeHtml(p.quantite)}</td>
+        <td>${this.escapeHtml(p.operateur?.nom)}</td>
+      </tr>
+    `).join('');
+
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Produits en cours</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; color: #333; }
+            h2 { text-align: center; margin-bottom: 4px; }
+            p.meta { text-align: center; margin-top: 0; color: #666; }
+            table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+            th, td { border: 1px solid #999; padding: 6px 8px; font-size: 13px; text-align: left; }
+            th { background: #f2f2f2; }
+          </style>
+        </head>
+        <body>
+          <h2>Produits emballés en big bags (CCP2) - En cours</h2>
+          <p class="meta">Date d'impression : ${this.escapeHtml(this.today)}</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Code</th><th>Nom</th><th>Lot</th><th>Bag</th><th>Silo</th><th>Client</th><th>Quantité</th><th>Opérateur</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.onload = () => {
+      printWindow.focus();
+      printWindow.print();
+    };
+  }
+
 }
