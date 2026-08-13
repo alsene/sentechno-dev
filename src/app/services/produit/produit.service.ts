@@ -18,7 +18,7 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
 
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl; 
-    private apiUrlProduction = environment.pathApiProduction;
+  private apiUrlProduction = environment.pathApiProduction;
   private produitsRequest$?: Observable<ResponseProduit>;
 
   private invalidateProduitsCache(): void {

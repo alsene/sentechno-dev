@@ -24,6 +24,7 @@ export class LotComponent implements OnInit {
   editingIndex: number | null = null;
   pageSize = 10;
   currentPage = 1;
+  typeLots: string[] = ['PRODUIT', 'BIG_BAG'];
 
   constructor(private lotService: LotService) {}
 
@@ -172,5 +173,7 @@ export class LotComponent implements OnInit {
   trackByPage(_index: number, page: number): number {
     return page;
   }
-
+  trackByValue(_index: number, value: string): string {
+    return value;
+  }
 }

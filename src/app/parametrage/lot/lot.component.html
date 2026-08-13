@@ -10,10 +10,19 @@
 							<input type="text" class="form-control" id="libelle" [(ngModel)]="lot.libelle" name="libelle" placeholder="Saisir le libelle">
 						</div>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-5">
 						<div class="form-group">
 							<label for="description">Description</label>
 							<input type="text" class="form-control" id="description" [(ngModel)]="lot.description" name="description" placeholder="Saisir la description">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+						<label for="typeLot">Type Lot</label>
+						<select class="form-control" id="typeLot" [(ngModel)]="lot.typeLot" name="typeLot">
+							<option value="">-- Sélectionner --</option>
+							<option *ngFor="let type of typeLots; trackBy: trackByValue" [value]="type">{{ type }}</option>
+						</select>
 						</div>
 					</div>
 				</div>
@@ -31,6 +40,7 @@
 						<tr class="info">
 							<th>Libelle</th>
 							<th>Description</th>
+							<th>Type Lot</th>
 							<th>Modifier</th>
 							<th>Supprimer</th>
 						</tr>
@@ -39,6 +49,7 @@
 						<tr *ngFor="let item of paginatedLots; trackBy: trackById">
 							<td>{{ item.libelle }}</td>
 							<td>{{ item.description }}</td>
+							<td>{{ item.typeLot }}</td>
 							<td align="center">
 								<button (click)="editLot(item)" class="btn btn-warning btn-xs" title="Modifier">
 									<i class="glyphicon glyphicon-pencil"></i>
