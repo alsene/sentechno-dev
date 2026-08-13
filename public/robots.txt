@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /tableau-bord
+Disallow: /utilisateur
+Disallow: /profil
+Disallow: /lot
+Disallow: /silot
+Disallow: /type-produit
+Disallow: /suivi-produit
+Disallow: /qualite-produit
+
+Sitemap: https://www.sentechno-dev.com/sitemap.xml
