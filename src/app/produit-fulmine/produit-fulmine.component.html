@@ -39,6 +39,11 @@
           </tr>
           </tbody>
         </table>
+        <form>
+          <div class="button-row">
+            <button  (click)="fulminerProduct()" type="button" class="btn btn-info btn-sm btn-add-comment" >Fulminer</button>
+          </div>
+        </form>
         <nav class="pagination-nav" aria-label="Pagination" *ngIf="totalPages > 1">
           <ul class="pagination justify-content-center" style="margin-top:10px;">
             <li class="page-item" [class.disabled]="currentPage === 1">
@@ -62,14 +67,10 @@
       <ng-template #noProducts>
         <div class="alert alert-info">Liste des big bags produits</div>
       </ng-template>
-      <form>
-        <div class="button-row">
-          <button  (click)="updateProduct()" type="button" class="btn btn-info btn-sm btn-add-comment" >Fulminer</button>
-        </div>
-      </form>
+
       <hr>
       <div class="table-responsive" *ngIf="listeProduitsFulminer.length>0; else noProductsFulminer">
-        <div class="alert alert-info " style="padding:6px 12px; margin:0; text-align:center;"> <strong >Liste des produits à fulminer</strong></div> 
+        <div class="alert alert-info " style="padding:6px 12px; margin:0; text-align:center;"> <strong >Liste des produits fulminés</strong></div> 
         <table class="table table-bordered table-striped table-hover table-condensed">
           <thead>
           <tr class="info">
@@ -107,6 +108,11 @@
           </tr>
           </tbody>
         </table>
+        <form>
+          <div class="button-row">
+            <button  (click)="supprimerFulminaisonProduit()" type="button" class="btn btn-info btn-sm btn-add-comment" >Retirer</button>
+          </div>
+        </form>
         <nav class="pagination-nav" aria-label="Pagination" *ngIf="totalPagesConforme > 1">
           <ul class="pagination justify-content-center" style="margin-top:10px;">
             <li class="page-item" [class.disabled]="currentPageConforme === 1">
@@ -131,9 +137,5 @@
         <div class="alert alert-info">Liste des produits à fulminer est vide</div>
       </ng-template>
   </div>
-   <!--  </div>
-  </div>
-</div> -->
-
 
 

@@ -152,8 +152,17 @@ export class ProduitFulmineComponent {
   }
 
 
-  updateProduct() {
-    const produitsSelectionnes = this.listeProduitsPourFulminer.filter((produit) => produit.selected);
+  fulminerProduct() {
+     this.updateProduct(true, this.listeProduitsPourFulminer);
+  }
+
+  supprimerFulminaisonProduit() {
+    this.updateProduct(false, this.listeProduitsFulminer);
+  }
+
+  
+  updateProduct(fulmine: boolean, listeProduits: Produit[]) {
+    const produitsSelectionnes = listeProduits.filter((produit) => produit.selected);
 
     if (produitsSelectionnes.length === 0) {
       console.warn('Aucun produit sélectionné pour la mise à jour.');
@@ -161,7 +170,7 @@ export class ProduitFulmineComponent {
     }
 
     const requetes = produitsSelectionnes.map((produit) =>
-      this.produitService.updateProduct1({ ...produit, fulmine: true })
+      this.produitService.updateProduct1({ ...produit, fulmine: fulmine })
     );
 
     forkJoin(requetes).subscribe({
@@ -174,8 +183,6 @@ export class ProduitFulmineComponent {
       }
     });
   }
-
-
 
   suiviProduit = {
     numero: '',
