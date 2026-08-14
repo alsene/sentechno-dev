@@ -30,7 +30,7 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
     this.refreshRequested.next();
   }
 
-  private invalidateProduitsCache(): void {
+  invalidateProduitsCache(): void {
     this.produitsRequest$ = undefined;
   }
   

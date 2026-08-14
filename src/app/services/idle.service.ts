@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,14 +7,18 @@ import { Injectable } from '@angular/core';
 export class IdleService {
 
   private timeoutId: any;
-  private readonly idleTime = 5 * 60 * 1000; // 30 minutes
+  private readonly idleTime = 10 * 60 * 1000; // 10 minutes d'inactivité, on se déconnecte automatiquement
   private events = ['click', 'mousemove', 'keydown', 'scroll'];
   private watching = false;
+  private readonly boundResetTimer = () => this.resetTimer();
+
+  private readonly idleTimeout = new Subject<void>();
+  readonly idleTimeout$ = this.idleTimeout.asObservable();
 
   startWatching() {
     if (!this.watching) {
       this.events.forEach(event =>
-        window.addEventListener(event, () => this.resetTimer())
+        window.addEventListener(event, this.boundResetTimer)
       );
       this.watching = true;
     }
@@ -22,14 +27,19 @@ export class IdleService {
 
   stopWatching() {
     clearTimeout(this.timeoutId);
+    if (this.watching) {
+      this.events.forEach(event =>
+        window.removeEventListener(event, this.boundResetTimer)
+      );
+      this.watching = false;
+    }
   }
 
   private resetTimer() {
     clearTimeout(this.timeoutId);
 
     this.timeoutId = setTimeout(() => {
-      localStorage.removeItem('token');
-      // Redirection vers login
+      this.idleTimeout.next();
     }, this.idleTime);
   }
 }
