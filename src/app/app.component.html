@@ -19,7 +19,7 @@
     </button>
 
     <nav class="header-nav" [class.nav-open]="menuOpen" *ngIf="auth.isLoggedIn()">
-      <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeMenu()">Produit</a>
+      <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="onProduitMenuClick()">Produit</a>
       <a class="nav-link" routerLink="/qualite-produit" routerLinkActive="active" (click)="closeMenu()">Assurance Qualité</a>
       <a class="nav-link" routerLink="/utilisateur" routerLinkActive="active" (click)="closeMenu()">Utilisateur</a>
       <a class="nav-link" routerLink="/profil" routerLinkActive="active" (click)="closeMenu()">Profil</a>

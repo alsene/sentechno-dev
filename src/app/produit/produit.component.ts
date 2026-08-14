@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +11,7 @@ import { Lot } from "../model/Lot";
 import { Silo } from "../model/Silo";
 import { TypeProduit } from "../model/TypeProduit";
 import { Utilisateur } from "../model/Utilisateur";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-produit',
@@ -21,7 +22,7 @@ import { Utilisateur } from "../model/Utilisateur";
   providers: [DatePipe]
 })
 
-export class ProduitComponent {
+export class ProduitComponent implements OnInit, OnDestroy {
   auth = inject(AuthService);
   router = inject<any>(Router);
   today;
@@ -46,17 +47,18 @@ export class ProduitComponent {
   listeQA:Array<Utilisateur>| [] = [];
   produit1: any;
   produit: Produit = new Produit(null);
+  private refreshSubscription?: Subscription;
+
   ngOnInit(): void {
-    /*this.produitService.getProduit1().subscribe({
-      next: (data) => {
-        this.produit1 = data;
-        console.log('Produit récupéré:', this.produit1);
-      },
-      error: (err) => {
-        console.error('Erreur lors de la récupération', err);
-      }
-    });*/
+    this.refreshSubscription = this.produitService.refreshRequested$.subscribe(() => {
+      this.chargerProduits(true);
+    });
   }
+
+  ngOnDestroy(): void {
+    this.refreshSubscription?.unsubscribe();
+  }
+
   constructor(private datePipe: DatePipe, private produitService: ProduitService, private fb: FormBuilder) {
 
     if (!this.auth.isLoggedIn()) {
@@ -72,10 +74,19 @@ export class ProduitComponent {
     this.info1 = this.produitService.getInfos();
     this.bonjour1 = this.produitService.getBonjour();
     this.typeProduitList = this.produitService.getAlltypeProduit();
-    this.responseProduit = this.produitService.getProduit1().subscribe({
+    this.chargerProduits();
+
+ 
+    /*if (this.clientList.length > 0) {
+      this.produit.client = this.clientList[0];
+    }*/
+  }
+
+  private chargerProduits(forceRefresh = false): void {
+    this.produitService.getProduit1(forceRefresh).subscribe({
       next: (data) => {
-        this.responseProduit = data;  
-        console.log('Produit récupéré:', this.responseProduit);  
+        this.responseProduit = data;
+        console.log('Produit récupéré:', this.responseProduit);
         this.listeProduits = this.responseProduit ? this.responseProduit.produitsPourQualite : [];
         this.listeProduitsPourQualite = this.responseProduit ? this.responseProduit.produitsPourQualite : [];
         this.listeProduitsPourFulminer = this.responseProduit ? this.responseProduit.produitsPourFulminer : [];
@@ -88,16 +99,12 @@ export class ProduitComponent {
         this.listeSilo =  this.responseProduit ? this.responseProduit.silos : [];
         this.listeQA =  this.responseProduit ? this.responseProduit.qaList : [];
         this.listeTypeProduits = this.responseProduit ? this.responseProduit.typeProduits : [];
-          console.log('Produits conformes récupérés:', this.listeProduitsConforme);  
+        console.log('Produits conformes récupérés:', this.listeProduitsConforme);
       }
     });
-
- 
-    /*if (this.clientList.length > 0) {
-      this.produit.client = this.clientList[0];
-    }*/
   }
   
+
   getStylesBlue() {
     return {
       'padding': '10px',

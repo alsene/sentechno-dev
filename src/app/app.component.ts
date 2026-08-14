@@ -3,6 +3,7 @@ import { AuthService } from './services/auth.service';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ProduitService } from './services/produit/produit.service';
 
 
 
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 export class AppComponent {
   title = 'FirstApp';
   auth = inject(AuthService);
+  produitService = inject(ProduitService);
   menuOpen = false;
 
   constructor(private router:Router){}
@@ -27,6 +29,11 @@ export class AppComponent {
 
   closeMenu() {
     this.menuOpen = false;
+  }
+
+  onProduitMenuClick() {
+    this.produitService.requestProduitsRefresh();
+    this.closeMenu();
   }
 
   logout() {

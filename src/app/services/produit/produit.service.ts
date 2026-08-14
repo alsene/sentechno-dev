@@ -1,6 +1,6 @@
 import { Injectable, inject  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, shareReplay, tap } from "rxjs/operators";
 import { ResponseProduit } from '../../model/ResponseProduit';
 import { Produit } from "../../model/Produit";
@@ -20,6 +20,15 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
   private apiUrl = environment.apiUrl; 
   private apiUrlProduction = environment.pathApiProduction;
   private produitsRequest$?: Observable<ResponseProduit>;
+
+  // signal écouté par ProduitComponent pour recharger les données depuis la BD
+  private readonly refreshRequested = new Subject<void>();
+  readonly refreshRequested$ = this.refreshRequested.asObservable();
+
+  requestProduitsRefresh(): void {
+    this.invalidateProduitsCache();
+    this.refreshRequested.next();
+  }
 
   private invalidateProduitsCache(): void {
     this.produitsRequest$ = undefined;
