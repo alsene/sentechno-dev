@@ -28,7 +28,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
   today;
   info1: any;
   bonjour1: any;
-  
+
   typeProduit: TypeProduit = new TypeProduit();
   produitForm: FormGroup;
   responseProduit: any = ResponseProduit;
@@ -76,7 +76,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
     this.typeProduitList = this.produitService.getAlltypeProduit();
     this.chargerProduits();
 
- 
+
     /*if (this.clientList.length > 0) {
       this.produit.client = this.clientList[0];
     }*/
@@ -103,7 +103,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
 
   getStylesBlue() {
     return {
@@ -121,7 +121,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
   lotProduitList: string[] = ['Lot 1', 'Lot 2', 'Lot 3', 'Lot 4'];
   lotBigBagList: string[] = ['Lot 1', 'Lot 2', 'Lot 3', 'Lot 4'];
   siloList: string[] = ['Silo 1', 'Silo 2', 'Silo 3', 'Silo 4'];
-  clientList: string[] = ['Zinda', 'Alpha', 'Beta', 'Gamma'];
+  clientList: string[] = ['Alpha', 'Beta', 'Gamma'];
 
   produit2={
     id: 0,
@@ -143,7 +143,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
 
   pageSizeConforme = 7;
   currentPageConforme = 1;
-  get totalPagesConforme(): number { 
+  get totalPagesConforme(): number {
     return this.produitService.totalPages(this.listeProduitsConforme, this.pageSizeConforme);
   }
   get pagesConforme(): number[] {
@@ -165,7 +165,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
     event.preventDefault();
     this.produitService.toggleSelectAll(this.listeProduitsConforme);
   }
-  get totalPages(): number { 
+  get totalPages(): number {
     return this.produitService.totalPages(this.listeProduits, this.pageSize);
   }
   get pages(): number[] {
@@ -192,10 +192,10 @@ export class ProduitComponent implements OnInit, OnDestroy {
     this.produitService.toggleSelectAll(this.listeProduits);
   }
 
-  
+
   addProduct() {
     if (this.produit.code !== '') {
-      console.log('add produit:', this.produit);  
+      console.log('add produit:', this.produit);
       this.produit.id = this.listeProduits.length + 1;
       this.produitService.addProduct1(this.produit).subscribe({
         next: (reponse: Produit) => {
@@ -243,8 +243,8 @@ export class ProduitComponent implements OnInit, OnDestroy {
       }
     });
   }
-    
-  
+
+
 
 
   editProduct(product: Produit): void {
@@ -332,8 +332,8 @@ export class ProduitComponent implements OnInit, OnDestroy {
       <tr>
         <td>${this.escapeHtml(p.code)}</td>
         <td>${this.escapeHtml(p.nom)}</td>
-        <td>${this.escapeHtml(p.lot?.libelle)}</td>
-        <td>${this.escapeHtml(p.lotBag?.libelle)}</td>
+        <td>${this.escapeHtml(p.lot?.numeroProduction)}</td>
+        <td>${this.escapeHtml(p.lotBag?.numeroProduction)}</td>
         <td>${this.escapeHtml(p.silo?.libelle)}</td>
         <td>${this.escapeHtml(p.client?.nom)}</td>
         <td>${this.escapeHtml(p.quantite)}</td>

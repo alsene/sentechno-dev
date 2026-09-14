@@ -1,16 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SilotService } from './silot.service';
+import { PoidsProduitService } from './poids-produit.service';
 
-describe('SilotService', () => {
-  let service: SilotService;
+describe('PoidsProduitService', () => {
+  let service: PoidsProduitService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SilotService);
+    service = TestBed.inject(PoidsProduitService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 });
+

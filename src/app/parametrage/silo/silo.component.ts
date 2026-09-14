@@ -4,16 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Silo } from '../../model/Silo';
-import { SilotService } from '../../services/parametrage/silot.service';
+import { SiloService } from '../../services/parametrage/silo.service';
 
 @Component({
-  selector: 'app-silot',
+  selector: 'app-silo',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './silot.component.html',
-  styleUrl: './silot.component.css'
+  templateUrl: './silo.component.html',
+  styleUrl: './silo.component.css'
 })
-export class SilotComponent implements OnInit {
+export class SiloComponent implements OnInit {
   auth = inject(AuthService);
   router = inject<any>(Router);
 
@@ -25,7 +25,7 @@ export class SilotComponent implements OnInit {
   pageSize = 10;
   currentPage = 1;
 
-  constructor(private silotService: SilotService) {}
+  constructor(private siloService: SiloService) {}
 
   ngOnInit(): void {
     if (!this.auth.isLoggedIn()) {
@@ -37,7 +37,7 @@ export class SilotComponent implements OnInit {
   }
 
   chargerSilos(): void {
-    this.silotService.getSilos().subscribe({
+    this.siloService.getSilos().subscribe({
       next: (data) => {
         this.silos = data || [];
         this.currentPage = 1;
@@ -55,7 +55,7 @@ export class SilotComponent implements OnInit {
 
     const payload = this.toApiPayload(this.silo);
     if (this.isEditing && this.editingIndex !== null) {
-      this.silotService.updateSilo(payload).subscribe({
+      this.siloService.updateSilo(payload).subscribe({
         next: (reponse) => {
           this.silos[this.editingIndex!] = this.normalizeFromApi(reponse);
           this.cancelEdit();
@@ -67,7 +67,7 @@ export class SilotComponent implements OnInit {
       return;
     }
 
-    this.silotService.addSilo(payload).subscribe({
+    this.siloService.addSilo(payload).subscribe({
       next: (reponse) => {
         this.silos.push(this.normalizeFromApi(reponse));
         this.currentPage = this.totalPages;
@@ -92,7 +92,7 @@ export class SilotComponent implements OnInit {
       return;
     }
 
-    this.silotService.removeSilo(siloASupprimer).subscribe({
+    this.siloService.removeSilo(siloASupprimer).subscribe({
       next: () => {
         this.silos = this.silos.filter((item) => item.id !== id);
         if (this.isEditing && this.silo.id === id) {
@@ -111,7 +111,7 @@ export class SilotComponent implements OnInit {
   cancelEdit(): void {
     this.isEditing = false;
     this.editingIndex = null;
-    const resetSilo = this.silotService.cancelEditer();
+    const resetSilo = this.siloService.cancelEditer();
     this.silo = this.normalizeFromApi({
       ...resetSilo,
       id: 0,

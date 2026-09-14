@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SilotComponent } from './silot.component';
+import { SiloTypeProduitComponent } from './silo-type-produit.component';
 
-describe('SilotComponent', () => {
-  let component: SilotComponent;
-  let fixture: ComponentFixture<SilotComponent>;
+describe('SiloTypeProduitComponent', () => {
+  let component: SiloTypeProduitComponent;
+  let fixture: ComponentFixture<SiloTypeProduitComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SilotComponent]
+      imports: [SiloTypeProduitComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SilotComponent);
+    fixture = TestBed.createComponent(SiloTypeProduitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,3 +21,4 @@ describe('SilotComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

@@ -24,7 +24,7 @@ export class LotComponent implements OnInit {
   editingIndex: number | null = null;
   pageSize = 10;
   currentPage = 1;
-  typeLots: string[] = ['PRODUIT', 'BIG_BAG'];
+  typeLots: string[] = ['PRODUIT', 'BIG_BAG', 'SHIFT'];
 
   constructor(private lotService: LotService) {}
 
@@ -50,7 +50,7 @@ export class LotComponent implements OnInit {
   }
 
   ajouterLot(): void {
-    if (!this.lot.libelle || !this.lot.description) {
+    if (!this.lot.numeroProduction || !this.lot.anneeProduction) {
       return;
     }
 
@@ -116,8 +116,8 @@ export class LotComponent implements OnInit {
     this.lot = this.normalizeFromApi({
       ...resetLot,
       id: 0,
-      libelle: '',
-      description: ''
+      numeroProduction: '',
+      anneeProduction: ''
     });
     this.newLot = false;
   }

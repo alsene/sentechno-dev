@@ -1,9 +1,9 @@
-<!-- Header 
+<!-- Header
 <header class="app-header">
   <div class="header-content">
     <div class="header-logo">
       <span class="logo-icon">📦</span>
-      <span class="logo-text">Zinda Production</span>
+      <span class="logo-text">Alpha Production</span>
     </div>
     <nav class="header-nav">
       <a href="#" class="nav-link">Accueil</a>
@@ -52,7 +52,7 @@
                 <label for="lotProduit">Lot</label>
                 <select id="lotProduit" class="form-control input-sm" [(ngModel)]="produit.lot" name="lotProduit">
                   <option [ngValue]="null" disabled>-- Choisir un lot produit --</option>
-                  <option *ngFor="let lotProduit of listeLot; trackBy: trackById" [ngValue]="lotProduit">{{ lotProduit.libelle }}</option>
+                  <option *ngFor="let lotProduit of listeLot; trackBy: trackById" [ngValue]="lotProduit">{{ lotProduit.numeroProduction }}</option>
                 </select>
               </div>
             </div>
@@ -64,7 +64,7 @@
                 <label for="lotBigBag">Lot Bag</label>
                 <select id="lotBigBag" class="form-control input-sm" [(ngModel)]="produit.lotBag" name="lotBigBag">
                   <option [ngValue]="null" disabled>-- Choisir un Big Bag --</option>
-                  <option *ngFor="let lotBigBag of listeLotBag; trackBy: trackById" [ngValue]="lotBigBag">{{ lotBigBag.libelle }}</option>
+                  <option *ngFor="let lotBigBag of listeLotBag; trackBy: trackById" [ngValue]="lotBigBag">{{ lotBigBag.numeroProduction }}</option>
                 </select>
               </div>
             </div>
@@ -118,14 +118,14 @@
             <td align="center"><input type="checkbox" [(ngModel)]="c.selected" name="selected-{{c.id}}"></td>
             <td>{{ c.code }}</td>
             <td>{{ c.nom }}</td>
-            <td>{{ c.lot.libelle }}</td>
-            <td>{{ c.lotBag.libelle }}</td>
-            <td>{{ c.silo.libelle }}</td>
+            <td>{{ c.lot.numeroProduction }}</td>
+            <td>{{ c.lotBag.numeroProduction }}</td>
+            <td>{{ c.silo.codeProduit }}</td>
             <td>{{ c.client.nom }}</td>
             <td>{{ c.quantite }}</td>
             <td>{{ c.operateur.nom }}</td>
             <td><span class="badge">{{today}}</span></td>
-            <td align="center">              
+            <td align="center">
               <button (click)="editProduct(c)" class="btn btn-warning btn-xs" title="Modifier">
                 <i class="glyphicon glyphicon-pencil"></i>
               </button>
@@ -168,7 +168,7 @@
       </ng-template>
       <footer class="app-footer">
         <div class="container">
-          <small>&copy; 2026 Zinda Production — Tous droits réservés.</small>
+          <small>&copy; 2026 Alpha Production — Tous droits réservés.</small>
         </div>
     </footer>
     </div>

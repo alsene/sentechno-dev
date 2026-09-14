@@ -114,7 +114,7 @@ export class FacadeProduitComponent {
   lotProduitList: string[] = ['Lot 1', 'Lot 2', 'Lot 3', 'Lot 4'];
   lotBigBagList: string[] = ['Lot 1', 'Lot 2', 'Lot 3', 'Lot 4'];
   siloList: string[] = ['Silo 1', 'Silo 2', 'Silo 3', 'Silo 4'];
-  clientList: string[] = ['Zinda', 'Alpha', 'Beta', 'Gamma'];
+  clientList: string[] = ['Alpha', 'Beta', 'Gamma'];
 
   produit2={
     id: 0,

@@ -2,16 +2,16 @@
 <header class="app-header">
   <header class="app-header1">
     <div class="header-banner1">
-      <span class="banner-text">Gestion Produits - Système de Production Zinda</span>
+      <span class="banner-text">Gestion Produits - Système de Production Alpha</span>
     </div>
   </header>
   <div class="header-content">
     <div class="header-logo">
       <span class="logo-icon">📦</span>
-      <span class="logo-text">Zinda Production</span>
+      <span class="logo-text">Alpha Production</span>
     </div>
 
-    <button class="hamburger-btn" (click)="toggleMenu()" *ngIf="auth.isLoggedIn()" 
+    <button class="hamburger-btn" (click)="toggleMenu()" *ngIf="auth.isLoggedIn()"
             [attr.aria-expanded]="menuOpen" aria-label="Menu de navigation">
       <span class="hamburger-line" [class.open]="menuOpen"></span>
       <span class="hamburger-line" [class.open]="menuOpen"></span>
@@ -23,9 +23,7 @@
       <a class="nav-link" routerLink="/qualite-produit" routerLinkActive="active" (click)="closeMenu()">Assurance Qualité</a>
       <a class="nav-link" routerLink="/utilisateur" routerLinkActive="active" (click)="closeMenu()">Utilisateur</a>
       <a class="nav-link" routerLink="/profil" routerLinkActive="active" (click)="closeMenu()">Profil</a>
-      <a class="nav-link" routerLink="/lot" routerLinkActive="active" (click)="closeMenu()">Lot</a>
-      <a class="nav-link" routerLink="/silot" routerLinkActive="active" (click)="closeMenu()">Silo</a>
-      <a class="nav-link" routerLink="/type-produit" routerLinkActive="active" (click)="closeMenu()">Type Produit</a>
+      <a class="nav-link" routerLink="/configuration" routerLinkActive="active" (click)="closeMenu()">Configuration</a>
       <a class="nav-link logout-link" style="cursor:pointer" (click)="logout()">Logout</a>
     </nav>
   </div>

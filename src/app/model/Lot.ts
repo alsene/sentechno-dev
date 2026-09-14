@@ -1,6 +1,6 @@
 export class Lot {
   id: any;
-  libelle: any;
-  description: any;
+  numeroProduction: any;
+  anneeProduction: any;
   typeLot: any;
 }

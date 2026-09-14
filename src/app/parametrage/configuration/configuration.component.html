@@ -1,0 +1,40 @@
+<div class="container responsive-container">
+  <div class="row configuration-layout">
+	<div class="col-md-10 col-sm-12 configuration-main">
+	  <div class="panel panel-primary">
+		<div class="panel-heading">Configuration</div>
+      <div class="panel-body">
+        <app-lot *ngIf="activeSection === 'home' || activeSection === 'lot'"></app-lot>
+        <app-silo *ngIf="activeSection === 'silo'"></app-silo>
+        <app-type-produit *ngIf="activeSection === 'type-produit'"></app-type-produit>
+        <app-silo-type-produit *ngIf="activeSection === 'silo-type-produit'"></app-silo-type-produit>
+        <app-station *ngIf="activeSection === 'station'"></app-station>
+        <app-poids-produit *ngIf="activeSection === 'poids-produit'"></app-poids-produit>
+      </div>
+      <footer class="app-footer">
+        <div class="container">
+          <small>&copy; 2026 Alpha Production — Tous droits réservés.</small>
+        </div>
+      </footer>
+	  </div>
+	</div>
+
+	<aside class="col-md-2 col-sm-12 configuration-sidebar">
+	  <div class="panel panel-info sidebar-menu">
+		<div class="panel panel-primary">
+		  <div class="panel-heading">Menu Configuration</div>
+		  <div class="panel-body">
+			<ul class="nav nav-pills nav-stacked">
+			  <li><a href="#" (click)="showSection('lot'); $event.preventDefault()">Lot</a></li>
+			  <li><a href="#" (click)="showSection('silo'); $event.preventDefault()">Silo</a></li>
+			  <li><a href="#" (click)="showSection('type-produit'); $event.preventDefault()">Type Produit</a></li>
+			  <li><a href="#" (click)="showSection('silo-type-produit'); $event.preventDefault()">Silo Type Produit</a></li>
+			  <li><a href="#" (click)="showSection('station'); $event.preventDefault()">Station</a></li>
+			  <li><a href="#" (click)="showSection('poids-produit'); $event.preventDefault()">Poids Produit</a></li>
+			</ul>
+		  </div>
+		</div>
+	  </div>
+	</aside>
+  </div>
+</div>

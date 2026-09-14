@@ -1,0 +1,75 @@
+
+    <div class="panel-body">
+      <div class="alert alert-info" style="padding:6px 12px; margin:0;">
+        <strong>Saisie des informations poids produit</strong>
+      </div>
+      <form class="form-frame">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="codePoids">Code Poids</label>
+              <input type="text" class="form-control" id="codePoids" [(ngModel)]="poidsProduit.codePoids" name="codePoids" placeholder="Saisir le code poids">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="poids">Poids</label>
+              <input type="text" class="form-control" id="poids" [(ngModel)]="poidsProduit.poids" name="poids" placeholder="Saisir le poids">
+            </div>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button *ngIf="!isEditing" (click)="ajouterPoidsProduit()" type="button" class="btn btn-primary btn-sm">Enregistrer</button>
+          <button *ngIf="isEditing" (click)="ajouterPoidsProduit()" type="button" class="btn btn-success btn-sm">Modifier</button>
+          <button *ngIf="isEditing" (click)="cancelEdit()" type="button" class="btn btn-default btn-sm">Annuler</button>
+        </div>
+      </form>
+
+      <div class="table-responsive" *ngIf="poidsProduits.length > 0; else noPoidsProduits">
+        <table class="table table-bordered table-striped table-hover table-condensed">
+          <thead>
+            <tr class="info">
+              <th>Code Poids</th>
+              <th>Poids</th>
+              <th>Modifier</th>
+              <th>Supprimer</th>
+            </tr>
+          </thead>
+          <tbody style="font-size:1.2rem;">
+            <tr *ngFor="let item of paginatedPoidsProduits; trackBy: trackById">
+              <td>{{ item.codePoids }}</td>
+              <td>{{ item.poids }}</td>
+              <td align="center">
+                <button (click)="editPoidsProduit(item)" class="btn btn-warning btn-xs" title="Modifier">
+                  <i class="glyphicon glyphicon-pencil"></i>
+                </button>
+              </td>
+              <td align="center">
+                <button (click)="supprimerPoidsProduit(item.id)" class="btn btn-danger btn-xs" title="Supprimer">
+                  <i class="glyphicon glyphicon-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <nav *ngIf="poidsProduits.length > pageSize" aria-label="Pagination poids produits" class="text-center">
+          <ul class="pagination" style="margin: 10px 0 0 0;">
+            <li [class.disabled]="currentPage === 1">
+              <a href="javascript:void(0)" (click)="goToPage(currentPage - 1)">Precedent</a>
+            </li>
+            <li *ngFor="let page of pages; trackBy: trackByPage" [class.active]="page === currentPage">
+              <a href="javascript:void(0)" (click)="goToPage(page)">{{ page }}</a>
+            </li>
+            <li [class.disabled]="currentPage === totalPages">
+              <a href="javascript:void(0)" (click)="goToPage(currentPage + 1)">Suivant</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <ng-template #noPoidsProduits>
+        <div class="alert alert-info" *ngIf="!isEditing">Aucun poids produit enregistre</div>
+      </ng-template>
+    </div>

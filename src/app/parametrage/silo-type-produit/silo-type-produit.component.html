@@ -1,0 +1,91 @@
+
+<div class="panel-body">
+  <div class="alert alert-info" style="padding:6px 12px; margin:0;">
+    <strong>Saisie des informations silo type produit</strong>
+  </div>
+  <form class="form-frame">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="typeProduit">Type Produit</label>
+          <select class="form-control" id="typeProduit" [(ngModel)]="siloTypeProduit.typeProduit" name="typeProduit">
+            <option [ngValue]="null">Selectionner un type produit</option>
+            <option *ngFor="let item of typeProduits; trackBy: trackById" [ngValue]="item">{{ item.libelle }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="codeProduit">Code Produit</label>
+          <input type="text" class="form-control" id="codeProduit" [(ngModel)]="siloTypeProduit.codeProduit" name="codeProduit" placeholder="Saisir le code produit">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="silo">Silo</label>
+          <select class="form-control" id="silo" [(ngModel)]="siloTypeProduit.silo" name="silo">
+            <option [ngValue]="null">Selectionner un silo</option>
+            <option *ngFor="let item of silos; trackBy: trackById" [ngValue]="item">{{ item.libelle }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button *ngIf="!isEditing" (click)="ajouterSiloTypeProduit()" type="button" class="btn btn-primary btn-sm">Enregistrer</button>
+      <button *ngIf="isEditing" (click)="ajouterSiloTypeProduit()" type="button" class="btn btn-success btn-sm">Modifier</button>
+      <button *ngIf="isEditing" (click)="cancelEdit()" type="button" class="btn btn-default btn-sm">Annuler</button>
+    </div>
+  </form>
+
+  <div class="table-responsive" *ngIf="siloTypeProduits.length > 0; else noSiloTypeProduits">
+    <table class="table table-bordered table-striped table-hover table-condensed">
+      <thead>
+        <tr class="info">
+          <th>Type Produit</th>
+          <th>Code Produit</th>
+          <th>Silo</th>
+          <th>Modifier</th>
+          <th>Supprimer</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:1.2rem;">
+        <tr *ngFor="let item of paginatedSiloTypeProduits; trackBy: trackById">
+          <td>{{ getTypeProduitLibelle(item.typeProduit) }}</td>
+          <td>{{ item.codeProduit }}</td>
+          <td>{{ getSiloLibelle(item.silo) }}</td>
+          <td align="center">
+            <button (click)="editSiloTypeProduit(item)" class="btn btn-warning btn-xs" title="Modifier">
+              <i class="glyphicon glyphicon-pencil"></i>
+            </button>
+          </td>
+          <td align="center">
+            <button (click)="supprimerSiloTypeProduit(item.id)" class="btn btn-danger btn-xs" title="Supprimer">
+              <i class="glyphicon glyphicon-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <nav *ngIf="siloTypeProduits.length > pageSize" aria-label="Pagination silo type produit" class="text-center">
+      <ul class="pagination" style="margin: 10px 0 0 0;">
+        <li [class.disabled]="currentPage === 1">
+          <a href="javascript:void(0)" (click)="goToPage(currentPage - 1)">Precedent</a>
+        </li>
+        <li *ngFor="let page of pages; trackBy: trackByPage" [class.active]="page === currentPage">
+          <a href="javascript:void(0)" (click)="goToPage(page)">{{ page }}</a>
+        </li>
+        <li [class.disabled]="currentPage === totalPages">
+          <a href="javascript:void(0)" (click)="goToPage(currentPage + 1)">Suivant</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <ng-template #noSiloTypeProduits>
+    <div class="alert alert-info" *ngIf="!isEditing">Aucune correspondance silo/type produit enregistree</div>
+  </ng-template>
+</div>
+
+

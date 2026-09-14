@@ -5,7 +5,7 @@ Disallow: /tableau-bord
 Disallow: /utilisateur
 Disallow: /profil
 Disallow: /lot
-Disallow: /silot
+Disallow: /silo
 Disallow: /type-produit
 Disallow: /suivi-produit
 Disallow: /qualite-produit

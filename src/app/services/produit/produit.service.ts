@@ -148,15 +148,15 @@ commentaireProduit: CommentaireProduit=new CommentaireProduit();
   }
   
   private produits = [
-    { id: 1, name: 'Couscous regulier', code: '100', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Zinda', quantite: 100, operateur: 'Said', qualite: 'Standard', fulmine: false },
+    { id: 1, name: 'Couscous regulier', code: '100', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Alpha', quantite: 100, operateur: 'Said', qualite: 'Standard', fulmine: false },
     { id: 2, name: 'Couscous naturel', code: '101', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Alpha', quantite: 100, operateur: 'Said', qualite: 'Haute', fulmine: true },
     { id: 3, name: 'Couscous regulier', code: '102', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Beta', quantite: 200, operateur: 'Said', qualite: 'Standard', fulmine: false },
     { id: 4, name: 'Couscous naturel', code: '103', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Gamma', quantite: 300, operateur: 'Said', qualite: 'Haute', fulmine: true },
-    { id: 5, name: 'Perles naturel', code: '104', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Zinda', quantite: 50, operateur: 'Said', qualite: 'Standard', fulmine: false },
+    { id: 5, name: 'Perles naturel', code: '104', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Alpha', quantite: 50, operateur: 'Said', qualite: 'Standard', fulmine: false },
     { id: 6, name: 'Perles regulier', code: '105', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Beta', quantite: 100, operateur: 'Said', qualite: 'Haute', fulmine: true },
     { id: 7, name: 'Couscous regulier', code: '106', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Gamma', quantite: 60, operateur: 'Said', qualite: 'Standard', fulmine: false },
-    { id: 8, name: 'Couscous regulier', code: '107', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Zinda', quantite: 1000, operateur: 'Said', qualite: 'Haute', fulmine: true },
-    { id: 9, name: 'Couscous regulier', code: '108', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Zinda', quantite: 500, operateur: 'Said', qualite: 'Standard', fulmine: false }
+    { id: 8, name: 'Couscous regulier', code: '107', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Alpha', quantite: 1000, operateur: 'Said', qualite: 'Haute', fulmine: true },
+    { id: 9, name: 'Couscous regulier', code: '108', lotProduit: 'Lot 1', lotBigBag: 'Lot 1', silo: 'Silo 1', client: 'Alpha', quantite: 500, operateur: 'Said', qualite: 'Standard', fulmine: false }
   ];
 
   private commentaires = [

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ParametrageComponent } from './parametrage.component';
+import { PoidsProduitComponent } from './poids-produit.component';
 
-describe('ParametrageComponent', () => {
-  let component: ParametrageComponent;
-  let fixture: ComponentFixture<ParametrageComponent>;
+describe('PoidsProduitComponent', () => {
+  let component: PoidsProduitComponent;
+  let fixture: ComponentFixture<PoidsProduitComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ParametrageComponent]
+      imports: [PoidsProduitComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ParametrageComponent);
+    fixture = TestBed.createComponent(PoidsProduitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,3 +21,4 @@ describe('ParametrageComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

@@ -8,7 +8,7 @@ import { Silo } from '../../model/Silo';
 @Injectable({
   providedIn: 'root'
 })
-export class SilotService {
+export class SiloService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
     private apiUrlProduction = environment.pathApiProduction;
