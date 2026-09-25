@@ -45,6 +45,7 @@
           <th>Type Produit</th>
           <th>Silo</th>
           <th>Code Produit</th>
+          <th>Libellé</th>
           <th>Modifier</th>
           <th>Supprimer</th>
         </tr>
@@ -54,6 +55,7 @@
           <td>{{ getTypeProduitLibelle(item.typeProduit) }}</td>
           <td>{{ getSiloLibelle(item.silo) }}</td>
           <td>{{ item.codeProduit }}</td>
+          <td>{{ item.libelle }}</td>
           <td align="center">
             <button (click)="editSiloTypeProduit(item)" class="btn btn-warning btn-xs" title="Modifier">
               <i class="glyphicon glyphicon-pencil"></i>

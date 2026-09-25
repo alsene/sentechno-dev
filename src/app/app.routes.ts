@@ -18,5 +18,6 @@ export const routes: Routes = [
   { path: 'about', loadComponent: () => import('./about/about.component').then((m) => m.AboutComponent) },
   { path: 'login', loadComponent: () => import('./login/login.component').then((m) => m.LoginComponent) },
   { path: 'tableau-bord', loadComponent: () => import('./produit-tableau-bord/produit-tableau-bord.component').then((m) => m.ProduitTableauBordComponent) },
+  { path: 'workflow-employe', loadComponent: () => import('./workflow-employe/workflow-employe.component').then((m) => m.WorkflowEmployeComponent) },
   { path: '**', redirectTo: '' }
 ];

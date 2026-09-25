@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <label for="formation-cv">CV (lien ou reference)</label>
+      <input id="formation-cv" class="form-control" type="text" name="formationCv" [(ngModel)]="data.cv" />
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <h5>Etude</h5>
+  </div>
+  <div class="col-md-4">
+    <label class="checkbox-inline">
+      <input type="checkbox" name="etudeSecondaire" [(ngModel)]="data.etude.secondaire" /> secondaire
+    </label>
+  </div>
+  <div class="col-md-4">
+    <label class="checkbox-inline">
+      <input type="checkbox" name="etudeCgep" [(ngModel)]="data.etude.cgep" /> CGEP
+    </label>
+  </div>
+  <div class="col-md-4">
+    <label class="checkbox-inline">
+      <input type="checkbox" name="etudeUniversitaire" [(ngModel)]="data.etude.universitaire" /> Universitaire
+    </label>
+  </div>
+
+  <div class="col-md-12" style="margin-top: 10px;">
+    <h5>Diplome</h5>
+  </div>
+  <div class="col-md-4">
+    <label class="checkbox-inline">
+      <input type="checkbox" name="diplomeBac" [(ngModel)]="data.diplome.bac" /> bac
+    </label>
+  </div>
+  <div class="col-md-4">
+    <label class="checkbox-inline">
+      <input type="checkbox" name="diplomeDess" [(ngModel)]="data.diplome.dess" /> DESS
+    </label>
+  </div>
+</div>
+

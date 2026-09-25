@@ -1,0 +1,147 @@
+.workflow-page {
+  max-width: 1120px;
+}
+
+.workflow-breadcrumb {
+  text-align: center;
+  color: #4a4a4a;
+  margin-bottom: 6px;
+}
+
+.workflow-breadcrumb .sep {
+  margin: 0 8px;
+  color: #8a8a8a;
+}
+
+.workflow-title {
+  text-align: center;
+  margin: 4px 0;
+  color: #666;
+}
+
+.workflow-subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 12px;
+}
+
+.workflow-steps-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.step-pill {
+  border: 1px solid #d6e3b5;
+  background: #f9fcef;
+  color: #6b6b6b;
+  border-radius: 16px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+button.step-pill {
+  appearance: none;
+}
+
+.step-pill:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.step-pill.active {
+  background: #e8f4c6;
+  border-color: #bcd47b;
+  color: #3d5e14;
+  font-weight: 600;
+}
+
+.step-pill.done {
+  background: #eff8dc;
+}
+
+.workflow-progress {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.workflow-progress-bar {
+  height: 100%;
+  background: #a2c84a;
+  transition: width 0.2s ease;
+}
+
+.question-card {
+  border: 1px solid #dfe8c5;
+  border-radius: 14px;
+  padding: 14px;
+  background: #fefef8;
+}
+
+.question-card.completed {
+  border-color: #c7dd8f;
+}
+
+.question-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.question-card-head h4 {
+  margin: 0 0 4px 0;
+}
+
+.question-card-head p {
+  margin: 0;
+  color: #5f7f93;
+}
+
+.check-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #e2e2e2;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.check-icon.active {
+  background: #a7cc55;
+}
+
+.resume-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+}
+
+.resume-card {
+  background: #fff;
+  border: 1px solid #dde7c2;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.resume-card h5 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #4f6b1b;
+}
+
+.resume-card p {
+  margin: 0 0 4px 0;
+}
+

@@ -1,50 +1,45 @@
-<!-- Header
-<header class="app-header">
-  <div class="header-content">
-    <div class="header-logo">
-      <span class="logo-icon">📦</span>
-      <span class="logo-text">Alpha Production</span>
-    </div>
-    <nav class="header-nav">
-      <a href="#" class="nav-link">Accueil</a>
-      <a href="#" class="nav-link">À propos</a>
-      <a href="#" class="nav-link">Contact</a>
-    </nav>
-  </div>
-</header>-->
-
 <div class="container responsive-container">
   <div class="panel panel-primary">
     <div class="panel-heading">Produits emballés en big bags (CCP2)</div>
     <div class="panel-body">
-      <!--<div class="alert alert-info-gray" style="padding:6px 12px; margin:0;">
-        <p class="text-primary"><i> Ce rapport présente les produits emballés dans des Big Bags (CCP2) pour une période donnée. Il inclut des informations telles que le nom du produit, le code, la quantité et la date d'emballage. Ce rapport est essentiel pour suivre les produits emballés et assurer une gestion efficace des stocks.</i></p>
-      </div>
-      <div>&nbsp;</div>
-      <div class="alert alert-info" style="padding:6px 12px; margin:0;">
-        <strong>Produits emballés en big bags (CCP2)</strong>
-      </div>-->
       <form class="form-frame">
           <div class="row">
             <div class="col-md-4">
               <div class="form-group" style="margin-right:10px;">
-                <label for="typeProduit">Produit</label>
-                <select id="typeProduit" class="form-control input-sm" [(ngModel)]="produit.typeProduit" name="typeProduit">
-                  <option [ngValue]="null" disabled>-- Choisir un produit --</option>
-                  <option *ngFor="let typeProduit of listeTypeProduits; trackBy: trackById" [ngValue]="typeProduit">{{ typeProduit.libelle }}</option>
+                <label for="silo">Silo</label>
+                <select id="silo" class="form-control input-sm" [(ngModel)]="produit.silo" (ngModelChange)="onSiloChange($event)" name="silo">
+                  <option [ngValue]="null" disabled>-- Choisir un silo --</option>
+                  <option *ngFor="let silo of listeSilo; trackBy: trackById" [ngValue]="silo">{{ silo.libelle }}</option>
                 </select>
               </div>
             </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                    <label for="quantite">Quantité</label>
-                    <input id="quantite" type="text" class="form-control input-sm" [(ngModel)]="produit.quantite" name="quantite" placeholder="Quantité du produit">
+            <div class="col-md-4">
+              <div class="form-group" style="margin-right:10px;">
+                <label for="siloTypeProduit">Produit</label>
+                <select id="siloTypeProduit" class="form-control input-sm" [(ngModel)]="produit.siloTypeProduit" name="siloTypeProduit">
+                  <option [ngValue]="null" disabled>-- Choisir un produit --</option>
+                  <option *ngFor="let siloTypeProduit of listeSiloTypeProduits; trackBy: trackById" [ngValue]="siloTypeProduit">{{ siloTypeProduit.libelle}}</option>
+                </select>
               </div>
             </div>
-            <div class="col-md-2">
+
+            <div class="col-md-4">
               <div class="form-group" style="margin-right:10px;">
-                <label for="code">Code</label>
-                <input id="code" type="text" class="form-control input-sm" [(ngModel)]="produit.code" name="code" placeholder="Code du produit">
+                <label for="station">Station</label>
+                <select id="station" class="form-control input-sm" [(ngModel)]="produit.station" name="station">
+                  <option [ngValue]="null" disabled>-- Choisir une station --</option>
+                  <option *ngFor="let station of listeStations; trackBy: trackById" [ngValue]="station">{{ station.libelle }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group" style="margin-right:10px;">
+                <label for="poidsProduit">Poids Produit</label>
+                <select id="poidsProduit" class="form-control input-sm" [(ngModel)]="produit.poidsProduit" name="poidsProduit">
+                  <option [ngValue]="null" disabled>-- Choisir un poids produit --</option>
+                  <option *ngFor="let poidsProduit of listePoidsProduits; trackBy: trackById" [ngValue]="poidsProduit">{{ poidsProduit.libelle }}</option>
+                </select>
               </div>
             </div>
             <div class="col-md-4">
@@ -52,7 +47,7 @@
                 <label for="lotProduit">Lot</label>
                 <select id="lotProduit" class="form-control input-sm" [(ngModel)]="produit.lot" name="lotProduit">
                   <option [ngValue]="null" disabled>-- Choisir un lot produit --</option>
-                  <option *ngFor="let lotProduit of listeLot; trackBy: trackById" [ngValue]="lotProduit">{{ lotProduit.numeroProduction }}</option>
+                  <option *ngFor="let lotProduit of listeLot; trackBy: trackById" [ngValue]="lotProduit">{{ lotProduit.libelle }}</option>
                 </select>
               </div>
             </div>
@@ -64,17 +59,21 @@
                 <label for="lotBigBag">Lot Bag</label>
                 <select id="lotBigBag" class="form-control input-sm" [(ngModel)]="produit.lotBag" name="lotBigBag">
                   <option [ngValue]="null" disabled>-- Choisir un Big Bag --</option>
-                  <option *ngFor="let lotBigBag of listeLotBag; trackBy: trackById" [ngValue]="lotBigBag">{{ lotBigBag.numeroProduction }}</option>
+                  <option *ngFor="let lotBigBag of listeLotBag; trackBy: trackById" [ngValue]="lotBigBag">{{ lotBigBag.libelle }}</option>
                 </select>
               </div>
             </div>
-            <div class="col-md-4">
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="quantite">Quantité</label>
+                <input id="quantite" type="text" class="form-control input-sm" [(ngModel)]="produit.quantite" name="quantite" placeholder="Quantité du produit">
+              </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group" style="margin-right:10px;">
-                <label for="silo">Silo</label>
-                <select id="silo" class="form-control input-sm" [(ngModel)]="produit.silo" name="silo">
-                  <option [ngValue]="null" disabled>-- Choisir un silo --</option>
-                  <option *ngFor="let silo of listeSilo; trackBy: trackById" [ngValue]="silo">{{ silo.libelle }}</option>
-                </select>
+                <label for="code">Numéro</label>
+                <input id="code" type="text" class="form-control input-sm" [(ngModel)]="produit.code" name="code" placeholder="Numéro produit">
               </div>
             </div>
             <div class="col-md-4">
@@ -100,8 +99,8 @@
           <thead>
           <tr class="info">
             <th><a href="#" (click)="toggleSelectAll($event)">Choisir</a></th>
-            <th>Code</th>
-            <th>Nom</th>
+            <th>Numéro</th>
+            <th>Produit</th>
             <th>Lot</th>
             <th>Bag</th>
             <th>Silo</th>
@@ -117,12 +116,12 @@
           <tr *ngFor="let c of pagedProduits; trackBy: trackById">
             <td align="center"><input type="checkbox" [(ngModel)]="c.selected" name="selected-{{c.id}}"></td>
             <td>{{ c.code }}</td>
-            <td>{{ c.nom }}</td>
-            <td>{{ c.lot.numeroProduction }}</td>
-            <td>{{ c.lotBag.numeroProduction }}</td>
-            <td>{{ c.silo.codeProduit }}</td>
+            <td>{{ c.siloTypeProduit.libelle }}</td>
+            <td>{{ c.lot.libelle }} - {{ c.jourJulien }}</td>
+            <td>{{ c.lotBag.libelle }} - {{ c.jourJulien }}</td>
+            <td>{{ c.silo.libelle }}</td>
             <td>{{ c.client.nom }}</td>
-            <td>{{ c.quantite }}</td>
+            <td>{{ c.poidsProduit.libelle }}</td>
             <td>{{ c.operateur.nom }}</td>
             <td><span class="badge">{{today}}</span></td>
             <td align="center">

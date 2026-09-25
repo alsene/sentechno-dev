@@ -41,6 +41,7 @@
           <th>Type Lot</th>
           <th>Numéro de production</th>
           <th>Année de production</th>
+          <th>Libellé</th>
           <th>Modifier</th>
           <th>Supprimer</th>
         </tr>
@@ -50,6 +51,7 @@
           <td>{{ item.typeLot }}</td>
           <td>{{ item.numeroProduction }}</td>
           <td>{{ item.anneeProduction }}</td>
+          <td>{{ item.libelle }}</td>
           <td align="center">
             <button (click)="editLot(item)" class="btn btn-warning btn-xs" title="Modifier">
               <i class="glyphicon glyphicon-pencil"></i>

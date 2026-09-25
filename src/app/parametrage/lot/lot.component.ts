@@ -117,6 +117,7 @@ export class LotComponent implements OnInit {
       ...resetLot,
       id: 0,
       numeroProduction: '',
+      libelle: '',
       anneeProduction: ''
     });
     this.newLot = false;

@@ -5,13 +5,19 @@
       </div>
       <form class="form-frame">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-3">
             <div class="form-group">
               <label for="codePoids">Code Poids</label>
               <input type="text" class="form-control" id="codePoids" [(ngModel)]="poidsProduit.codePoids" name="codePoids" placeholder="Saisir le code poids">
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="unitePoids">Unite Poids</label>
+              <input type="text" class="form-control" id="unitePoids" [(ngModel)]="poidsProduit.unitePoids" name="unitePoids" placeholder="Saisir l'unite de poids">
+            </div>
+          </div>
+          <div class="col-md-3">
             <div class="form-group">
               <label for="poids">Poids</label>
               <input type="text" class="form-control" id="poids" [(ngModel)]="poidsProduit.poids" name="poids" placeholder="Saisir le poids">
@@ -31,7 +37,9 @@
           <thead>
             <tr class="info">
               <th>Code Poids</th>
+              <th>Unite</th>
               <th>Poids</th>
+              <th>Libellé</th>
               <th>Modifier</th>
               <th>Supprimer</th>
             </tr>
@@ -39,7 +47,10 @@
           <tbody style="font-size:1.2rem;">
             <tr *ngFor="let item of paginatedPoidsProduits; trackBy: trackById">
               <td>{{ item.codePoids }}</td>
+              <td>{{ item.libelle }}</td>
+              <td>{{ item.unitePoids }}</td>
               <td>{{ item.poids }}</td>
+              <td>{{ item.libelle }}</td>
               <td align="center">
                 <button (click)="editPoidsProduit(item)" class="btn btn-warning btn-xs" title="Modifier">
                   <i class="glyphicon glyphicon-pencil"></i>

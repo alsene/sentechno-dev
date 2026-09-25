@@ -9,9 +9,15 @@ import { Produit } from "../model/Produit";
 import { Client } from '../model/Client';
 import { Lot } from "../model/Lot";
 import { Silo } from "../model/Silo";
+import { Station } from "../model/Station";
 import { TypeProduit } from "../model/TypeProduit";
+import { SiloTypeProduit } from "../model/SiloTypeProduit";
+import { PoidsProduit } from "../model/PoidsProduit";
 import { Utilisateur } from "../model/Utilisateur";
 import { Subscription } from 'rxjs';
+import { SiloTypeProduitService } from '../services/parametrage/silo-type-produit.service';
+import { StationService } from '../services/parametrage/station.service';
+import { PoidsProduitService } from '../services/parametrage/poids-produit.service';
 
 @Component({
   selector: 'app-produit',
@@ -44,6 +50,9 @@ export class ProduitComponent implements OnInit, OnDestroy {
   listeLotBag:Array<Lot>| [] = [];
   listeSilo:Array<Silo>| [] = [];
   listeTypeProduits:Array<TypeProduit>| [] = [];
+  listeSiloTypeProduits:Array<SiloTypeProduit>| [] = [];
+  listePoidsProduits:Array<PoidsProduit>| [] = [];
+  listeStations:Array<Station>| [] = [];
   listeQA:Array<Utilisateur>| [] = [];
   produit1: any;
   produit: Produit = new Produit(null);
@@ -59,7 +68,14 @@ export class ProduitComponent implements OnInit, OnDestroy {
     this.refreshSubscription?.unsubscribe();
   }
 
-  constructor(private datePipe: DatePipe, private produitService: ProduitService, private fb: FormBuilder) {
+  constructor(
+    private datePipe: DatePipe,
+    private produitService: ProduitService,
+    private fb: FormBuilder,
+    private siloTypeProduitService: SiloTypeProduitService,
+    private stationService: StationService,
+    private poidsProduitService: PoidsProduitService
+  ) {
 
     if (!this.auth.isLoggedIn()) {
       this.router.navigate(['/login']);
@@ -99,9 +115,42 @@ export class ProduitComponent implements OnInit, OnDestroy {
         this.listeSilo =  this.responseProduit ? this.responseProduit.silos : [];
         this.listeQA =  this.responseProduit ? this.responseProduit.qaList : [];
         this.listeTypeProduits = this.responseProduit ? this.responseProduit.typeProduits : [];
+        this.listeSiloTypeProduits = [];
+        this.chargerStations();
+        this.chargerPoidsProduits();
         console.log('Produits conformes récupérés:', this.listeProduitsConforme);
       }
     });
+  }
+
+  private chargerStations(): void {
+    this.stationService.getStations().subscribe({
+      next: (data) => {
+        this.listeStations = data || [];
+      },
+      error: (erreur) => {
+        this.listeStations = [];
+        this.produit.station = null;
+        console.error('Erreur lors du chargement des stations :', erreur);
+      }
+    });
+  }
+
+  private chargerPoidsProduits(): void {
+    this.poidsProduitService.getPoidsProduits().subscribe({
+      next: (data) => {
+        this.listePoidsProduits = data || [];
+      },
+      error: (erreur) => {
+        this.listePoidsProduits = [];
+        this.produit.poidsProduit = null;
+        console.error('Erreur lors du chargement des poids produit :', erreur);
+      }
+    });
+  }
+
+  onSiloChange(silo: Silo | null): void {
+    this.chargerSiloTypeProduitsParSilo(silo, false, true);
   }
 
 
@@ -249,6 +298,10 @@ export class ProduitComponent implements OnInit, OnDestroy {
 
   editProduct(product: Produit): void {
     this.editingIndex = this.listeProduits.findIndex(c => c.id === product.id);
+    if (this.editingIndex < 0) {
+      return;
+    }
+
     const edited = this.produitService.editProduct(product);
     // matcher typeProduit
     if (edited.typeProduit?.id != null) {
@@ -270,13 +323,29 @@ export class ProduitComponent implements OnInit, OnDestroy {
       const matchedSilo = this.listeSilo.find(silo => silo.id === edited.silo.id);
       if (matchedSilo) edited.silo = matchedSilo;
     }
+    // matcher siloTypeProduit après le chargement filtré par silo
+    if (edited.siloTypeProduit?.id != null) {
+      const matchedSiloTypeProduit = this.listeSiloTypeProduits.find(stp => stp.id === edited.siloTypeProduit.id);
+      if (matchedSiloTypeProduit) edited.siloTypeProduit = matchedSiloTypeProduit;
+    }
     // matcher client
     if (edited.client?.id != null) {
       const matchedClient = this.listeClients.find(c => c.id === edited.client.id);
       if (matchedClient) edited.client = matchedClient;
     }
+    // matcher station
+    if (edited.station?.id != null) {
+      const matchedStation = this.listeStations.find(station => station.id === edited.station.id);
+      if (matchedStation) edited.station = matchedStation;
+    }
+    // matcher poidsProduit
+    if (edited.poidsProduit?.id != null) {
+      const matchedPoidsProduit = this.listePoidsProduits.find(poidsProduit => poidsProduit.id === edited.poidsProduit.id);
+      if (matchedPoidsProduit) edited.poidsProduit = matchedPoidsProduit;
+    }
     this.produit = edited;
     this.newProduct = true;
+    this.chargerSiloTypeProduitsParSilo(this.produit.silo, true);
   }
 
   cancelEdit() {
@@ -288,8 +357,55 @@ export class ProduitComponent implements OnInit, OnDestroy {
     newProduit.lot = null;
     newProduit.lotBag = null;
     newProduit.silo = null;
+    newProduit.siloTypeProduit = null;
     newProduit.client = null;
+    newProduit.station = null;
+    newProduit.poidsProduit = null;
     this.produit = newProduit;
+    this.listeSiloTypeProduits = [];
+  }
+
+  private chargerSiloTypeProduitsParSilo(silo: Silo | null, keepSelection = false, forceRefresh = false): void {
+    const siloId = this.extractId(silo);
+
+    if (siloId == null) {
+      this.listeSiloTypeProduits = [];
+      this.produit.siloTypeProduit = null;
+      return;
+    }
+
+    this.siloTypeProduitService.findBySiloId(siloId, forceRefresh).subscribe({
+      next: (data) => {
+        this.listeSiloTypeProduits = data || [];
+
+        if (keepSelection) {
+          const siloTypeProduitId = this.extractId(this.produit.siloTypeProduit);
+          const matchedSiloTypeProduit = this.listeSiloTypeProduits.find(item => item.id === siloTypeProduitId) ?? null;
+          this.produit.siloTypeProduit = matchedSiloTypeProduit;
+          return;
+        }
+
+        this.produit.siloTypeProduit = null;
+      },
+      error: (erreur) => {
+        this.listeSiloTypeProduits = [];
+        this.produit.siloTypeProduit = null;
+        console.error('Erreur lors du chargement des produits du silo :', erreur);
+      }
+    });
+  }
+
+  private extractId(item: any): number | null {
+    if (item == null) {
+      return null;
+    }
+
+    if (typeof item === 'object' && item.id != null) {
+      return Number(item.id);
+    }
+
+    const numericValue = Number(item);
+    return Number.isNaN(numericValue) ? null : numericValue;
   }
 
   removeProduct1(id:number) : void{

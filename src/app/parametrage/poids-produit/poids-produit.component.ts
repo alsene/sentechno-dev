@@ -49,7 +49,12 @@ export class PoidsProduitComponent implements OnInit {
   }
 
   ajouterPoidsProduit(): void {
-    if (!this.poidsProduit.codePoids || this.poidsProduit.poids == null || this.poidsProduit.poids === '') {
+    if (
+      !this.poidsProduit.codePoids ||
+      !this.poidsProduit.unitePoids ||
+      this.poidsProduit.poids == null ||
+      this.poidsProduit.poids === ''
+    ) {
       return;
     }
 
@@ -116,6 +121,8 @@ export class PoidsProduitComponent implements OnInit {
       ...resetPoidsProduit,
       id: 0,
       poids: '',
+      unitePoids: '',
+      libelle: '',
       codePoids: ''
     });
     this.newPoidsProduit = false;

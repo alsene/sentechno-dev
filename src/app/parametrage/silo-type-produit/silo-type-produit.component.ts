@@ -159,6 +159,7 @@ export class SiloTypeProduitComponent implements OnInit {
       ...resetItem,
       id: 0,
       codeProduit: '',
+      libelle: '',
       silo: null,
       typeProduit: null
     });
@@ -234,6 +235,7 @@ export class SiloTypeProduitComponent implements OnInit {
     return {
       id: 0,
       codeProduit: '',
+      libelle: '',
       silo: null,
       typeProduit: null
     };
@@ -243,6 +245,7 @@ export class SiloTypeProduitComponent implements OnInit {
     return {
       id: item?.id ?? 0,
       codeProduit: item?.codeProduit ?? '',
+      libelle: item?.libelle ?? '',
       silo: item?.silo ?? null,
       typeProduit: item?.typeProduit ?? null
     };
@@ -252,6 +255,7 @@ export class SiloTypeProduitComponent implements OnInit {
     return {
       id: item.id,
       codeProduit: item.codeProduit,
+      libelle: item.libelle,
       silo: item.silo,
       typeProduit: item.typeProduit
     };

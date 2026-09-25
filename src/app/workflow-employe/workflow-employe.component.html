@@ -1,0 +1,98 @@
+<div class="container responsive-container workflow-page">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Dossier employé</div>
+    <div class="panel-body">
+      <div class="workflow-steps-grid">
+        <button
+          type="button"
+          class="step-pill"
+          *ngFor="let step of steps; let i = index"
+          [class.active]="i === currentStep"
+          [class.done]="isStepCompleted(i)"
+          [disabled]="!isStepAccessible(i)"
+          (click)="goToStep(i)">
+          {{ i + 1 }}. {{ step.label }}
+        </button>
+      </div>
+
+      <div class="workflow-progress">
+        <div class="workflow-progress-bar" [style.width.%]="completionPercent"></div>
+      </div>
+
+      <div class="question-card" [class.completed]="isCurrentStepValid()">
+        <div class="question-card-head">
+          <div>
+            <h4>{{ currentStepMeta.label }}</h4>
+            <p>{{ currentStepMeta.hint }}</p>
+          </div>
+          <span class="check-icon" [class.active]="isCurrentStepValid()">&#10003;</span>
+        </div>
+
+        <app-employer *ngIf="isCurrentStep('employer')" [data]="payload.employer"></app-employer>
+        <app-adresse *ngIf="isCurrentStep('adresse')" [data]="payload.adresse"></app-adresse>
+        <app-information *ngIf="isCurrentStep('information')" [data]="payload.information"></app-information>
+        <app-formation *ngIf="isCurrentStep('formation')" [data]="payload.formation"></app-formation>
+        <app-employeur *ngIf="isCurrentStep('employeur')" [data]="payload.employeur"></app-employeur>
+
+        <div *ngIf="isCurrentStep('fin')" class="resume-grid">
+          <div class="resume-card">
+            <h5>Employer</h5>
+            <p><strong>Nom:</strong> {{ payload.employer.nom }}</p>
+            <p><strong>Prenom:</strong> {{ payload.employer.prenom }}</p>
+            <p><strong>Date naissance:</strong> {{ payload.employer.dateNaissance }}</p>
+            <p><strong>Telephone:</strong> {{ payload.employer.telephone }}</p>
+          </div>
+          <div class="resume-card">
+            <h5>Adresse</h5>
+            <p><strong>Rue:</strong> {{ payload.adresse.rue }}</p>
+            <p><strong>Ville:</strong> {{ payload.adresse.ville }}</p>
+            <p><strong>Code postale:</strong> {{ payload.adresse.codePostale }}</p>
+            <p><strong>Pays:</strong> {{ payload.adresse.pays }}</p>
+            <p><strong>Province:</strong> {{ payload.adresse.province }}</p>
+          </div>
+          <div class="resume-card">
+            <h5>Information</h5>
+            <p><strong>Status:</strong> residant({{ payload.information.status.residant ? 'oui' : 'non' }}), etudiant({{ payload.information.status.etudiant ? 'oui' : 'non' }}), visiteur({{ payload.information.status.visiteur ? 'oui' : 'non' }}), travailleur({{ payload.information.status.travailleur ? 'oui' : 'non' }}), citoyen({{ payload.information.status.citoyen ? 'oui' : 'non' }})</p>
+            <p><strong>Piece:</strong> passport({{ payload.information.piece.passport ? 'oui' : 'non' }}), carteResident({{ payload.information.piece.carteResident ? 'oui' : 'non' }}), permisTravaille({{ payload.information.piece.permisTravaille ? 'oui' : 'non' }})</p>
+          </div>
+          <div class="resume-card">
+            <h5>Formation</h5>
+            <p><strong>CV:</strong> {{ payload.formation.cv }}</p>
+            <p><strong>Etude:</strong> secondaire({{ payload.formation.etude.secondaire ? 'oui' : 'non' }}), cgep({{ payload.formation.etude.cgep ? 'oui' : 'non' }}), universitaire({{ payload.formation.etude.universitaire ? 'oui' : 'non' }})</p>
+            <p><strong>Diplome:</strong> bac({{ payload.formation.diplome.bac ? 'oui' : 'non' }}), dess({{ payload.formation.diplome.dess ? 'oui' : 'non' }})</p>
+          </div>
+          <div class="resume-card">
+            <h5>Employeur</h5>
+            <p><strong>Nom:</strong> {{ payload.employeur.nom }}</p>
+            <p><strong>Adresse:</strong> {{ payload.employeur.adresse }}</p>
+            <p><strong>Telephone:</strong> {{ payload.employeur.telephone }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-row" style="margin-top: 12px;">
+        <button type="button" class="btn btn-default" (click)="previousStep()" [disabled]="currentStep === 0">Precedent</button>
+        <button type="button" class="btn btn-primary" (click)="nextStep()" *ngIf="currentStep < steps.length - 1" [disabled]="!isCurrentStepValid()">Suivant</button>
+        <button type="button" class="btn btn-success" (click)="submit()" *ngIf="currentStep === steps.length - 1" [disabled]="!isCurrentStepValid()">Valider</button>
+      </div>
+
+      <div class="alert alert-success" *ngIf="submitted" style="margin-top: 12px;">
+        Workflow termine avec succes.
+      </div>
+
+      <div class="panel panel-default" *ngIf="submitted">
+        <div class="panel-heading">Resume</div>
+        <div class="panel-body">
+          <pre>{{ payload | json }}</pre>
+          <button type="button" class="btn btn-warning btn-sm" (click)="reset()">Nouveau workflow</button>
+        </div>
+      </div>
+      <footer class="app-footer">
+        <div class="container">
+          <small>&copy; 2026 Alpha Production — Tous droits réservés.</small>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+
