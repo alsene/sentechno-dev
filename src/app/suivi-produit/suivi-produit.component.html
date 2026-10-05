@@ -7,19 +7,19 @@
         <div class="col-sm-6">
             <div class="alert alert-info" style="padding:6px 12px; margin:0;"></div>
             <ul class="list-group">
-                <li class="list-group-item"><strong>Nom produit:</strong> {{produit.typeProduit?.libelle}}</li>
-                <li class="list-group-item"><strong>Code :</strong> {{produit.code}}</li>
-                <li class="list-group-item"><strong>Quantité :</strong> {{produit.quantite}}</li>
-                <li class="list-group-item"><strong>Lot produit :</strong> {{produit.lot?.numeroProduction}}</li>
+                <li class="list-group-item"><strong>Produit:</strong> {{ produit.siloTypeProduit?.libelle }}</li>
+                <li class="list-group-item"><strong>Numéro:</strong> {{produit.code}}</li>
+                <li class="list-group-item"><strong>Quantité:</strong> {{ produit.poidsProduit?.libelle }}</li>
+                <li class="list-group-item"><strong>Lot produit:</strong> {{ produit.lot?.libelle }} - {{ produit.jourJulien }}</li>
             </ul>
         </div>
         <div class="col-sm-6">
             <div class="alert alert-info" style="padding:6px 12px; margin:0;"></div>
             <ul class="list-group">
-                <li class="list-group-item"><strong>Opérateur :</strong> {{produit.operateur?.nom}}</li>
-                <li class="list-group-item"><strong>Client :</strong> {{produit.client?.nom}}</li>
-                <li class="list-group-item"><strong>Lot Big Bag :</strong> {{produit.lotBag?.numeroProduction}}</li>
-                <li class="list-group-item"><strong>Silo :</strong> {{produit.silo?.libelle}}</li>
+                <li class="list-group-item"><strong>Opérateur:</strong> {{produit.operateur?.nom}}</li>
+                <li class="list-group-item"><strong>Client:</strong> {{produit.client?.nom}}</li>
+                <li class="list-group-item"><strong>Lot Big Bag:</strong> {{ produit.lotBag?.libelle }} - {{ produit.jourJulien }}</li>
+                <li class="list-group-item"><strong>Silo:</strong> {{produit.silo?.libelle}}</li>
             </ul>
         </div>
     </div>
@@ -132,8 +132,8 @@
     <table class="table table-bordered table-striped table-hover table-condensed">
       <thead>
       <tr class="info">
-        <th>Code</th>
-        <th>Nom</th>
+        <th>&#8470;</th>
+        <th>Produit</th>
         <th>Lot</th>
         <th>Bag</th>
         <th>Silo</th>
@@ -149,12 +149,12 @@
       <tbody style="font-size:1.2rem;">
       <tr *ngFor="let c of pagedProduits; trackBy: trackById">
         <td>{{ c.code }}</td>
-        <td>{{ c.name }}</td>
-        <td>{{ c.lot.numeroProduction }}</td>
-        <td>{{ c.lotBag.numeroProduction }}</td>
-        <td>{{ c.silo.codeProduit }}</td>
+        <td>{{ c.siloTypeProduit.libelle }}</td>
+        <td>{{ c.lot.libelle }} - {{ c.jourJulien }}</td>
+        <td>{{ c.lotBag.libelle }} - {{ c.jourJulien }}</td>
+        <td>{{ c.silo.libelle }}</td>
         <td>{{ c.client.nom }}</td>
-        <td>{{ c.quantite }}</td>
+        <td>{{ c.poidsProduit.libelle }}</td>
         <td>{{ c.operateur.nom }}</td>
         <td>{{ c.qualite }}</td>
         <td class="text-center">
@@ -199,8 +199,8 @@
     <table class="table table-bordered table-striped table-hover table-condensed">
       <thead>
       <tr class="info">
-        <th>Code</th>
-        <th>Nom</th>
+        <th>&#8470;</th>
+        <th>Produit</th>
         <th>Lot</th>
         <th>Bag</th>
         <th>Silo</th>
@@ -216,12 +216,12 @@
       <tbody style="font-size:1.2rem;">
       <tr *ngFor="let c of pagedProduitsConforme; trackBy: trackById">
         <td>{{ c.code }}</td>
-        <td>{{ c.nom }}</td>
-        <td>{{ c.lot.numeroProduction }}</td>
-        <td>{{ c.lotBag.numeroProduction }}</td>
-        <td>{{ c.silo.codeProduit }}</td>
+        <td>{{ c.siloTypeProduit.libelle }}</td>
+        <td>{{ c.lot.libelle }} - {{ c.jourJulien }}</td>
+        <td>{{ c.lotBag.libelle }} - {{ c.jourJulien }}</td>
+        <td>{{ c.silo.libelle }}</td>
         <td>{{ c.client.nom }}</td>
-        <td>{{ c.quantite }}</td>
+        <td>{{ c.poidsProduit.libelle }}</td>
         <td>{{ c.operateur.nom }}</td>
         <td>{{ c.qualite }}</td>
         <td class="text-center">

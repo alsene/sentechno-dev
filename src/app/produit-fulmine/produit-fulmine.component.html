@@ -6,8 +6,8 @@
         <thead>
         <tr class="info">
           <th><a href="#" (click)="toggleSelectAll($event)">Choisir</a></th>
-          <th>Code</th>
-          <th>Nom</th>
+          <th>&#8470;</th>
+          <th>Produit</th>
           <th>Lot</th>
           <th>Bag</th>
           <th>Silo</th>
@@ -23,12 +23,12 @@
         <tr *ngFor="let c of pagedProduits; trackBy: trackById">
           <td align="center"><input type="checkbox" [(ngModel)]="c.selected" name="selected-{{c.id}}"></td>
           <td>{{ c.code }}</td>
-          <td>{{ c.name }}</td>
-          <td>{{ c.lot.numeroProduction }}</td>
-          <td>{{ c.lotBag.numeroProduction }}</td>
-          <td>{{ c.silo.codeProduit }}</td>
+          <td>{{ c.siloTypeProduit.libelle }}</td>
+          <td>{{ c.lot.libelle }} - {{ c.jourJulien }}</td>
+          <td>{{ c.lotBag.libelle }} - {{ c.jourJulien }}</td>
+          <td>{{ c.silo.libelle }}</td>
           <td>{{ c.client.nom }}</td>
-          <td>{{ c.quantite }}</td>
+          <td>{{ c.poidsProduit.libelle }}</td>
           <td>{{ c.operateur.nom }}</td>
           <td>{{ c.qualite }}</td>
           <td class="text-center">
@@ -75,8 +75,8 @@
         <thead>
         <tr class="info">
           <th><a href="#" (click)="toggleSelectAllConforme($event)">Choisir</a></th>
-          <th>Code</th>
-          <th>Nom</th>
+          <th>&#8470;</th>
+          <th>Produit</th>
           <th>Lot</th>
           <th>Bag</th>
           <th>Silo</th>
@@ -92,12 +92,12 @@
         <tr *ngFor="let c of pagedProduitsConforme; trackBy: trackById">
           <td align="center"><input type="checkbox" [(ngModel)]="c.selected" name="selected-{{c.id}}"></td>
           <td>{{ c.code }}</td>
-          <td>{{ c.name }}</td>
-          <td>{{ c.lot.numeroProduction }}</td>
-          <td>{{ c.lotBag.numeroProduction }}</td>
-          <td>{{ c.silo.codeProduit }}</td>
+          <td>{{ c.siloTypeProduit.libelle }}</td>
+          <td>{{ c.lot.libelle }} - {{ c.jourJulien }}</td>
+          <td>{{ c.lotBag.libelle }} - {{ c.jourJulien }}</td>
+          <td>{{ c.silo.libelle }}</td>
           <td>{{ c.client.nom }}</td>
-          <td>{{ c.quantite }}</td>
+          <td>{{ c.poidsProduit.libelle }}</td>
           <td>{{ c.operateur.nom }}</td>
           <td>{{ c.qualite }}</td>
           <td class="text-center">
