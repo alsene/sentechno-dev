@@ -13,6 +13,7 @@ export const routes: Routes = [
   { path: 'type-produit', loadComponent: () => import('./parametrage/type-produit/type-produit.component').then((m) => m.TypeProduitComponent) },
   { path: 'silo-type-produit', loadComponent: () => import('./parametrage/silo-type-produit/silo-type-produit.component').then((m) => m.SiloTypeProduitComponent) },
   { path: 'station', loadComponent: () => import('./parametrage/station/station.component').then((m) => m.StationComponent) },
+  { path: 'station-lot', loadComponent: () => import('./parametrage/station-lot/station-lot.component').then((m) => m.StationLotComponent) },
   { path: 'poids-produit', loadComponent: () => import('./parametrage/poids-produit/poids-produit.component').then((m) => m.PoidsProduitComponent) },
   { path: 'contacts', loadComponent: () => import('./contacts/contacts.component').then((m) => m.ContactsComponent) },
   { path: 'about', loadComponent: () => import('./about/about.component').then((m) => m.AboutComponent) },

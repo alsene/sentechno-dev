@@ -26,13 +26,21 @@
             <div class="col-md-4">
               <div class="form-group" style="margin-right:10px;">
                 <label for="station">Station</label>
-                <select id="station" class="form-control input-sm" [(ngModel)]="produit.station" name="station">
+                <select id="station" class="form-control input-sm" [(ngModel)]="produit.station" (ngModelChange)="onStationChange($event)" name="station">
                   <option [ngValue]="null" disabled>-- Choisir une station --</option>
                   <option *ngFor="let station of listeStations; trackBy: trackById" [ngValue]="station">{{ station.libelle }}</option>
                 </select>
               </div>
             </div>
-
+            <div class="col-md-4">
+              <div class="form-group" style="margin-right:10px;">
+                <label for="stationLot">Lot</label>
+                <select id="stationLot" class="form-control input-sm" [(ngModel)]="produit.stationLot" name="stationLot">
+                  <option [ngValue]="null" disabled>-- Choisir un lot produit --</option>
+                  <option *ngFor="let stationLot of listeStationLots; trackBy: trackById" [ngValue]="stationLot">{{stationLot.libelle }}</option>
+                </select>
+              </div>
+            </div>
             <div class="col-md-4">
               <div class="form-group" style="margin-right:10px;">
                 <label for="poidsProduit">Poids Produit</label>
@@ -42,24 +50,16 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="form-group" style="margin-right:10px;">
-                <label for="lotProduit">Lot</label>
-                <select id="lotProduit" class="form-control input-sm" [(ngModel)]="produit.lot" name="lotProduit">
-                  <option [ngValue]="null" disabled>-- Choisir un lot produit --</option>
-                  <option *ngFor="let lotProduit of listeLot; trackBy: trackById" [ngValue]="lotProduit">{{ lotProduit.libelle }}</option>
-                </select>
-              </div>
-            </div>
+
           </div>
 
           <div class="row">
             <div class="col-md-4">
               <div class="form-group" style="margin-right:10px;">
-                <label for="lotBigBag">Lot Bag</label>
-                <select id="lotBigBag" class="form-control input-sm" [(ngModel)]="produit.lotBag" name="lotBigBag">
-                  <option [ngValue]="null" disabled>-- Choisir un Big Bag --</option>
-                  <option *ngFor="let lotBigBag of listeLotBag; trackBy: trackById" [ngValue]="lotBigBag">{{ lotBigBag.libelle }}</option>
+                <label for="client">Client</label>
+                <select id="client" class="form-control input-sm" [(ngModel)]="produit.client" name="client">
+                  <option [ngValue]="null" disabled>-- Choisir un client --</option>
+                  <option *ngFor="let client of listeClients; trackBy: trackById" [ngValue]="client">{{ client.nom }}</option>
                 </select>
               </div>
             </div>
@@ -74,15 +74,6 @@
               <div class="form-group" style="margin-right:10px;">
                 <label for="code">Numéro</label>
                 <input id="code" type="text" class="form-control input-sm" [(ngModel)]="produit.code" name="code" placeholder="Numéro produit">
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group" style="margin-right:10px;">
-                <label for="client">Client</label>
-                <select id="client" class="form-control input-sm" [(ngModel)]="produit.client" name="client">
-                  <option [ngValue]="null" disabled>-- Choisir un client --</option>
-                  <option *ngFor="let client of listeClients; trackBy: trackById" [ngValue]="client">{{ client.nom }}</option>
-                </select>
               </div>
             </div>
           </div>
@@ -102,7 +93,6 @@
             <th>Numéro</th>
             <th>Produit</th>
             <th>Lot</th>
-            <th>Bag</th>
             <th>Silo</th>
             <th>Client</th>
             <th>Quantité</th>
@@ -118,7 +108,6 @@
             <td>{{ c.code }}</td>
             <td>{{ c.siloTypeProduit.libelle }}</td>
             <td>{{ c.lot.libelle }} - {{ c.jourJulien }}</td>
-            <td>{{ c.lotBag.libelle }} - {{ c.jourJulien }}</td>
             <td>{{ c.silo.libelle }}</td>
             <td>{{ c.client.nom }}</td>
             <td>{{ c.poidsProduit.libelle }}</td>

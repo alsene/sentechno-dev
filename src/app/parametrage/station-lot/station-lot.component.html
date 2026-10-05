@@ -1,0 +1,82 @@
+<div class="panel-body">
+  <div class="alert alert-info" style="padding:6px 12px; margin:0;">
+    <strong>Saisie des informations station lot</strong>
+  </div>
+  <form class="form-frame">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="station">Station</label>
+          <select class="form-control" id="station" [(ngModel)]="stationLot.station" name="station">
+            <option [ngValue]="null">Selectionner une station</option>
+            <option *ngFor="let item of stations; trackBy: trackById" [ngValue]="item">{{ item.libelle }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="lot">Lot</label>
+          <select class="form-control" id="lot" [(ngModel)]="stationLot.lot" name="lot">
+            <option [ngValue]="null">Selectionner un lot</option>
+            <option *ngFor="let item of lots; trackBy: trackById" [ngValue]="item">{{ item.libelle }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button *ngIf="!isEditing" (click)="ajouterStationLot()" type="button" class="btn btn-primary btn-sm">Enregistrer</button>
+      <button *ngIf="isEditing" (click)="ajouterStationLot()" type="button" class="btn btn-success btn-sm">Modifier</button>
+      <button *ngIf="isEditing" (click)="cancelEdit()" type="button" class="btn btn-default btn-sm">Annuler</button>
+    </div>
+  </form>
+
+  <div class="table-responsive" *ngIf="stationLots.length > 0; else noStationLots">
+    <table class="table table-bordered table-striped table-hover table-condensed">
+      <thead>
+        <tr class="info">
+          <th>Station</th>
+          <th>Lot</th>
+          <th>Modifier</th>
+          <th>Supprimer</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:1.2rem;">
+        <tr *ngFor="let item of paginatedStationLots; trackBy: trackById">
+          <td>{{ getStationLibelle(item.station) }}</td>
+          <td>{{ getLotLibelle(item.lot) }}</td>
+          <td align="center">
+            <button (click)="editStationLot(item)" class="btn btn-warning btn-xs" title="Modifier">
+              <i class="glyphicon glyphicon-pencil"></i>
+            </button>
+          </td>
+          <td align="center">
+            <button (click)="supprimerStationLot(item.id)" class="btn btn-danger btn-xs" title="Supprimer">
+              <i class="glyphicon glyphicon-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <nav *ngIf="stationLots.length > pageSize" aria-label="Pagination station lot" class="text-center">
+      <ul class="pagination" style="margin: 10px 0 0 0;">
+        <li [class.disabled]="currentPage === 1">
+          <a href="javascript:void(0)" (click)="goToPage(currentPage - 1)">Precedent</a>
+        </li>
+        <li *ngFor="let page of pages; trackBy: trackByPage" [class.active]="page === currentPage">
+          <a href="javascript:void(0)" (click)="goToPage(page)">{{ page }}</a>
+        </li>
+        <li [class.disabled]="currentPage === totalPages">
+          <a href="javascript:void(0)" (click)="goToPage(currentPage + 1)">Suivant</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <ng-template #noStationLots>
+    <div class="alert alert-info" *ngIf="!isEditing">Aucune correspondance station/lot enregistree</div>
+  </ng-template>
+</div>
+
+

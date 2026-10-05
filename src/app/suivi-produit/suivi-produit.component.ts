@@ -40,10 +40,7 @@ export class SuiviProduitComponent {
   listeCommentaire:CommentaireProduit[] = [];
   typeProduitList: string[] = [];
   listeClients:Array<Client>| [] = [];
-  listeLot:Array<Lot>| [] = [];
-  listeLotBag:Array<Lot>| [] = [];
   listeSilo:Array<Silo>| [] = [];
-  listeTypeProduits:Array<TypeProduit>| [] = [];
   listeQA:Array<Utilisateur>| [] = [];
 
   produit1: any;
@@ -69,11 +66,8 @@ export class SuiviProduitComponent {
         this.listeProduitsExpedier = this.responseProduit ? this.responseProduit.produitsExpedier : [];
         this.listeProduitsArecycler = this.responseProduit ? this.responseProduit.produitsArecycler : [];
         this.listeClients =  this.responseProduit ? this.responseProduit.clients : [];
-        this.listeLot =  this.responseProduit ? this.responseProduit.lots : [];
-        this.listeLotBag =  this.responseProduit ? this.responseProduit.lotBags : [];
         this.listeSilo =  this.responseProduit ? this.responseProduit.silos : [];
         this.listeQA =  this.responseProduit ? this.responseProduit.qaList : [];
-        this.listeTypeProduits = this.responseProduit ? this.responseProduit.typeProduits : [];
           console.log('Clients récupérés:', this.listeClients);  
       }
     });
@@ -245,21 +239,6 @@ export class SuiviProduitComponent {
   editProduct(product: Produit): void {
     this.editingIndex = this.listeProduits.findIndex(c => c.id === product.id);
     const edited = this.produitService.editProduct(product);
-    // matcher typeProduit
-    if (edited.typeProduit?.id != null) {
-      const matchedType = this.listeTypeProduits.find(t => t.id === edited.typeProduit.id);
-      if (matchedType) edited.typeProduit = matchedType;
-    }
-    // matcher lot
-    if (edited.lot?.id != null) {
-      const matchedLot = this.listeLot.find(lot => lot.id === edited.lot.id);
-      if (matchedLot) edited.lot = matchedLot;
-    }
-    // matcher lotBag
-    if (edited.lotBag?.id != null) {
-      const matchedLotBag = this.listeLotBag.find(lotBag => lotBag.id === edited.lotBag.id);
-      if (matchedLotBag) edited.lotBag = matchedLotBag;
-    }
     // matcher silo
     if (edited.silo?.id != null) {
       const matchedSilo = this.listeSilo.find(silo => silo.id === edited.silo.id);
@@ -432,40 +411,6 @@ export class SuiviProduitComponent {
   trackByValue(_index: number, value: string): string {
     return value;
   }
-
-  /*cancelEditCommentaire() {
-    this.newCommentaire = false;
-    this.editingIndexCommentaire = null;
-    this.commentaire = this.produitService.cancelEditCommentaire(this.clientList[0] || '');
-  }*/
- /* updateCommentaire() {
-    this.produitService.updateCommentaire(this.listeCommentaires, this.editingIndexCommentaire, this.commentaire);
-    if (this.editingIndexCommentaire !== null) {
-      this.cancelEditCommentaire();
-    }
-  }*/
-  /*editCommentaire(commentaire: any): void {
-    this.editingIndexCommentaire = this.listeCommentaires.findIndex(c => c.id === commentaire.id);
-    this.commentaire = this.produitService.editCommentaire(commentaire);
-    this.newCommentaire = true;
-  }*/
-  /*removeCommentaire(id:number) : void{
-    const index = this.listeCommentaires.findIndex(item => item.id === id);
-    this.produitService.removeCommentaire(this.listeCommentaires, id);
-    this.adjustCurrentPageCommentaires();
-  }*/
-  /*addCommentaire(code: any): void {
-    if (this.commentaire.nouveauCommentaire !== '') {
-      this.commentaire.nouveauCommentaire = this.commentaire.nouveauCommentaire;
-      this.commentaire.assuranceQualite = this.commentaire.assuranceQualite;
-      this.commentaire.codeProduit = code;
-      this.commentaire.id = this.listeCommentaires.length + 1;
-      this.produitService.ajouterCommentaire(this.listeCommentaires, this.commentaire, code);
-      this.currentPageCommentaires = this.totalPagesCommentaires;
-      console.log('Commentaire ajouté:', this.commentaire);
-      this.commentaire = { id: 0, codeProduit: '', nouveauCommentaire: '', assuranceQualite: 'Alex' };
-
-    }
-  }*/
+  
 }
 

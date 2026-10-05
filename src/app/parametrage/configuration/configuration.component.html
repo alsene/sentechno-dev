@@ -10,6 +10,7 @@
         <app-silo-type-produit *ngIf="activeSection === 'silo-type-produit'"></app-silo-type-produit>
         <app-station *ngIf="activeSection === 'station'"></app-station>
         <app-poids-produit *ngIf="activeSection === 'poids-produit'"></app-poids-produit>
+		<app-station-lot *ngIf="activeSection === 'station-lot'"></app-station-lot>
       </div>
       <footer class="app-footer">
         <div class="container">
@@ -31,6 +32,7 @@
 			  <li><a href="#" (click)="showSection('silo-type-produit'); $event.preventDefault()">Silo Type Produit</a></li>
 			  <li><a href="#" (click)="showSection('station'); $event.preventDefault()">Station</a></li>
 			  <li><a href="#" (click)="showSection('poids-produit'); $event.preventDefault()">Poids Produit</a></li>
+			  <li><a href="#" (click)="showSection('station-lot'); $event.preventDefault()">Station Lot</a></li>
 			</ul>
 		  </div>
 		</div>

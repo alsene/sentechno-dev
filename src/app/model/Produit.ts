@@ -5,6 +5,7 @@ import { Client } from "./Client";
 import { TypeProduit } from "./TypeProduit";
 import { SiloTypeProduit } from "./SiloTypeProduit";
 import { Station } from "./Station";
+import { StationLot } from "./StationLot";
 import { PoidsProduit } from "./PoidsProduit";
 import { CommentaireProduit } from "./CommentaireProduit";
 
@@ -18,14 +19,13 @@ export class Produit {
   conforme: any;
   jourJulien: any;
   lot: Lot | null;
-  lotBag: Lot | null;
   silo: Silo | null;
   client: Client | null;
   operateur: Utilisateur | null;
-  typeProduit: TypeProduit | null;
   siloTypeProduit: SiloTypeProduit | null;
   poidsProduit: PoidsProduit | null;
   station: Station | null;
+  stationLot: StationLot | null;
   commentaires: Array<CommentaireProduit>;
   selected: boolean;
   constructor(init: any) {
@@ -38,14 +38,13 @@ export class Produit {
     this.fulmine = init ? init.fulmine : false;
     this.conforme = init ? init.conforme : false;
     this.lot = init ? init.lot : null;
-    this.lotBag = init ? init.lotBag : null;
     this.silo = init ? init.silo : null;
     this.client = init ? init.client : null;
     this.operateur = init ? init.operateur : null;
-    this.typeProduit = init ? init.typeProduit : null;
     this.siloTypeProduit = init ? init.siloTypeProduit : null;
     this.poidsProduit = init ? init.poidsProduit : null;
     this.station = init ? init.station : null;
+    this.stationLot = init ? init.stationLot : null;
     this.commentaires = init ? init.commentaires : [];
     this.selected = init ? init.selected : false;
   }

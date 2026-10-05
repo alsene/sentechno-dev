@@ -10,7 +10,7 @@
                 <li class="list-group-item"><strong>Produit:</strong> {{ produit.siloTypeProduit?.libelle }}</li>
                 <li class="list-group-item"><strong>Numéro:</strong> {{produit.code}}</li>
                 <li class="list-group-item"><strong>Quantité:</strong> {{ produit.poidsProduit?.libelle }}</li>
-                <li class="list-group-item"><strong>Lot produit:</strong> {{ produit.lot?.libelle }} - {{ produit.jourJulien }}</li>
+                <li class="list-group-item"><strong>Lot produit:</strong> {{ produit.stationLot?.libelle }} - {{ produit.jourJulien }}</li>
             </ul>
         </div>
         <div class="col-sm-6">
@@ -18,8 +18,8 @@
             <ul class="list-group">
                 <li class="list-group-item"><strong>Opérateur:</strong> {{produit.operateur?.nom}}</li>
                 <li class="list-group-item"><strong>Client:</strong> {{produit.client?.nom}}</li>
-                <li class="list-group-item"><strong>Lot Big Bag:</strong> {{ produit.lotBag?.libelle }} - {{ produit.jourJulien }}</li>
                 <li class="list-group-item"><strong>Silo:</strong> {{produit.silo?.libelle}}</li>
+                <li class="list-group-item"><strong>Date:</strong> {{today}}</li>
             </ul>
         </div>
     </div>
@@ -135,7 +135,6 @@
         <th>&#8470;</th>
         <th>Produit</th>
         <th>Lot</th>
-        <th>Bag</th>
         <th>Silo</th>
         <th>Client</th>
         <th>Quantité</th>
@@ -149,13 +148,12 @@
       <tbody style="font-size:1.2rem;">
       <tr *ngFor="let c of pagedProduits; trackBy: trackById">
         <td>{{ c.code }}</td>
-        <td>{{ c.siloTypeProduit.libelle }}</td>
-        <td>{{ c.lot.libelle }} - {{ c.jourJulien }}</td>
-        <td>{{ c.lotBag.libelle }} - {{ c.jourJulien }}</td>
-        <td>{{ c.silo.libelle }}</td>
-        <td>{{ c.client.nom }}</td>
-        <td>{{ c.poidsProduit.libelle }}</td>
-        <td>{{ c.operateur.nom }}</td>
+        <td>{{ c.siloTypeProduit?.libelle }}</td>
+        <td>{{ c.stationLot?.libelle }} - {{ c.jourJulien }}</td>
+        <td>{{ c.silo?.libelle }}</td>
+        <td>{{ c.client?.nom }}</td>
+        <td>{{ c.poidsProduit?.libelle }}</td>
+        <td>{{ c.operateur?.nom }}</td>
         <td>{{ c.qualite }}</td>
         <td class="text-center">
           <span *ngIf="c.fulmine">✅</span>
@@ -202,7 +200,6 @@
         <th>&#8470;</th>
         <th>Produit</th>
         <th>Lot</th>
-        <th>Bag</th>
         <th>Silo</th>
         <th>Client</th>
         <th>Quantité</th>
@@ -216,12 +213,11 @@
       <tbody style="font-size:1.2rem;">
       <tr *ngFor="let c of pagedProduitsConforme; trackBy: trackById">
         <td>{{ c.code }}</td>
-        <td>{{ c.siloTypeProduit.libelle }}</td>
-        <td>{{ c.lot.libelle }} - {{ c.jourJulien }}</td>
-        <td>{{ c.lotBag.libelle }} - {{ c.jourJulien }}</td>
-        <td>{{ c.silo.libelle }}</td>
-        <td>{{ c.client.nom }}</td>
-        <td>{{ c.poidsProduit.libelle }}</td>
+        <td>{{ c.siloTypeProduit?.libelle }}</td>
+        <td>{{ c.stationLot?.libelle }} - {{ c.jourJulien }}</td>
+        <td>{{ c.silo?.libelle }}</td>
+        <td>{{ c.client?.nom }}</td>
+        <td>{{ c.poidsProduit?.libelle }}</td>
         <td>{{ c.operateur.nom }}</td>
         <td>{{ c.qualite }}</td>
         <td class="text-center">

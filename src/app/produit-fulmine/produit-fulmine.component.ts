@@ -40,10 +40,7 @@ export class ProduitFulmineComponent {
   listeCommentaire:CommentaireProduit[] = [];
   typeProduitList: string[] = [];
   listeClients:Array<Client>| [] = [];
-  listeLot:Array<Lot>| [] = [];
-  listeLotBag:Array<Lot>| [] = [];
   listeSilo:Array<Silo>| [] = [];
-  listeTypeProduits:Array<TypeProduit>| [] = [];
   listeQA:Array<Utilisateur>| [] = [];
   produit: Produit = new Produit(null);
 
@@ -59,11 +56,8 @@ export class ProduitFulmineComponent {
         this.listeProduitsExpedier = this.responseProduit ? this.responseProduit.produitsExpedier : [];
         this.listeProduitsArecycler = this.responseProduit ? this.responseProduit.produitsArecycler : [];
         this.listeClients = this.responseProduit ? this.responseProduit.clients : [];
-        this.listeLot = this.responseProduit ? this.responseProduit.lots : [];
-        this.listeLotBag = this.responseProduit ? this.responseProduit.lotBags : [];
         this.listeSilo = this.responseProduit ? this.responseProduit.silos : [];
         this.listeQA = this.responseProduit ? this.responseProduit.qaList : [];
-        this.listeTypeProduits = this.responseProduit ? this.responseProduit.typeProduits : [];
         this.currentPage = this.produitService.adjustCurrentPage(this.currentPage, this.totalPages);
         this.currentPageConforme = this.produitService.adjustCurrentPage(this.currentPageConforme, this.totalPagesConforme);
       }

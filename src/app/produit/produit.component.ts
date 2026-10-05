@@ -10,7 +10,7 @@ import { Client } from '../model/Client';
 import { Lot } from "../model/Lot";
 import { Silo } from "../model/Silo";
 import { Station } from "../model/Station";
-import { TypeProduit } from "../model/TypeProduit";
+import { StationLot } from '../model/StationLot';
 import { SiloTypeProduit } from "../model/SiloTypeProduit";
 import { PoidsProduit } from "../model/PoidsProduit";
 import { Utilisateur } from "../model/Utilisateur";
@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 import { SiloTypeProduitService } from '../services/parametrage/silo-type-produit.service';
 import { StationService } from '../services/parametrage/station.service';
 import { PoidsProduitService } from '../services/parametrage/poids-produit.service';
+import { StationLotService } from '../services/parametrage/station-lot.service';
 
 @Component({
   selector: 'app-produit',
@@ -35,7 +36,6 @@ export class ProduitComponent implements OnInit, OnDestroy {
   info1: any;
   bonjour1: any;
 
-  typeProduit: TypeProduit = new TypeProduit();
   produitForm: FormGroup;
   responseProduit: any = ResponseProduit;
   listeProduits:Produit [] = [];
@@ -44,15 +44,12 @@ export class ProduitComponent implements OnInit, OnDestroy {
   listeProduitsConforme:Produit [] = [];
   listeProduitsExpedier:Produit [] = [];
   listeProduitsArecycler:Produit [] = [];
-  typeProduitList: string[] = [];
   listeClients:Array<Client>| [] = [];
-  listeLot:Array<Lot>| [] = [];
-  listeLotBag:Array<Lot>| [] = [];
   listeSilo:Array<Silo>| [] = [];
-  listeTypeProduits:Array<TypeProduit>| [] = [];
   listeSiloTypeProduits:Array<SiloTypeProduit>| [] = [];
   listePoidsProduits:Array<PoidsProduit>| [] = [];
   listeStations:Array<Station>| [] = [];
+  listeStationLots:Array<StationLot>| [] = [];
   listeQA:Array<Utilisateur>| [] = [];
   produit1: any;
   produit: Produit = new Produit(null);
@@ -74,7 +71,8 @@ export class ProduitComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private siloTypeProduitService: SiloTypeProduitService,
     private stationService: StationService,
-    private poidsProduitService: PoidsProduitService
+    private poidsProduitService: PoidsProduitService,
+    private stationLotService: StationLotService
   ) {
 
     if (!this.auth.isLoggedIn()) {
@@ -89,7 +87,6 @@ export class ProduitComponent implements OnInit, OnDestroy {
     this.today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.info1 = this.produitService.getInfos();
     this.bonjour1 = this.produitService.getBonjour();
-    this.typeProduitList = this.produitService.getAlltypeProduit();
     this.chargerProduits();
 
 
@@ -110,11 +107,8 @@ export class ProduitComponent implements OnInit, OnDestroy {
         this.listeProduitsExpedier = this.responseProduit ? this.responseProduit.produitsExpedier : [];
         this.listeProduitsArecycler = this.responseProduit ? this.responseProduit.produitsArecycler : [];
         this.listeClients =  this.responseProduit ? this.responseProduit.clients : [];
-        this.listeLot =  this.responseProduit ? this.responseProduit.lots : [];
-        this.listeLotBag =  this.responseProduit ? this.responseProduit.lotBags : [];
         this.listeSilo =  this.responseProduit ? this.responseProduit.silos : [];
         this.listeQA =  this.responseProduit ? this.responseProduit.qaList : [];
-        this.listeTypeProduits = this.responseProduit ? this.responseProduit.typeProduits : [];
         this.listeSiloTypeProduits = [];
         this.chargerStations();
         this.chargerPoidsProduits();
@@ -153,6 +147,10 @@ export class ProduitComponent implements OnInit, OnDestroy {
     this.chargerSiloTypeProduitsParSilo(silo, false, true);
   }
 
+  onStationChange(station: Station | null): void {
+    this.chargerStationLotsParStation(station, false, true);
+  }
+
 
   getStylesBlue() {
     return {
@@ -166,24 +164,6 @@ export class ProduitComponent implements OnInit, OnDestroy {
     prenom:"Alassane component",
     telephone:"776528001"
   }
-
-  lotProduitList: string[] = ['Lot 1', 'Lot 2', 'Lot 3', 'Lot 4'];
-  lotBigBagList: string[] = ['Lot 1', 'Lot 2', 'Lot 3', 'Lot 4'];
-  siloList: string[] = ['Silo 1', 'Silo 2', 'Silo 3', 'Silo 4'];
-  clientList: string[] = ['Alpha', 'Beta', 'Gamma'];
-
-  produit2={
-    id: 0,
-    name: '',
-    code: '',
-    lotProduit: '',
-    lotBigBag: '',
-    silo: '',
-    client: '',
-    quantite: '',
-    operateur: 'Said',
-    selected: false
-  };
 
   newProduct = false; // true si on édite, false si on ajoute
   editingIndex: number | null = null;
@@ -252,6 +232,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
           // La réponse contient généralement le produit avec son ID généré
           console.log('Produit créé avec succès !', reponse);
           console.log('ID attribué par le serveur :', reponse.id);
+          this.cancelEdit();
         },
         error: (erreur) => {
           console.error('Une erreur est survenue lors de l\'envoi :', erreur);
@@ -266,8 +247,8 @@ export class ProduitComponent implements OnInit, OnDestroy {
          console.log('Produit mis à jour avec succès !', reponse);
         if (this.editingIndex !== null) {
           this.listeProduits[this.editingIndex] = reponse;
-          this.cancelEdit();
         }
+        this.cancelEdit();
       },
       error: (erreur) => {
         console.error('Une erreur est survenue lors de la mise à jour :', erreur);
@@ -303,21 +284,6 @@ export class ProduitComponent implements OnInit, OnDestroy {
     }
 
     const edited = this.produitService.editProduct(product);
-    // matcher typeProduit
-    if (edited.typeProduit?.id != null) {
-      const matchedType = this.listeTypeProduits.find(t => t.id === edited.typeProduit.id);
-      if (matchedType) edited.typeProduit = matchedType;
-    }
-    // matcher lot
-    if (edited.lot?.id != null) {
-      const matchedLot = this.listeLot.find(lot => lot.id === edited.lot.id);
-      if (matchedLot) edited.lot = matchedLot;
-    }
-    // matcher lotBag
-    if (edited.lotBag?.id != null) {
-      const matchedLotBag = this.listeLotBag.find(lotBag => lotBag.id === edited.lotBag.id);
-      if (matchedLotBag) edited.lotBag = matchedLotBag;
-    }
     // matcher silo
     if (edited.silo?.id != null) {
       const matchedSilo = this.listeSilo.find(silo => silo.id === edited.silo.id);
@@ -327,6 +293,12 @@ export class ProduitComponent implements OnInit, OnDestroy {
     if (edited.siloTypeProduit?.id != null) {
       const matchedSiloTypeProduit = this.listeSiloTypeProduits.find(stp => stp.id === edited.siloTypeProduit.id);
       if (matchedSiloTypeProduit) edited.siloTypeProduit = matchedSiloTypeProduit;
+    }
+    // matcher stationLot après le chargement filtré par station
+    if (edited.stationLot?.id != null) {
+      const matchedStationLot = this.listeStationLots.find(sl => sl.id === edited.stationLot.id);
+      console.log('edited stationLot id  :', edited.stationLot.lot?.libelle);
+      if (matchedStationLot) edited.stationLot = matchedStationLot;
     }
     // matcher client
     if (edited.client?.id != null) {
@@ -346,6 +318,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
     this.produit = edited;
     this.newProduct = true;
     this.chargerSiloTypeProduitsParSilo(this.produit.silo, true);
+    this.chargerStationLotsParStation(this.produit.station, true);
   }
 
   cancelEdit() {
@@ -353,9 +326,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
     this.editingIndex = null;
     // réinitialiser le modèle Produit pour que les selects affichent l'option par défaut
     const newProduit = new Produit(null);
-    newProduit.typeProduit = null;
-    newProduit.lot = null;
-    newProduit.lotBag = null;
+    newProduit.stationLot = null;
     newProduit.silo = null;
     newProduit.siloTypeProduit = null;
     newProduit.client = null;
@@ -363,6 +334,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
     newProduit.poidsProduit = null;
     this.produit = newProduit;
     this.listeSiloTypeProduits = [];
+    this.listeStationLots = [];
   }
 
   private chargerSiloTypeProduitsParSilo(silo: Silo | null, keepSelection = false, forceRefresh = false): void {
@@ -391,6 +363,36 @@ export class ProduitComponent implements OnInit, OnDestroy {
         this.listeSiloTypeProduits = [];
         this.produit.siloTypeProduit = null;
         console.error('Erreur lors du chargement des produits du silo :', erreur);
+      }
+    });
+  }
+
+  private chargerStationLotsParStation(station: Station | null, keepSelection = false, forceRefresh = false): void {
+    const stationId = this.extractId(station);
+
+    if (stationId == null) {
+      this.listeStationLots = [];
+      this.produit.stationLot = null;
+      return;
+    }
+
+    this.stationLotService.findByStationId(stationId, forceRefresh).subscribe({
+      next: (data) => {
+        this.listeStationLots = data || [];
+
+        if (keepSelection) {
+          const lotId = this.extractId(this.produit.lot);
+          const matchedStationLot = this.listeStationLots.find(item => this.extractId(item?.lot) === lotId) ?? null;
+          this.produit.lot = matchedStationLot?.lot ?? null;
+          return;
+        }
+
+        this.produit.lot = null;
+      },
+      error: (erreur) => {
+        this.listeStationLots = [];
+        this.produit.lot = null;
+        console.error('Erreur lors du chargement des lots de la station :', erreur);
       }
     });
   }
@@ -449,7 +451,6 @@ export class ProduitComponent implements OnInit, OnDestroy {
         <td>${this.escapeHtml(p.code)}</td>
         <td>${this.escapeHtml(p.nom)}</td>
         <td>${this.escapeHtml(p.lot?.numeroProduction)}</td>
-        <td>${this.escapeHtml(p.lotBag?.numeroProduction)}</td>
         <td>${this.escapeHtml(p.silo?.libelle)}</td>
         <td>${this.escapeHtml(p.client?.nom)}</td>
         <td>${this.escapeHtml(p.quantite)}</td>
