@@ -57,8 +57,8 @@ export class SuiviProduitComponent {
     this.typeQualiteList = this.produitService.getAllQualite();
     this.responseProduit = this.produitService.getProduit1().subscribe({
       next: (data) => {
-        this.responseProduit = data;  
-        console.log('Produit récupéré:', this.responseProduit);  
+        this.responseProduit = data;
+        console.log('Produit récupéré:', this.responseProduit);
         this.listeProduits = this.responseProduit ? this.responseProduit.produitsPourQualite : [];
         this.listeProduitsPourQualite = this.responseProduit ? this.responseProduit.produitsPourQualite : [];
         this.listeProduitsPourFulminer = this.responseProduit ? this.responseProduit.produitsPourFulminer : [];
@@ -68,7 +68,7 @@ export class SuiviProduitComponent {
         this.listeClients =  this.responseProduit ? this.responseProduit.clients : [];
         this.listeSilo =  this.responseProduit ? this.responseProduit.silos : [];
         this.listeQA =  this.responseProduit ? this.responseProduit.qaList : [];
-          console.log('Clients récupérés:', this.listeClients);  
+          console.log('Clients récupérés:', this.listeClients);
       }
     });
 
@@ -115,7 +115,7 @@ export class SuiviProduitComponent {
     nouveauCommentaire: '',
     assuranceQualite: 'Alex'
   };*/
-  
+
   newProduct = false; // true si on édite, false si on ajoute
   editingIndex: number | null = null;
   pageSize = 10;
@@ -167,7 +167,7 @@ export class SuiviProduitComponent {
   }
   pageSizeConforme = 7;
   currentPageConforme = 1;
-  get totalPagesConforme(): number { 
+  get totalPagesConforme(): number {
     return this.produitService.totalPages(this.listeProduitsConforme, this.pageSizeConforme);
   }
   get pagesConforme(): number[] {
@@ -191,40 +191,37 @@ export class SuiviProduitComponent {
   }
   addProduct() {
     if (this.produit.code !== '') {
-      console.log('add produit:', this.produit);  
+      console.log('add produit:', this.produit);
       this.produit.id = this.listeProduits.length + 1;
-      // ensure boolean exists
-      if (this.produit.conforme === undefined) this.produit.conforme = false;
-      // convert boolean to 'oui'/'non' before sending
-      this.produit.conforme = this.produit.conforme ? 'oui' : 'non';
-      this.produitService.addProduct1(this.produit).subscribe({
+      const payload = this.buildProduitPayload(this.produit);
+      this.produitService.addProduct1(payload).subscribe({
         next: (reponse: Produit) => {
-          this.listeProduits.push(reponse); // Ajouter le produit retourné par le serveur à la liste
-          // La réponse contient généralement le produit avec son ID généré
-          console.log('Produit créé avec succès !', reponse);
-          console.log('ID attribué par le serveur :', reponse.id);
+          this.listeProduits.push(reponse);
+          console.log('Produit cree avec succes !', reponse);
+          console.log('ID attribue par le serveur :', reponse.id);
         },
         error: (erreur) => {
-          console.error('Une erreur est survenue lors de l\'envoi :', erreur);
+          console.error('Une erreur est survenue lors de l\'envoi :', erreur?.error || erreur);
         }
       });
     }
   }
 
   updateProduct() {
-    // convert boolean to 'oui'/'non' before updating
-    if (this.produit.conforme === undefined) this.produit.conforme = false;
-    this.produit.conforme = this.produit.conforme ? 'oui' : 'non';
-    this.produitService.updateProduct1(this.produit).subscribe({
+    if (this.editingIndex === null) {
+      return;
+    }
+
+    const payload = this.buildProduitPayload(this.produit);
+    console.log('Produit qualite !', payload);
+    this.produitService.updateProduct1(payload).subscribe({
       next: (reponse: Produit) => {
-         console.log('Produit mis à jour avec succès !', reponse);
-        if (this.editingIndex !== null) {
-          this.listeProduits[this.editingIndex] = reponse;
-          this.cancelEdit();
-        }
+         console.log('Produit mis a jour avec succes !', reponse);
+        this.listeProduits[this.editingIndex!] = reponse;
+        this.cancelEdit();
       },
       error: (erreur) => {
-        console.error('Une erreur est survenue lors de la mise à jour :', erreur);
+        console.error('Une erreur est survenue lors de la mise a jour :', erreur?.error || erreur);
       }
     });
   }
@@ -250,13 +247,13 @@ export class SuiviProduitComponent {
       if (matchedClient) edited.client = matchedClient;
     }
     this.produit = edited;
-       
-    // set checkbox according to stored value ('oui' or boolean true)
-    this.produit.conforme = (edited.conforme === 'oui' || edited.conforme === true);
+
+    // set checkbox according to stored value ('oui'/'non' ou booleen)
+    this.produit.conforme = this.toConformeBoolean(edited.conforme);
     this.listeCommentaire = this.produit && this.produit.commentaires ? this.produit.commentaires : [];
     for (let i = 0; i < this.listeCommentaire.length; i++) {
       const comment = this.listeCommentaire[i];
-        console.log('add commentaireProduit:', comment.id, comment.commentaire);  
+        console.log('add commentaireProduit:', comment.id, comment.commentaire);
     }
 
     this.currentPageCommentaires = 1;
@@ -268,7 +265,7 @@ export class SuiviProduitComponent {
   addCommentaire(product: Produit) {
     if (this.produit.code !== '' && this.commentaireProduit.commentaire!='') {
       this.commentaireProduit.produit=this.produit;
-      console.log('add commentaireProduit:', this.commentaireProduit);  
+      console.log('add commentaireProduit:', this.commentaireProduit);
       this.commentaireProduit.id = this.listeCommentaire.length + 1;
 
       this.produitService.addCommentaire1(this.commentaireProduit).subscribe({
@@ -411,6 +408,22 @@ export class SuiviProduitComponent {
   trackByValue(_index: number, value: string): string {
     return value;
   }
-  
-}
 
+  private toConformeBoolean(value: any): boolean {
+    return value === true || value === 'oui' || value === 'OUI' || value === 1 || value === '1';
+  }
+
+  private buildProduitPayload(source: Produit): Produit {
+    const payload: any = {
+      ...source,
+      conforme: this.toConformeBoolean(source?.conforme)
+    };
+
+    // Evite d'envoyer des donnees non necessaires qui provoquent des 400 selon les validateurs backend
+    delete payload.commentaires;
+    delete payload.selected;
+
+    return payload as Produit;
+  }
+
+}

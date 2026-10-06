@@ -1,25 +1,25 @@
 
 <div class="panel-body">
   <div class="alert alert-info" style="padding:6px 12px; margin:0;">
-    <strong>Saisie des informations silo type produit</strong>
+    <strong>Saisie des produits stockés dans un silo</strong>
   </div>
   <form class="form-frame">
     <div class="row">
-      <div class="col-md-5">
-        <div class="form-group">
-          <label for="typeProduit">Type Produit</label>
-          <select class="form-control" id="typeProduit" [(ngModel)]="siloTypeProduit.typeProduit" name="typeProduit">
-            <option [ngValue]="null">Selectionner un type produit</option>
-            <option *ngFor="let item of typeProduits; trackBy: trackById" [ngValue]="item">{{ item.libelle }}</option>
-          </select>
-        </div>
-      </div>
       <div class="col-md-3">
         <div class="form-group">
           <label for="silo">Silo</label>
           <select class="form-control" id="silo" [(ngModel)]="siloTypeProduit.silo" name="silo">
             <option [ngValue]="null">Selectionner un silo</option>
             <option *ngFor="let item of silos; trackBy: trackById" [ngValue]="item">{{ item.libelle }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="typeProduit">Type Produit</label>
+          <select class="form-control" id="typeProduit" [(ngModel)]="siloTypeProduit.typeProduit" name="typeProduit">
+            <option [ngValue]="null">Selectionner un type produit</option>
+            <option *ngFor="let item of typeProduits; trackBy: trackById" [ngValue]="item">{{ item.libelle }}</option>
           </select>
         </div>
       </div>
@@ -42,8 +42,8 @@
     <table class="table table-bordered table-striped table-hover table-condensed">
       <thead>
         <tr class="info">
-          <th>Type Produit</th>
           <th>Silo</th>
+          <th>Type Produit</th>
           <th>Code Produit</th>
           <th>Libellé</th>
           <th>Modifier</th>
@@ -52,8 +52,8 @@
       </thead>
       <tbody style="font-size:1.2rem;">
         <tr *ngFor="let item of paginatedSiloTypeProduits; trackBy: trackById">
-          <td>{{ getTypeProduitLibelle(item.typeProduit) }}</td>
           <td>{{ getSiloLibelle(item.silo) }}</td>
+          <td>{{ getTypeProduitLibelle(item.typeProduit) }}</td>
           <td>{{ item.codeProduit }}</td>
           <td>{{ item.libelle }}</td>
           <td align="center">

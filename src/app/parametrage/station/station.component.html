@@ -6,17 +6,17 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="libelle">Libelle</label>
-          <input type="text" class="form-control" id="libelle" [(ngModel)]="station.libelle" name="libelle" placeholder="Saisir le libelle">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
           <label for="typeStation">Type Station</label>
           <select class="form-control" id="typeStation" [(ngModel)]="station.typeStation" name="typeStation">
             <option [ngValue]="null">Selectionner un type station</option>
             <option *ngFor="let type of typeStations; trackBy: trackByValue" [value]="type">{{ type }}</option>
           </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="libelle">Libelle</label>
+          <input type="text" class="form-control" id="libelle" [(ngModel)]="station.libelle" name="libelle" placeholder="Saisir le libelle">
         </div>
       </div>
     </div>
@@ -32,16 +32,16 @@
     <table class="table table-bordered table-striped table-hover table-condensed">
       <thead>
         <tr class="info">
-          <th>Libelle</th>
           <th>Type Station</th>
+          <th>Libelle</th>
           <th>Modifier</th>
           <th>Supprimer</th>
         </tr>
       </thead>
       <tbody style="font-size:1.2rem;">
         <tr *ngFor="let item of paginatedStations; trackBy: trackById">
-          <td>{{ item.libelle }}</td>
           <td>{{ item.typeStation }}</td>
+          <td>{{ item.libelle }}</td>
           <td align="center">
             <button (click)="editStation(item)" class="btn btn-warning btn-xs" title="Modifier">
               <i class="glyphicon glyphicon-pencil"></i>
