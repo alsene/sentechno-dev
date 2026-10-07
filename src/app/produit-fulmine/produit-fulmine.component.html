@@ -1,7 +1,7 @@
 
   <div class="panel-body">
     <div class="table-responsive" *ngIf="listeProduitsPourFulminer.length>0; else noProducts">
-      <div class="alert alert-info " style="padding:6px 12px; margin:0; text-align:center;"> <strong >Liste des produits à fulminer</strong></div>
+      <div class="alert alert-info " style="padding:6px 12px; margin:0; text-align:center;"> <strong >Liste des produits à Fumiger</strong></div>
       <table class="table table-bordered table-striped table-hover table-condensed">
         <thead>
         <tr class="info">
@@ -14,7 +14,7 @@
           <th>Quantité</th>
           <th>Operateur</th>
           <th>Qualité</th>
-          <th>Fulminé</th>
+          <th>Fumigé</th>
           <th>Date</th>
         </tr>
         </thead>
@@ -39,7 +39,7 @@
       </table>
       <form>
         <div class="button-row">
-          <button  (click)="fulminerProduct()" type="button" class="btn btn-info btn-sm btn-add-comment" >Fulminer</button>
+          <button  (click)="fulminerProduct()" type="button" class="btn btn-info btn-sm btn-add-comment" >Fumiger</button>
         </div>
       </form>
       <nav class="pagination-nav" aria-label="Pagination" *ngIf="totalPages > 1">
@@ -81,7 +81,7 @@
           <th>Quantité</th>
           <th>Operateur</th>
           <th>Qualité</th>
-          <th>Fulminé</th>
+          <th>Fumigé</th>
           <th>Date</th>
         </tr>
         </thead>
@@ -130,7 +130,7 @@
       </nav>
     </div>
     <ng-template #noProductsFulminer>
-      <div class="alert alert-info">Liste des produits à fulminer est vide</div>
+      <div class="alert alert-info">Liste des produits à Fumiger est vide</div>
     </ng-template>
 </div>
 
