@@ -106,12 +106,12 @@
           <tr *ngFor="let c of pagedProduits; trackBy: trackById">
             <td align="center"><input type="checkbox" [(ngModel)]="c.selected" name="selected-{{c.id}}"></td>
             <td>{{ c.code }}</td>
-            <td>{{ c.siloTypeProduit.libelle }}</td>
-            <td>{{ c.stationLot.libelle }} - {{ c.jourJulien }}</td>
-            <td>{{ c.silo.libelle }}</td>
-            <td>{{ c.client.nom }}</td>
-            <td>{{ c.poidsProduit.libelle }}</td>
-            <td>{{ c.operateur.nom }}</td>
+            <td>{{ c.siloTypeProduit?.libelle }}</td>
+            <td>{{ c.stationLot?.libelle }} - {{ c.jourJulien }}</td>
+            <td>{{ c.silo?.libelle }}</td>
+            <td>{{ c.client?.nom }}</td>
+            <td>{{ c.poidsProduit?.libelle }}</td>
+            <td>{{ c.operateur?.nom }}</td>
             <td><span class="badge">{{today}}</span></td>
             <td align="center">
               <button (click)="editProduct(c)" class="btn btn-warning btn-xs" title="Modifier">
