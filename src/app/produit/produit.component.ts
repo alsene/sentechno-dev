@@ -451,11 +451,11 @@ export class ProduitComponent implements OnInit, OnDestroy {
     const rows = this.listeProduits.map(p => `
       <tr>
         <td>${this.escapeHtml(p.code)}</td>
-        <td>${this.escapeHtml(p.nom)}</td>
-        <td>${this.escapeHtml(p.lot?.numeroProduction)}</td>
+        <td>${this.escapeHtml(p.siloTypeProduit?.libelle)}</td>
+        <td>${this.escapeHtml((p.stationLot?.libelle ?? '') + ' - ' + (p.jourJulien ?? ''))}</td>
         <td>${this.escapeHtml(p.silo?.libelle)}</td>
         <td>${this.escapeHtml(p.client?.nom)}</td>
-        <td>${this.escapeHtml(p.quantite)}</td>
+        <td>${this.escapeHtml(p.poidsProduit?.libelle)}</td>
         <td>${this.escapeHtml(p.operateur?.nom)}</td>
       </tr>
     `).join('');
@@ -479,7 +479,7 @@ export class ProduitComponent implements OnInit, OnDestroy {
           <table>
             <thead>
               <tr>
-                <th>Code</th><th>Nom</th><th>Lot</th><th>Bag</th><th>Silo</th><th>Client</th><th>Quantité</th><th>Opérateur</th>
+                <th>Code</th><th>Nom</th><th>Lot</th><th>Silo</th><th>Client</th><th>Quantité</th><th>Opérateur</th>
               </tr>
             </thead>
             <tbody>${rows}</tbody>
