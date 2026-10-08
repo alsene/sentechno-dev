@@ -297,8 +297,11 @@ export class ProduitComponent implements OnInit, OnDestroy {
     // matcher stationLot après le chargement filtré par station
     if (edited.stationLot?.id != null) {
       const matchedStationLot = this.listeStationLots.find(sl => sl.id === edited.stationLot.id);
+      console.log('edited stationLot  :', edited.stationLot);
       console.log('edited stationLot id  :', edited.stationLot.lot?.libelle);
       if (matchedStationLot) edited.stationLot = matchedStationLot;
+    }else{
+      console.log('else edited stationLot  :', edited.stationLot);
     }
     // matcher client
     if (edited.client?.id != null) {
@@ -381,17 +384,16 @@ export class ProduitComponent implements OnInit, OnDestroy {
         this.listeStationLots = data || [];
 
         if (keepSelection) {
-          const lotId = this.extractId(this.produit.lot);
-          const matchedStationLot = this.listeStationLots.find(item => this.extractId(item?.lot) === lotId) ?? null;
-          this.produit.lot = matchedStationLot?.lot ?? null;
+          const stationLotId = this.extractId(this.produit?.stationLot);
+          const matchedStationLot = this.listeStationLots.find(item => item.id === stationLotId) ?? null;
+          this.produit.stationLot = matchedStationLot;
           return;
         }
-
-        this.produit.lot = null;
+        this.produit.stationLot = null;
       },
       error: (erreur) => {
         this.listeStationLots = [];
-        this.produit.lot = null;
+        this.produit.stationLot = null;
         console.error('Erreur lors du chargement des lots de la station :', erreur);
       }
     });
